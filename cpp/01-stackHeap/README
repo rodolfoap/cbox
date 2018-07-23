@@ -1,0 +1,14 @@
+The exercise is to implement:
+* A struct Point (x, y, z); (all values initialized-list to 9)
+* a main() function, creating stack and heap variables:
+
+	svalue
+	hvalue
+	sarray
+	harray
+	spoint
+	hpoint
+
+* Include "print.h" to use...
+
+	print(svalue);

@@ -1,0 +1,12 @@
+#!/bin/bash
+find . -maxdepth 2 -name app.cpp|while read a;
+do
+	[ -n "$1" ] && echo -e "\n=== $a\n";
+	grep "^//" $a			\
+	| sed "s:^// *:- :"		\
+	| sed "s://:\n:g"		\
+	| sed "s:^ *::g"		\
+	| fold -s -w 128		\
+	| sed -r "s|^([^-])|  \1|g"	\
+	#
+done

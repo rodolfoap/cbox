@@ -1,0 +1,8 @@
+#!/bin/bash
+
+rm -v $(find . -exec file {} \;|grep -i elf|cut -f1 -d:)
+find . -name \*~ -delete
+find . -name \*.data -delete
+find . -name \*.o -delete
+find . -name \*.a -delete
+find . -name \*.so -delete
