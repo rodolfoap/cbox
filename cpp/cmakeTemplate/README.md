@@ -1,4 +1,4 @@
-# CppSkeleton
+# CmakeTemplate
 
 Based on https://github.com/yoyomatsu/DoxygenCmake
 
