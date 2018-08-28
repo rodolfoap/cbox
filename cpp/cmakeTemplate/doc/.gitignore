@@ -1,0 +1,4 @@
+*/
+*.warnings
+!.gitignore
+!doxygen/

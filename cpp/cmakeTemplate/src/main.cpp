@@ -4,6 +4,8 @@
 /**
  * The main function
  * return The exit status.
+ * @mainpage
+ * @author RodolfoAP <rodolfoap@gmail.com>
  */
 int main(void) {
     Solid solid;
