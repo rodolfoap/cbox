@@ -3,9 +3,9 @@
 
 /**
  * The main function
- * return The exit status.
  * @mainpage
  * @author RodolfoAP <rodolfoap@gmail.com>
+ * @returns The exit status.
  */
 int main(void) {
     Solid solid;
