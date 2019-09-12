@@ -15,9 +15,12 @@ edit:
 	@read -p "Press any key to continue: " DUMMY
 	vim app.cpp
 	$(eval END=$(shell /bin/date +%s))
+	clear
 	echo $$(( $(START) - $(END) ))
 	@echo ==================================================================================================
-	@sdiff -abBWZ app.cpp model.cpp
+	grep -v "^//" model.cpp > model.tmp
+	@sdiff -abBWZ app.cpp model.tmp
+	rm -f model.tmp
 	@echo ==================================================================================================
 	$(CC) $(CFLAGS) $(CLIBS) -o app app.cpp
 	./app
