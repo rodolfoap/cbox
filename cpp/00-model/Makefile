@@ -19,7 +19,7 @@ edit:
 	echo $$(( $(START) - $(END) ))
 	@echo ==================================================================================================
 	grep -v "^//" model.cpp > model.tmp
-	@sdiff -abBWZ app.cpp model.tmp
+	@sdiff -abBWZ model.tmp app.cpp
 	rm -f model.tmp
 	@echo ==================================================================================================
 	$(CC) $(CFLAGS) $(CLIBS) -o app app.cpp
