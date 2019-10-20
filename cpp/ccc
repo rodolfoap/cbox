@@ -1,0 +1,11 @@
+#!/bin/bash
+
+[ -z "$1" ] && { echo "Syntax: ccc FILENAME"; exit; }
+
+CFILE=${1%.*}
+[ ! -e $CFILE.cpp ] && {
+	cp ~/bin/helloworld.cpp $CFILE.cpp
+	cp ~/bin/helloworld.dbg $CFILE.dbg
+	sed "s/helloworld/$CFILE/g" ~/bin/helloworld.cpp.makefile > Makefile
+}
+make edit
