@@ -1,6 +1,5 @@
 #include<iostream>
 #include "Solid.h"
-#include "Thing.h"
 
 int main(){
 	Solid solid;
