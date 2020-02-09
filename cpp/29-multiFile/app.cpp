@@ -7,4 +7,3 @@ int main(){
 	std::cerr << solid.getName() << std::endl;
 	return 0;
 }
-

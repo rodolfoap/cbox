@@ -1,8 +1,26 @@
+execute(){
+	./app
+}
+build(){
+	[ -d build/ ] && {
+		pushd build &> /dev/null;
+	} || {
+		mkdir build;
+		pushd build &> /dev/null;
+		cmake .. -Wdev;
+	}
+	make -j8; STATUS=$?
+	popd &> /dev/null;
+	[ $STATUS == 0 ] && echo [100%] $(ls -l app) || echo [ERROR] Compilation error.
+}
 case "$1" in
-e)
-	vi -p *.cpp *.h
-;;
-'')
-	(mkdir -p build; cd build; cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ..; make -j8 && /bin/rc -J . && echo && ./app;)
-;;
+	"")
+		[ -f app ] || build;
+		execute
+	;;
+	e)
+		vi -p app.cpp Thing.h Solid.h Solid.cpp CMakeLists.txt
+		build;
+		execute;
+	;;
 esac
