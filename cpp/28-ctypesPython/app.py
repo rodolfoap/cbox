@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 
 from ctypes import cdll
-lib = cdll.LoadLibrary('./libfoo.so')
+lib = cdll.LoadLibrary('./libhello.so')
 
-class Foo(object):
+class Dummy(object):
     def __init__(self):
-        self.obj = lib.Foo_new()
+        self.obj = lib.getHello()
 
-    def bar(self):
-        lib.Foo_bar(self.obj)
+    def sayHello(self):
+        lib.sayHello(self.obj)
 
 if __name__ == "__main__":
-    f = Foo()
-    f.bar()
+    d=Dummy()
+    d.sayHello()
+
+# See https://stackoverflow.com/questions/145270/calling-c-c-from-python
