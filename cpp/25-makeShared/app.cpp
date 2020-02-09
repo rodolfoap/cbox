@@ -27,16 +27,20 @@ struct Snitch {
 
 int main() {
 LOG
+	// This is a stack variable
 	Snitch s1("s1");
 LOG
+	// Another stack variable, copying the first one
 	Snitch s2=s1;
 	s2.setName("s2");
 LOG
-	{ 	Snitch s3=s1;
+	{ // SCOPE of pointers existence START
+		Snitch s3=s1;
 		s3.setName("s3");
 LOG
 		Snitch s4=std::move(s3);
-		s4.setName("s4"); }
+		s4.setName("s4");
+	} // SCOPE of pointers existence END
 LOG
 	auto snitch = std::make_shared<Snitch>("Snitch");
 LOG

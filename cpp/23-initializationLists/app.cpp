@@ -15,4 +15,6 @@ int main(){
 	std::cerr << thing.getName() << std::endl;
 	return 0;
 }
+
 // The initialization list "Thing(std::string aName) :name(aName){}" defines the default value for a constant.
+// See https://www.studytonight.com/cpp/initializer-list-in-cpp.php

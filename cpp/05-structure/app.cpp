@@ -1,15 +1,26 @@
 #include<stdio.h>
-#include<conio.h>
 #include<string.h>
 
-struct student{
+class Teacher{
+// Members are private by default
+	char name[10];
+	int age;
+	float value;
+public:
+	Teacher(char *anaddress, int anage, float avalue) :age(anage), value(avalue){ strcpy(name, anaddress); }
+};
+
+struct Student{
+// Members are public by default
 	char name[10];
 	int age;
 	float value;
 };
 
 int main(){
-	student s;
+	char c[]="RodolfoAP";
+	Student s;
+	Teacher t(c, 5, 5);
 	FILE *file;
 	file=fopen("freadwrt.dat", "w+");
 	//clrscr();

@@ -4,24 +4,16 @@ class Thing {
 protected:
 	std::string name;
 public:
-	Thing(std::string name);
-	void setName(std::string name);
-	std::string getName() const;
+	// Example initialization list: will assign aname to name
+	Thing(std::string aname) :name(aname) {}
+	void setName(std::string name){this->name=name;}
+	std::string getName() const{return this->name;}
 };
 
-Thing::Thing(std::string name){
-	this->name=name;
-}
-void Thing::setName(std::string name){
-	this->name=name;
-}
-
-std::string Thing::getName() const{
-	return this->name;
-}
-
 int main(){
+	// This is a normal use of the constructor
 	Thing thing("thing0");
+	// This was not defined, so the compiler generates a copy-constructor (see below)
 	Thing thong(thing);
 	std::cerr << thong.getName() << std::endl; // thing0
 

@@ -7,7 +7,7 @@ public:		void setA(int);
 		int getZero() const;
 };
 
-class Ones:	public Zero {
+class Ones 	:public Zero {
 public:		void doubleA();
 };
 
@@ -30,3 +30,4 @@ int main(){
 // Member definition: void ClassName::method();
 // #include<iostream> to use std::cout
 // int Clazz::method() const {...} : the 'const' keyword means that data members cannot be modified
+// Classes have by default all members PRIVATE, while struct has all PUBLIC

@@ -1,4 +1,5 @@
 #!/bin/bash
+# This script looks for all app.cpp files and filters all lines BEGINNING with //
 find . -maxdepth 2 -name app.cpp|while read a;
 do
 	[ -n "$1" ] && echo -e "\n=== $a\n";

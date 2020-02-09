@@ -2,10 +2,9 @@
 
 namespace Http {
 	class Request {
-	public:	int x=13;
+		public:	int x=13;
 	};
-	class ResponseWriter {
-	};
+	class ResponseWriter { };
 }
 
 void onRequest(const Http::Request& req, Http::ResponseWriter response) {

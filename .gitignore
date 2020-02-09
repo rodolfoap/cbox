@@ -33,4 +33,14 @@
 
 # Others
 *.tmp
+
+# Local
 app
+app
+app.dbg
+publisher
+subscribr
+server
+client
+*.class
+build/

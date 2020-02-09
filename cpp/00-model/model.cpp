@@ -25,6 +25,3 @@ int main(){
 	std::cerr << solid.getName() << std::endl;
 	return 0;
 }
-
-// A CONST function  [std::string getName() const;] implies that no members can be modified. Getters should be CONST.
-// The arrow is used instead a dot. We need *foo.bar, but the dot is evaluated first, so we should use (*foo).bar, which is the same as foo->bar.

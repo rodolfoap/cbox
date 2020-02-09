@@ -8,8 +8,10 @@ public:
 };
 
 int main(){
-	Calculator<int> calculator;
-	std::cout << calculator.add(8, 9) << std::endl;
+	Calculator<int> iCalculator;
+	std::cout << iCalculator.add(8, 9) << std::endl;
+	Calculator<float> fCalculator;
+	std::cout << fCalculator.add(8.0, 9.0) << std::endl;
 	return 0;
 }
 // Templates are to c what Generics are to Java; //definition is: template<class T> class Calculator; usage is: Calculator<int> calculator;

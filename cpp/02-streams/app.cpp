@@ -1,18 +1,16 @@
 #include<iostream>
 #include<string>
 
-namespace std {
-	class Zero {
-	public:
-		std::string text;
-		void mirror();
-	};
-}
+class Zero{
+public:
+	std::string text;
+};
 
 int main(){
-	std::Zero zero;
+	Zero zero;
+	std::cerr << "Text: ";
 	std::cin  >> zero.text;
-	std::cerr << zero.text << std::endl;
+	std::cerr << "Text, obtained from the object: " << zero.text << std::endl;
 }
 
 // All C++ standard library namespace declarations belong to std::...

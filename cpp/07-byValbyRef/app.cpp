@@ -13,5 +13,6 @@ int main (){
 // Pass ByValue:     void run(int  x){} ... run(a)  ... does not change value
 // Pass ByReference: void run(int &x){} ... run(a)  ... changes value
 // Pass Pointer:     void run(int *x){} ... run(&a) ... changes value
-// Pass ByVal and ByRef are called without modifiers: run(a); //byRef ONLY changes reception; is called run(a), received (run int &x) and used x++;
+// Pass ByVal and ByRef are called without modifiers: run(a);
+//      byRef ONLY changes reception; is called run(a), received (run int &x) and used x++;
 // Pass Pointer changes calling: run(&a); receiving: run(int* x); using: *x++;

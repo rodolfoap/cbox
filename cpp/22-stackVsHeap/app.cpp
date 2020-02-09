@@ -6,7 +6,10 @@ struct Thing{
 
 int main(){
 
-	// Stack
+// HEAP SEGMENT: Where all BLOBs go. In order to use the HEAP, only some functions are available: the MALLOC family (C) and NEW/DELETE (C++). Anything else goes to the STACK.
+// STACK SEGMENT: All functions go here, with the space for its variables
+// STATIC SEGMENT: Where all GLOBAL and STATIC variables go
+// CODE SEGMENT: Where all code goes
 
 	int svalue=7;
 	std::cerr <<  svalue << std::endl;

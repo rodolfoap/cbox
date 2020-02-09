@@ -1,23 +1,27 @@
-#include<iostream>
-#include<string>
+#include <iostream>
+
 class Thing{
-public:
+protected:
 	std::string name;
 };
-class Concept :public Thing{
+
+class Solid :public Thing{
 public:
+	std::string getName() const;
 	void setName(std::string);
-	std::string getName();
 };
-void Concept::setName(std::string aName){
-	name=aName;
+
+std::string Solid::getName() const{
+	return this->name;
 }
-std::string Concept::getName(){
-	return name;
+
+void Solid::setName(std::string name){
+	this->name=name;
 }
+
 int main(){
-	Concept concept;
-	concept.setName("yoyo");
-	std::cout << concept.getName() << std::endl;
+	Solid solid;
+	solid.setName("solid0");
+	std::cerr << solid.getName() << std::endl;
 	return 0;
 }

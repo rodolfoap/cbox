@@ -2,7 +2,6 @@
 #include <string>
 #include <iostream>
 #include <unistd.h>
-#define asleep(n) Sleep(n)
 
 int main () {
 	zmq::context_t context (1);
@@ -12,12 +11,18 @@ int main () {
 	while (true) {
 		zmq::message_t request;
 		zmq::message_t reply (5);
-		memcpy (reply.data (), "World", 5);
 
 		socket.recv (&request);
+		std::cout
+ 			<< "Received: "
+			<< std::string(static_cast<char*>(request.data()), request.size())
+			<< std::endl; sleep(1);
 
-		std::cout << "Received Hello" << std::endl; sleep(1);
-
+		memcpy(reply.data(), "World", 5);
+		std::cout
+			<< "Replying: "
+			<< std::string(static_cast<char*>(reply.data()), reply.size())
+			<< std::endl << std::endl;
 		socket.send (reply);
 	}
 	return 0;
