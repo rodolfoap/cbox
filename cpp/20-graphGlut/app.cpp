@@ -25,7 +25,7 @@ void display(){
 		glVertex3f (0.25, 0.75, 0.0);
 		glEnd();
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	glColor3f(0.0f, 1.0f, 1.0f);
 	glBegin(GL_LINES);
 		glVertex2f(-0.90, -0.90);
 		glVertex2f(0.90, 0.90);
