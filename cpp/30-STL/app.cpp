@@ -91,8 +91,6 @@ int main() {
 	m=hmap.find("Google");
 	if(m==hmap.end()){ std::cout<<"Not found"<<std::endl; } else { std::cout<<"Found: "<<m->second<<std::endl; }
 
-	*/
-
 	// LINKED LISTS
 
 	std::list<int> llist;
@@ -124,31 +122,26 @@ int main() {
 	std::cout<<"it1: "<<*it1<<"(already deleted); it2: "<<*it2<<std::endl;
 	// This will print an unexpected value
 	std::cout << *it1++;
-/*
+
+	*/
+
 	// HEAPS
 
-	// Creates a max heap
-	priority_queue <int> pq;
+	// Creates a max heap: std::priority_queue<int> pq;
 	// To create a min heap instead, just uncomment the below line
-	// priority_queue <int, std::vector<int>, greater<int> > pq;
+	std::priority_queue <int, std::vector<int>, std::greater<int> > pq;
+	pq.push(30);
 	pq.push(5);
 	pq.push(1);
-	pq.push(10);
-	pq.push(30);
 	pq.push(20);
+	pq.push(10);
 	// Extracting items from the heap
-	while (!pq.empty()) {
-		std::cout << pq.top() << " ";
-		pq.pop();
-	}
-	// creating heap from user defined objects
-	// Let's initialize the properties of `Person` object first
-	p1.name = "Linus Torvalds";
-	p1.age = 47;
-	p2.name = "Elon Musk";
-	p2.age = 46;
-	p3.name = "Me!";
-	p3.age = 19;
+	while (!pq.empty()) { std::cout << pq.top() << " "; pq.pop(); } std::cout<<std::endl;
+
+	// Creating heap from user defined objects
+	p1.name = "Linus Torvalds"; p1.age = 47;
+	p2.name = "Elon Musk"; p2.age = 46;
+	p3.name = "Me!"; p3.age = 19;
 	// Initialize a min heap
 	// Note: We defined a comparator is_older in the beginning to
 	// compare the ages of two person.
@@ -158,11 +151,12 @@ int main() {
 	mh.push(p3);
 	// Extracting items from the heap
 	while (!mh.empty()) {
-		struct Person p = mh.top();
+		struct Person p=mh.top();
 		std::cout << p.name << " ";
 		mh.pop();
 	}
 
+/*
 	// SORTING
 
 	// The following list type initialization is only supported after C++11
