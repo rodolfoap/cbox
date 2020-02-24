@@ -10,6 +10,7 @@ int main(){
 	return 0;
 }
 EOF
+cp -r 02-streams/{CMakeLists.txt,.k,.x} $1
 find $1
 cd $1
 x
