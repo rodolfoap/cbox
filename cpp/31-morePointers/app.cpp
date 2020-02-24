@@ -22,6 +22,8 @@
 
 */
 int main(){
+	/* Memorize: AN ARRAY IS AN ADDRESS */
+
 	int i=22;		// Goes to the stack
 	char c[]="text";	// Goes to the stack
 	const char *p="char";	// p goes to the stack, "char" goes to the CODE segment (Read-Only)
