@@ -5,7 +5,7 @@ int main(){
 	int* b=&a;
 	std::cerr << *b << std::endl; // 22
 
-	char c[]="char";
+	char c[]="text";
 	char *d=c;
 	printf("PTR: c:%p, d:%p\n", c, d);
 	printf("ADR: c:%p, d:%p\n", &c, &d);
