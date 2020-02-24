@@ -11,6 +11,6 @@ int main(){
 }
 EOF
 cp -r 02-streams/{CMakeLists.txt,.k,.x} $1
-find -type f $1
+find $1 -type f
 cd $1
 x
