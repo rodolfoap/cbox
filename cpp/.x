@@ -6,9 +6,10 @@ cat > $1/app.cpp << EOF
 #include<iostream>
 
 int main(){
-	std::cerr<<std::endl;
+	std::cerr<<"Hello, World!"<<std::endl;
 	return 0;
 }
 EOF
-cp -rv 02-streams/{CMakeLists.txt,.x,.k} $1
 find $1
+cd $1
+x
