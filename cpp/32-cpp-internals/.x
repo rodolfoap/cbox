@@ -1,6 +1,6 @@
 execute(){
 	./app
-	echo OUTPUT: $?
+	echo -e "=== app.cpp output ===\n" $?
 }
 build(){
 	[ -d build/ ] && {
