@@ -13,10 +13,9 @@ message(STATUS "Binary app will go to: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 # Equivalent to (CFLAGS) -g
 set(CMAKE_C_FLAGS "-g")
 
-find_package(OpenCV REQUIRED)
-include_directories( ${OpenCV_INCLUDE_DIRS})
-
 add_executable(app app.cpp)
 
-# Equivalent to (CLIBS) -lm
-target_link_libraries(app m ${OpenCV_LIBS})
+# OPENCV ####################################
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
+target_link_libraries(app ${OpenCV_LIBS})
