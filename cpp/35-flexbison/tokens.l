@@ -5,7 +5,7 @@
 
 #define YY_DECL int yylex()
 
-#include "bcalc.tab.hpp"
+#include "parser.tab.hpp"
 
 %}
 

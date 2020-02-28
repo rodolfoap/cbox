@@ -15,9 +15,9 @@ find_package(FLEX)
 
 # add_definitions(-D_DEBUG -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS)
 
-BISON_TARGET(bcalc bcalc.y ${CMAKE_CURRENT_BINARY_DIR}/bcalc.tab.cpp)
-FLEX_TARGET (fcalc fcalc.l ${CMAKE_CURRENT_BINARY_DIR}/fcalc.cpp)
-ADD_FLEX_BISON_DEPENDENCY(fcalc bcalc)
+BISON_TARGET(parser parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.tab.cpp)
+FLEX_TARGET (tokens tokens.l ${CMAKE_CURRENT_BINARY_DIR}/tokens.cpp)
+ADD_FLEX_BISON_DEPENDENCY(tokens parser)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
-add_executable(app ${BISON_bcalc_OUTPUTS} ${FLEX_fcalc_OUTPUTS})
+add_executable(app ${BISON_parser_OUTPUTS} ${FLEX_tokens_OUTPUTS})
