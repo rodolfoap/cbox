@@ -1,5 +1,5 @@
 execute(){
-	./app
+	echo "932+8972"|./app
 }
 build(){
 	[ -d build/ ] && {
