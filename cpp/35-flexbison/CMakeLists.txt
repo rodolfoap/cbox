@@ -10,14 +10,13 @@ set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 message(STATUS "Binary app will go to: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
+# FLEX/BISON --------------------------------------------------------------
+
 find_package(BISON)
 find_package(FLEX)
-
-# add_definitions(-D_DEBUG -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS)
 
 BISON_TARGET(parser parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.tab.cpp)
 FLEX_TARGET (tokens tokens.l ${CMAKE_CURRENT_BINARY_DIR}/tokens.cpp)
 ADD_FLEX_BISON_DEPENDENCY(tokens parser)
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
 add_executable(app ${BISON_parser_OUTPUTS} ${FLEX_tokens_OUTPUTS})
