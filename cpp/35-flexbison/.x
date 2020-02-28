@@ -19,7 +19,7 @@ case "$1" in
 		execute
 	;;
 	e)
-		vi -O app.cpp
+		vi -O CMakeLists.txt
 		build;
 		execute;
 	;;
