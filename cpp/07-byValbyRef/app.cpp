@@ -1,14 +1,42 @@
 #include<iostream>
 
-void passByValue(int  x){ x=3; printf("(int x[%p]==%d); ", &x,  x);} // x is received
-void passByRefer(int &x){ x=2; printf("(int x[%p]==%d); ", &x,  x);} // x is received too: this is IDENTIC!
-void passPointer(int *p){*p=1; printf("(int x[%p]==%d); ",  p, *p);} // p is a pointer
+void passByValue(int    x){   x=3; printf("(int x[%p]==%d); ",  &x,    x);} // x is received
+void passByRefer(int&   x){   x=2; printf("(int x[%p]==%d); ",  &x,    x);} // x is an alias
+void passPointer(int*   p){  *p=1; printf("(int x[%p]==%d); ",   p,   *p);} // p is a pointer
+void passPtr2Ptr(int**  p){ **p=9; printf("(int x[%p]==%d); ",  *p,  **p);} // p is a pointer to pointer
+void passPtr2P2P(int*** p){***p=7; printf("(int x[%p]==%d); ", **p, ***p);} // p is a pointer to pointer to pointer
 
 int main (){
-	int a = 4;
-	passByValue( a);	std::cerr<< a <<std::endl; // 4
-	passByRefer( a);	std::cerr<< a <<std::endl; // 2
-	passPointer(&a);	std::cerr<< a <<std::endl; // 1
+	// A simple variable
+	int a=4;
+
+	/* A simple reference; but this is forbidden:
+
+	int& b;
+	b = a;
+	.../app.cpp:9:7: error: ‘b’ declared as reference but not initialized
+
+        So, references must be initialized after declared: */
+	int& b=a;
+
+	passByValue( b);	std::cerr<< a <<std::endl; // 4
+	passByRefer( b);	std::cerr<< a <<std::endl; // 2
+	passPointer(&b);	std::cerr<< a <<std::endl; // 1
+
+	// Now, a pointer to pointer:
+	a=4;
+	int* c;
+	c=&a;
+	passPointer(c);		std::cerr<< a <<std::endl; // 1
+
+	a=4;
+	int*  pa=&a;
+	int** pb=&pa;
+	passPtr2Ptr(pb);	std::cerr<< a <<std::endl; // 9
+
+	// Now, a pointer to pointer to pointer:
+	int*** pc=&pb;
+	passPtr2P2P(pc);	std::cerr<< a <<std::endl; // 7
 }
 // Pass ByValue:     void run(int  x){} ... run(a)  ... does not change value
 // Pass ByReference: void run(int &x){} ... run(a)  ... changes value
