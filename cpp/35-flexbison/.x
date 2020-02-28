@@ -19,7 +19,7 @@ case "$1" in
 		execute
 	;;
 	e)
-		vi -O CMakeLists.txt
+		vi -p tokens.l parser.y CMakeLists.txt
 		build;
 		execute;
 	;;
