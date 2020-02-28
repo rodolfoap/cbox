@@ -1,6 +1,7 @@
 %{
 
 #include <stdio.h>
+#include <iostream>
 #include <stdlib.h>
 
 extern int yylex();
@@ -66,16 +67,12 @@ expression: T_INT				{ $$ = $1; }
 %%
 
 int main() {
-	yyin = stdin;
-
-	do {
-		yyparse();
-	} while(!feof(yyin));
-
+	yyin=stdin;
+	do{yyparse();} while(!feof(yyin));
 	return 0;
 }
 
 void yyerror(const char* s) {
-	fprintf(stderr, "Parse error: %s\n", s);
+	std::cerr<<"Parse error: "<<s<<std::endl;
 	exit(1);
 }
