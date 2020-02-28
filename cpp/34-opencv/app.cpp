@@ -1,18 +1,15 @@
-#include <stdio.h>
+#include<iostream>
+#include<opencv2/opencv.hpp> // Requires: apt install libopencv-dev python3-opencv
 
-// Requires: apt install libopencv-dev python3-opencv
-#include <opencv2/opencv.hpp>
-
-//using namespace cv;
 int main(){
 	cv::Mat image;
-	image = cv::imread("girl.jpg", 1 );
-	if ( !image.data ) {
-		printf("No image data \n");
+	image=cv::imread("lena.jpg", 1);
+	if(!image.data){
+		std::cerr<<"No image data."<<std::endl;
 		return -1;
 	}
-	namedWindow("Display Image", WINDOW_AUTOSIZE );
-	imshow("Display Image", image);
-	waitKey(0);
+	cv::namedWindow("Girl", cv::WINDOW_AUTOSIZE);
+	cv::imshow("Girl", image);
+	cv::waitKey(0);
 	return 0;
 }
