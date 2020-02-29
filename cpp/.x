@@ -1,4 +1,5 @@
 [ -z "$1" ] && { echo "Usage: x [NNN-Title]"; return 1; }
+[ e == "$1" ] && { echo "Usage: x [NNN-Title]"; return 1; }
 [ -d "$1" ] && { echo "$1 already exists. Aborting."; return 1; }
 
 mkdir $1
