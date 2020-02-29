@@ -4,8 +4,8 @@ execute(){
 	echo [e:done]
 }
 build(){
-	echo [b:lex] 'lex example1.l'
-	lex example1.l
+	echo [b:lex] 'lex tokens.l'
+	lex tokens.l
 	echo [b:ls] $(ls -l lex.yy.c)
 
 	echo [b:cc] 'cc lex.yy.c -o app -ll'
@@ -15,7 +15,7 @@ build(){
 }
 case "$1" in
 e)
-	vi -p example1.l
+	vi -p tokens.l
 	build
 	execute
 ;;
