@@ -10,14 +10,17 @@ build(){
 	lex tokens.l
 	echo [b:ls] $(ls -l lex.yy.c)
 
-	echo [b:cc] 'cc lex.yy.c -o app -ll'
-	cc lex.yy.c -o app -ll
+	echo [b:yacc] 'lex tokens.l'
+	yacc -d parser.y
+
+	echo [b:cc] 'cc lex.yy.c y.tab.c -o app'
+	cc lex.yy.c y.tab.c -o app
 
 	echo [b:done]
 }
 case "$1" in
 e)
-	vi -p tokens.l
+	vi -p tokens.l parser.y
 	build
 	execute
 ;;
@@ -29,3 +32,4 @@ x|execute)
 	execute
 ;;
 esac
+
