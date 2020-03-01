@@ -2,9 +2,7 @@
 #include<string.h>
 
 int main(){
-	char n[64], r[64];
-	std::cout<<"Name: ";
-	std::cin>>n;		// john
+	char n[5]="john", r[5]={};
 
 	// sizeof(n) returns 	64;
 	// strlen(n) returns 	4 [j,o,h,n,\0] (does not count the \0)
