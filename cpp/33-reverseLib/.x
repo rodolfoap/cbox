@@ -1,6 +1,9 @@
 execute(){
 	./app
 }
+debug(){
+	nemiver app
+}
 build(){
 	[ -d build/ ] && {
 		pushd build &> /dev/null;
@@ -17,6 +20,9 @@ case "$1" in
 	"")
 		[ -f app ] || build;
 		execute
+	;;
+	d)	# Debug
+		debug
 	;;
 	e)
 		vi -p app.cpp reverse.hpp reverse.cpp CMakeLists.txt
