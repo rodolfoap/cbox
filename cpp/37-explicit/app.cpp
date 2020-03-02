@@ -1,18 +1,29 @@
 #include<iostream>
-#include<string.h>
+#include<string>
 
-class Entity{
-private:
+struct Entity {
 	int age;
-public:
+	std::string name;
+
 	Entity(){};
-	Entity(int an_age){ age=an_age; };
-	int getAge(){ return age; }
+
+	// Implicit constructor
+	Entity(const std::string& a_name) 	: age(11), name(a_name) {};
+
+	// Explicit constructor
+	explicit Entity(int an_age)			: age(an_age), name("noname")  {};
 };
 
 int main(){
 	// Implicit: this calls the constructor Entity(int)
-	Entity e=13;
-	std::cerr<<e.getAge()<<std::endl;
+	Entity g=std::string("john");
+	std::cerr<<g.age<<":"<<g.name<<std::endl;
+
+	// Explicit: cannot be called as this:
+	// Entity e=13;
+	// Only as this:
+	Entity e(13);
+
+	std::cerr<<e.age<<":"<<e.name<<std::endl;
 	return 0;
 }
