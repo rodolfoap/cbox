@@ -1,36 +1,32 @@
 #include<iostream>
 
-class Lover{
+class Vector{
 public:
-	std::string name;
-	// The operator + is being redefined
-	Lover operator+(const Lover &aLover);
-	Lover operator++(int);
+	float mag, dir;
+	Vector(float m, float d):mag(m), dir(d){}
+	// Comparison
+	bool operator==(const Vector& other)	const{ return (mag==other.mag && dir==other.dir); }
+	// Addition
+	Vector operator+(const Vector& other)	const{ return Vector(mag+other.mag, dir+other.dir); }
+	// Addition method using the operator
+	Vector add(const Vector& other)		const{ return *this + other; }
 };
-
-Lover Lover::operator+(const Lover &aLover){
-	Lover lover;
-	lover.name=this->name+"_loves_"+aLover.name;
-	return lover;
-}
-
-Lover Lover::operator++(int n){
-	Lover lover;
-	lover.name=this->name+"_loveshimself_"+this->name;
-	return lover;
+// Overload <<
+std::ostream& operator<<(std::ostream& stream, const Vector& v){
+	stream << "[" << v.mag << ":" << v.dir << "]";
+	return stream;
 }
 
 int main(){
-	Lover lover1, lover2, loverS;
-	lover1.name="lover1";
-	lover2.name="lover2";
-
-	loverS=lover1+lover2;
-
-	std::cerr << lover1.name << std::endl;
-	std::cerr << lover2.name << std::endl;
-	std::cerr << loverS.name << std::endl;
-	loverS=loverS++;
-	std::cerr << loverS.name << std::endl;
+	Vector a(7, 9);
+	Vector b(4, 4);
+	Vector c=a+b;
+	Vector d=b.add(a);
+	std::cerr << a << std::endl;
+	std::cerr << b << std::endl;
+	std::cerr << c << std::endl;
+	std::cerr << d << std::endl;
+	std::cerr << "C and D are " <<((c==d)?"equal":"different") << std::endl;
+	std::cerr << "A and D are " <<((a==d)?"equal":"different") << std::endl;
 	return 0;
 }
