@@ -33,6 +33,7 @@
 
 # Others
 *.tmp
+*~
 
 # Local
 app

@@ -1,35 +1,25 @@
-#include <iostream>
 #include <gtkmm.h>
-#include <gtkmm.h>
-using namespace std;
-using namespace Gtk;
 
-class FrmMain : public Gtk::Window{
-protected:
-        Glib::RefPtr<Gtk::Builder> builder;
-        Gtk::Button *btnOk;
-        Gtk::Button *btnCancel;
-        Gtk::Label *lblNotice;
+class FrmMain: public Gtk::Window {
+	Gtk::Box *gtkbox;
+        Gtk::Label *display_label;
+        Gtk::Button *display_button;
+	Glib::RefPtr<Gtk::Builder> builder;
 public:
-	FrmMain(BaseObjectType* bot, const Glib::RefPtr<Gtk::Builder>& refg): Gtk::Window(bot), builder(refg){
-	        builder->get_widget("btnOk", btnOk);
-	        builder->get_widget("btnCancel", btnCancel);
-	        builder->get_widget("lblNotice",lblNotice);
-	        btnOk->signal_clicked().connect(sigc::mem_fun(*this, &FrmMain::on_ok_button_clicked));
-	        btnCancel->signal_clicked().connect(sigc::mem_fun(*this, &FrmMain::on_cancel_button_clicked));
+	FrmMain(): builder{Gtk::Builder::create_from_file("app.ui")} {
+		builder->get_widget<Gtk::Box>("main_gtk_box", gtkbox);
+	        builder->get_widget("display_label", display_label);
+	        builder->get_widget("display_button", display_button);
+	        display_button->signal_clicked().connect(sigc::mem_fun(*this, &FrmMain::on_ok_button_clicked));
+		add(*gtkbox);
+		show_all();
 	}
-protected:
-        void on_ok_button_clicked(){ lblNotice->set_text("OK clicked"); }
-        void on_cancel_button_clicked(){ lblNotice->set_text("Cancel clicked"); }
+private:
+        void on_ok_button_clicked(){ display_label->set_text("Hello World"); }
 };
 
-int main(int argc, char **argv) {
-        cout << "Started" << endl;
-        Main kit(argc,argv);
-        Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create_from_file("gui.glade");
-        FrmMain *frm = 0;
-        builder->get_widget_derived("frmMain", frm);
-        kit.run(*frm);
-        cout << "End" << endl;
-        return 0;
+int main(int argc, char *argv[]) {
+	auto app=Gtk::Application::create(argc, argv);
+	FrmMain hw;
+	return app->run(hw);
 }
