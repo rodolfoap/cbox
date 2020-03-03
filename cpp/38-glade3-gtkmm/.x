@@ -24,6 +24,9 @@ case "$1" in
 	d)	# Debug
 		debug
 	;;
+	g)	# Glade
+		glade app.ui
+	;;
 	e)
 		vi -p app.cpp CMakeLists.txt
 		build;
