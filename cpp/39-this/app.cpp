@@ -7,13 +7,13 @@ public:
 	void reassign(int x);
 };
 
-void print_entity(Entity* e){
-	std::cerr<<e->x<<std::endl;
+void print_entity(Entity* isso){
+	std::cerr<<isso->x<<std::endl;
 }
 
 Entity::Entity(int x){
 	// The meaning of 'this': a pointer to the
-	// current object (not the class)
+	// current instance (object, not class)
 	Entity* isto=this;
 
 	// equivalent to this->x=x;
