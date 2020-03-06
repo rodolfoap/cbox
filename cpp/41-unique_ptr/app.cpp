@@ -25,6 +25,11 @@ LOG 	// Using make-unique (C++14!)
 		std::unique_ptr<E> e=std::make_unique<E>();
 		e->fn();
 	}
+LOG 	// Better:
+	{
+		auto e=std::make_unique<E>();
+		e->fn();
+	}
 LOG
 	return 0;
 }
