@@ -17,7 +17,7 @@ LOG	// Without smart pointer:
 
 LOG	// Using smart pointers:
 	{
-		std::unique_ptr<E> e(new E());
+		std::unique_ptr<E> e(new E()); // Do not use new!!
 		e->fn(); // No need to delete: will do when exiting scope
 	}
 LOG 	// Using make-unique (C++14!)
