@@ -1,4 +1,5 @@
 execute(){
+	cat -n app.cpp
 	./app
 }
 debug(){

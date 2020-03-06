@@ -37,7 +37,7 @@
 
 # Local
 app
-app
+app.cpp.tu*
 app.dbg
 publisher
 subscribr

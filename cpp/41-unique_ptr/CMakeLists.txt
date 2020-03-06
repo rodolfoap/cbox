@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(app)
 
-# Force C++11
-set(CMAKE_CXX_STANDARD 11)
+# Force C++14
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Equivalent to (CFLAGS) -g
