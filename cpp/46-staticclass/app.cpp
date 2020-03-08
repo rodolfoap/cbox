@@ -1,6 +1,8 @@
 #include<iostream>
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 
+// Static classes there are no in C++. A class is called static when
+// all its members are static, as in the following example:
 class Counter{
 public:
 	static int count;
