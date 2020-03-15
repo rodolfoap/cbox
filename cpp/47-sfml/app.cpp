@@ -52,6 +52,7 @@ int main() {
 				window.display();
 				break;
 			case sf::Event::MouseButtonPressed:
+				// https://www.sfml-dev.org/tutorials/2.3/graphics-view.php#coordinates-conversions
 				dot.setPosition(window.mapPixelToCoords(sf::Mouse::getPosition(window)).x,
 						window.mapPixelToCoords(sf::Mouse::getPosition(window)).y);
 				window.draw(dot);
