@@ -42,6 +42,10 @@ int main() {
 				window.close();
 				break;
 			case sf::Event::Resized:
+				{ // This will resize the window internally, that is, more points woule be available
+					sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+        				window.setView(sf::View(visibleArea));
+				} // otherwise, the window gets bigger, but the contents remain the same.
 				window.clear();
 				window.draw(background);
 				text.setString(	std::to_string(window.getSize().x)+":"+
@@ -52,9 +56,8 @@ int main() {
 				window.display();
 				break;
 			case sf::Event::MouseButtonPressed:
-				// https://www.sfml-dev.org/tutorials/2.3/graphics-view.php#coordinates-conversions
-				dot.setPosition(window.mapPixelToCoords(sf::Mouse::getPosition(window)).x,
-						window.mapPixelToCoords(sf::Mouse::getPosition(window)).y);
+				dot.setPosition(sf::Mouse::getPosition(window).x,
+						sf::Mouse::getPosition(window).y);
 				window.draw(dot);
 				window.display();
 				break;
