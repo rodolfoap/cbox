@@ -3,14 +3,15 @@
 #include<SFML/Graphics.hpp>
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 
+sf::Event event;
 int main() {
 	// Open window
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
 
 	// Background
-	sf::Texture background;
-	if (!background.loadFromFile("background.jpg")) return EXIT_FAILURE;
-	sf::Sprite sprite(background);
+	sf::Texture texture;
+	if (!texture.loadFromFile("background.jpg")) return EXIT_FAILURE;
+	sf::Sprite background(texture);
 
 	// Text
 	sf::Font font;
@@ -25,20 +26,38 @@ int main() {
 	// Play the music
 	music.play();
 
+	window.clear();
+	window.draw(background);
+	window.display();
+
+	sf::CircleShape dot(2);
+	dot.setFillColor(sf::Color(0, 0, 96));
+
 	// Game loop
 	while (window.isOpen()) {
 		// Process events
-		sf::Event event;
-		while (window.pollEvent(event)) if(event.type==sf::Event::Closed) window.close();
-
-		// Clear screen
-		window.clear();
-		// Draw the sprite
-		window.draw(sprite);
-		// Draw the string
-		window.draw(text);
-		// Update the window
-		window.display();
+		while (window.pollEvent(event));
+		switch(event.type){
+			case sf::Event::Closed:
+				window.close();
+				break;
+			case sf::Event::Resized:
+				window.clear();
+				window.draw(background);
+				text.setString(	std::to_string(window.getSize().x)+":"+
+						std::to_string(window.getSize().y)+"-"+
+						std::to_string(sf::Mouse::getPosition(window).x)+":"+
+						std::to_string(sf::Mouse::getPosition(window).y) );
+				window.draw(text);
+				window.display();
+				break;
+			case sf::Event::MouseButtonPressed:
+				dot.setPosition(window.mapPixelToCoords(sf::Mouse::getPosition(window)).x,
+						window.mapPixelToCoords(sf::Mouse::getPosition(window)).y);
+				window.draw(dot);
+				window.display();
+				break;
+		}
 	}
 	return EXIT_SUCCESS;
 }
