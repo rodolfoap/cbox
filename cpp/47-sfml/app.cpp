@@ -16,7 +16,7 @@ int main() {
 	// Text
 	sf::Font font;
 	if (!font.loadFromFile("sansation.ttf")) return EXIT_FAILURE;
-	sf::Text text("Hello, World!", font, 50);
+	sf::Text text("Hello, World!", font, 20);
 	text.setFillColor(sf::Color(0, 0, 96));
 
 	// Music
@@ -26,41 +26,41 @@ int main() {
 	// Play the music
 	music.play();
 
+	// Dot
+	sf::CircleShape dot(20);
+	dot.setFillColor(sf::Color(0, 96, 96));
+
+	// Screen setup
 	window.clear();
 	window.draw(background);
 	window.display();
 
-	sf::CircleShape dot(2);
-	dot.setFillColor(sf::Color(0, 0, 96));
-
 	// Game loop
 	while (window.isOpen()) {
-		// Process events
-		while (window.pollEvent(event));
-		switch(event.type){
-			case sf::Event::Closed:
-				window.close();
-				break;
-			case sf::Event::Resized:
-				{ // This will resize the window internally, that is, more points woule be available
-					sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
-        				window.setView(sf::View(visibleArea));
-				} // otherwise, the window gets bigger, but the contents remain the same.
+		// Process events: waitEvent() is blocking, pollEvent() is not.
+		while (window.waitEvent(event)){
+			if(event.type==sf::Event::Resized){
+				std::cerr<<"r";
+				// This will resize the window internally, that is, more points woule be available
+				// otherwise, the window gets bigger, but the contents remain the same.
+				sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+        			window.setView(sf::View(visibleArea));
 				window.clear();
 				window.draw(background);
 				text.setString(	std::to_string(window.getSize().x)+":"+
-						std::to_string(window.getSize().y)+"-"+
+						std::to_string(window.getSize().y)+"::"+
 						std::to_string(sf::Mouse::getPosition(window).x)+":"+
 						std::to_string(sf::Mouse::getPosition(window).y) );
 				window.draw(text);
-				window.display();
-				break;
-			case sf::Event::MouseButtonPressed:
-				dot.setPosition(sf::Mouse::getPosition(window).x,
-						sf::Mouse::getPosition(window).y);
+			}
+			if(event.type==sf::Event::MouseButtonPressed){
+				std::cerr<<".";
+				dot.setPosition(sf::Mouse::getPosition(window).x-20,
+						sf::Mouse::getPosition(window).y-20);
 				window.draw(dot);
-				window.display();
-				break;
+			}
+			if(event.type==sf::Event::Closed){ std::cerr<<"c\n"; window.close(); }
+			window.display();
 		}
 	}
 	return EXIT_SUCCESS;
