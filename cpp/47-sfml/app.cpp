@@ -1,6 +1,6 @@
 #include<iostream>
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
+#include<SFML/Graphics.hpp>
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 
 int main() {
@@ -24,15 +24,13 @@ int main() {
 
 	// Play the music
 	music.play();
-	// Start the game loop
+
+	// Game loop
 	while (window.isOpen()) {
 		// Process events
 		sf::Event event;
-		while (window.pollEvent(event)) {
-			// Close window: exit
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
+		while (window.pollEvent(event)) if(event.type==sf::Event::Closed) window.close();
+
 		// Clear screen
 		window.clear();
 		// Draw the sprite
