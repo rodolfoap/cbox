@@ -3,15 +3,15 @@
 #include <boost/thread/condition_variable.hpp>
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 
-// Based on https://www.justsoftwaresolutions.co.uk/threading/implementing-a-thread-safe-queue-using-condition-variables.html
+// Based on https://gist.github.com/PolarNick239/f727c0cd923398dc397a05f515452123
 template<typename Data> class BlockingQueue {
 
 private:
 	std::queue<Data>            queue;
 	mutable boost::mutex        queue_mutex;
 	bool                        is_closed = false;
-	boost::condition_variable   new_item_or_closed_event;
-	boost::condition_variable   item_removed_event;
+	boost::condition_variable   pushed_or_closed_event;
+	boost::condition_variable   pop_event;
 
 public:
 	const size_t                queue_limit;
@@ -26,23 +26,23 @@ public:
 
 	void push(const Data& data) {
 		boost::mutex::scoped_lock lock(queue_mutex);
-		if (queue_limit > 0) while (queue.size() >= queue_limit) item_removed_event.wait(lock);
+		if (queue_limit > 0) while (queue.size() >= queue_limit) pop_event.wait(lock);
 		assert (!is_closed);
 		queue.push(data);
 		print_queue(queue, '+', data);
 		lock.unlock();
-		new_item_or_closed_event.notify_one();
+		pushed_or_closed_event.notify_one();
 	}
 
+	// This checks if push() can be performed; instead of blocking, returns false.
 	bool try_push(const Data& data) {
 		boost::mutex::scoped_lock lock(queue_mutex);
 		if (queue_limit > 0) if (queue.size() >= queue_limit) return false;
 		assert (!is_closed);
 		queue.push(data);
-		for(int i=0; i<queue_limit; i++) std::cerr<<queue.at(i)<<' ';std::cerr<<std::endl;
 		print_queue(queue, '+', data);
 		lock.unlock();
-		new_item_or_closed_event.notify_one();
+		pushed_or_closed_event.notify_one();
 		return true;
 	}
 
@@ -51,28 +51,29 @@ public:
 		assert (!is_closed);
 		is_closed = true;
 		lock.unlock();
-		new_item_or_closed_event.notify_all();
+		pushed_or_closed_event.notify_all();
 	}
 
 	bool pop(Data &popped_value) {
 		boost::mutex::scoped_lock lock(queue_mutex);
 		while (queue.empty()) {
 			if (is_closed) return false;
-			new_item_or_closed_event.wait(lock);
+			pushed_or_closed_event.wait(lock);
 		}
 		popped_value = queue.front();
 		queue.pop();
 		print_queue(queue, '-', popped_value);
-		item_removed_event.notify_one();
+		pop_event.notify_one();
 		return true;
 	}
 
+	// This checks if pop() can be performed; instead of blocking, returns false.
 	bool try_pop(Data &popped_value) {
 		boost::mutex::scoped_lock lock(queue_mutex);
 		if (queue.empty()) return false;
 		popped_value = queue.front();
 		queue.pop();
-		item_removed_event.notify_one();
+		pop_event.notify_one();
 		return true;
 	}
 
