@@ -43,11 +43,11 @@ int main() {
 		x+=dx; y+=dy; if(x<0||x>790)dx=-dx; if(y<0||y>580)dy=-dy;
 		ball.setPosition(x, y);
 
-	// Screen setup
-	app.clear();
-	app.draw(background);
-	app.draw(ball);
-	app.display();
+		// Screen setup
+		app.clear();
+		app.draw(background);
+		app.draw(ball);
+		app.display();
 	}
 	return EXIT_SUCCESS;
 }
