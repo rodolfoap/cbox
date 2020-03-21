@@ -13,16 +13,23 @@ private:
 	sf::Vector2<float> pos, speed;
 	size_t width, height;
 public:
-	Ball(sf::RenderWindow& win, float x, float y, float dx, float dy): app(win), pos(x, y), speed(dx, dy) {
-LOG
+//	Ball(sf::RenderWindow& win, float x, float y, float dx, float dy): app(win), pos(x, y), speed(dx, dy) {
+	Ball(sf::RenderWindow& win): app(win) {
 		t2.loadFromFile("ball.png");
 		sf::Sprite ball2(t2);
 		this->ball=std::move(ball2);
 		width=ball.getTextureRect().width;
 		height=ball.getTextureRect().height;
 	}
-	void action() {
+	void setConfig(float x, float y, float dx, float dy){
+		pos.x=x;
+		pos.y=y;
+		speed.x=dx;
+		speed.y=dy;
+	}
+	void update() {
 		pos+=speed;
+		float r=static_cast<float>(rand())/static_cast<float>(RAND_MAX);
 		if(pos.x<0||pos.x>(800-width )) speed.x=-speed.x;
 		if(pos.y<0||pos.y>(600-height)) speed.y=-speed.y;
 		ball.setPosition(pos);
