@@ -11,15 +11,14 @@ private:
 	sf::Sprite ball;
 	sf::RenderWindow& app;
 	sf::Vector2<float> pos, speed;
-	size_t width, height;
+	float radius;
 public:
 //	Ball(sf::RenderWindow& win, float x, float y, float dx, float dy): app(win), pos(x, y), speed(dx, dy) {
 	Ball(sf::RenderWindow& win): app(win) {
 		t2.loadFromFile("ball.png");
 		sf::Sprite ball2(t2);
 		this->ball=std::move(ball2);
-		width=ball.getTextureRect().width;
-		height=ball.getTextureRect().height;
+		radius=ball.getTextureRect().width/2+1;
 	}
 	void setConfig(float x, float y, float dx, float dy){
 		pos.x=x;
@@ -30,28 +29,16 @@ public:
 	void update() {
 		pos+=speed;
 		float r=static_cast<float>(rand())/static_cast<float>(RAND_MAX);
-		if(pos.x<0||pos.x>(800-width )) speed.x=-speed.x;
-		if(pos.y<0||pos.y>(600-height)) speed.y=-speed.y;
-		ball.setPosition(pos);
+		// The sprite bounces between radius < x < 800-radius
+		if(pos.x<radius||pos.x>(800-radius)) speed.x=-speed.x;
+		if(pos.y<radius||pos.y>(600-radius)) speed.y=-speed.y;
+		// The position is the center of the sprite
+		ball.setPosition(pos-sf::Vector2f(radius,radius));
 		app.draw(ball);
 	}
 };
 
-
-
-
-
 /*
-sf::Vector2f getSpriteSize(const sf::Sprite& ball) {
-	sf::IntRect size=ball.getTextureRect();
-	sf::Vector2f scale=ball.getScale();
-	return sf::Vector2f(size.width*scale.x, size.height*scale.y);
-}
-sf::Vector2f getSpriteCenter(const sf::Sprite& ball) {
-	sf::FloatRect aabb=ball.getGlobalBounds();
-	return sf::Vector2f(aabb.left+aabb.width/2.f, aabb.top+aabb.height/2.f);
-}
-
 bool collision(const sf::Sprite& ball1, const sf::Sprite& ball2) {
 	sf::Vector2f ball1Size=getSpriteSize(ball1);
 	sf::Vector2f ball2Size=getSpriteSize(ball2);

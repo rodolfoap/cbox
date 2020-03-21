@@ -1,11 +1,8 @@
-#include <iostream>
-#include <exception>
-#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include "ball.cpp"
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
-#define BALLS_QUANTITY 3
+#define BALLS_QUANTITY 30
 sf::Event e;
 
 int main() {
@@ -15,7 +12,7 @@ int main() {
 	// Create a model and copy on all slots of vector
 	Ball ball(app);
 	std::vector<Ball> balls(BALLS_QUANTITY, ball);
-	for(Ball& ball: balls) ball.setConfig(rand()%800+1, rand()%600+1, rand()%5+1, rand()%5+1);
+	for(Ball& ball: balls) ball.setConfig(rand()%800+1, rand()%600+1, rand()%5-2, rand()%5-2);
 	// Game loop
 	while(app.isOpen()) {
 		while (app.pollEvent(e)) if(e.type==sf::Event::Closed) app.close();
@@ -25,4 +22,3 @@ int main() {
 	}
 	return EXIT_SUCCESS;
 }
-
