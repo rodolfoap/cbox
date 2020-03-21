@@ -43,13 +43,9 @@ class Ball {
 	}
 
 	void checkBallCollision(Ball other) {
-		// if (maxInteraction>0 && interaction>=maxInteraction) noLoop();
 		PVector distanceVect = PVector.sub(other.position, position);
 		float distanceVectMag = distanceVect.mag();
 		if (distanceVectMag < minDistance) {	// Collision!
-			interaction++;
-			// before changing the speed, let's save the previous energy
-			lastEnergy=energy();
 			// Correct distance to avoid overlapping: move the other
 			PVector distanceVectFixed=distanceVect.copy().normalize().mult(minDistance-distanceVect.mag());
 			other.position.add(distanceVectFixed);
