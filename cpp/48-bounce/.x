@@ -5,6 +5,7 @@ debug(){
 	nemiver app
 }
 build(){
+	rm -f app
 	[ -d build/ ] && {
 		pushd build &> /dev/null;
 	} || {
@@ -23,6 +24,9 @@ case "$1" in
 	;;
 	d)	# Debug
 		debug
+	;;
+	b)
+		build;
 	;;
 	e)
 		vi -p app.cpp CMakeLists.txt
