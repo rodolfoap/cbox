@@ -31,10 +31,10 @@ private:
 	sf::Texture t2;
 	sf::Sprite ball;
 	sf::RenderWindow& app;
-	float x, y, dx, dy;
+	sf::Vector2<float> pos, speed;
 	size_t width, height;
 public:
-	Ball(sf::RenderWindow& win, float x, float y, float dx, float dy): app(win), x(x), y(y), dx(dx), dy(dy) {
+	Ball(sf::RenderWindow& win, float x, float y, float dx, float dy): app(win), pos(x, y), speed(dx, dy) {
 		t2.loadFromFile("ball.png");
 		sf::Sprite ball2(t2);
 		this->ball=std::move(ball2);
@@ -42,10 +42,10 @@ public:
 		height=ball.getTextureRect().height;
 	}
 	void action() {
-		x+=dx; y+=dy;
-		if(x<0||x>(800-width))dx=-dx;
-		if(y<0||y>(600-height))dy=-dy;
-		ball.setPosition(x, y);
+		pos+=speed;
+		if(pos.x<0||pos.x>(800-width )) speed.x=-speed.x;
+		if(pos.y<0||pos.y>(600-height)) speed.y=-speed.y;
+		ball.setPosition(pos);
 		app.draw(ball);
 	}
 };
@@ -61,7 +61,7 @@ int main() {
 	app.clear();
 	app.draw(background);
 	app.display();
-	Ball ball1(app, 300, 300, 3, 5);
+	Ball ball1(app, 300, 300, 4, 5);
 	Ball ball2(app, 300, 300, 4, 6);
 	// Game loop
 	while (app.isOpen()) {
