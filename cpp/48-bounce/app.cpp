@@ -61,7 +61,7 @@ int main() {
 	app.clear();
 	app.draw(background);
 	app.display();
-	Ball ball1(app, 300, 300, 6, 5);
+	Ball ball1(app, 300, 300, 3, 5);
 	Ball ball2(app, 300, 300, 4, 6);
 	// Game loop
 	while (app.isOpen()) {
