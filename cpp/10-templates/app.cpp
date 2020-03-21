@@ -1,17 +1,45 @@
 #include<iostream>
 #include<string>
 
-template<class T> class Calculator{
+/* Instead of defining...
+
+void PrintSomething(int s){}
+void PrintSomething(std::string s){}
+
+We just define...  */
+
+template <typename T> void PrintSomething(T s){ std::cout << s << std::endl; }
+
+/* This even applies to classes, instead of doing...
+
+class Entity{
+private:
+	int list[5];
 public:
-	T mul(T x, T y){return x*y;}
-	T add(T x, T y){return x+y;}
+	void bytelen(){ std::cout << sizeof(list) << std::endl; }
+};
+
+...
+Entity e;
+e.printsize();
+
+We just define...  */
+
+template <typename T, int S> class Entity{
+private:
+	T list[S];
+public:
+	void bytelen(){ std::cout << sizeof(list) << std::endl; }
 };
 
 int main(){
-	Calculator<int> iCalculator;
-	std::cout << iCalculator.add(8, 9) << std::endl;
-	Calculator<float> fCalculator;
-	std::cout << fCalculator.add(8.0, 9.0) << std::endl;
+
+	PrintSomething(13);
+	PrintSomething("Hello, World!");
+	PrintSomething(3.14f);
+
+	Entity<int, 9> e;
+	e.bytelen();
 	return 0;
 }
-// Templates are to c what Generics are to Java; //definition is: template<class T> class Calculator; usage is: Calculator<int> calculator;
+// Templates are to c what Generics are to Java;
