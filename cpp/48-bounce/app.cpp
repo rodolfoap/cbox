@@ -54,13 +54,6 @@ int main() {
 	// Open window
 	sf::RenderWindow app(sf::VideoMode(800, 600), "SFML window", sf::Style::Titlebar||sf::Style::Close);
 	app.setFramerateLimit(60);
-	// Background
-	sf::Texture t1;
-	if (!t1.loadFromFile("background.jpg")) return EXIT_FAILURE;
-	sf::Sprite background(t1);
-	app.clear();
-	app.draw(background);
-	app.display();
 	Ball ball1(app, 300, 300, 4, 5);
 	Ball ball2(app, 300, 300, 4, 6);
 	// Game loop
@@ -68,7 +61,6 @@ int main() {
 		while (app.pollEvent(e)) if(e.type==sf::Event::Closed) app.close();
 		// Screen setup
 		app.clear();
-		app.draw(background);
 		ball1.action();
 		ball2.action();
 		app.display();
