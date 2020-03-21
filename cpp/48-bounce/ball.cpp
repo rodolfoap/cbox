@@ -14,6 +14,7 @@ private:
 	size_t width, height;
 public:
 	Ball(sf::RenderWindow& win, float x, float y, float dx, float dy): app(win), pos(x, y), speed(dx, dy) {
+LOG
 		t2.loadFromFile("ball.png");
 		sf::Sprite ball2(t2);
 		this->ball=std::move(ball2);
