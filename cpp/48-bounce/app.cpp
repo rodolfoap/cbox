@@ -37,10 +37,11 @@ int main() {
 
 	float dx=6, dy=5;
 	float x=300, y=300;
+	std::cerr<<app.getSize().x<<"\n";
 	// Game loop
 	while (app.isOpen()) {
 		while (app.pollEvent(e)) if(e.type==sf::Event::Closed) app.close();
-		x+=dx; y+=dy; if(x<0||x>790)dx=-dx; if(y<0||y>580)dy=-dy;
+		x+=dx; y+=dy; if(x<0||x>(800-12))dx=-dx; if(y<0||y>(600-12))dy=-dy;
 		ball.setPosition(x, y);
 
 		// Screen setup
