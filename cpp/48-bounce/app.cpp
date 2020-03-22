@@ -17,7 +17,10 @@ int main() {
 	while(app.isOpen()) {
 		while (app.pollEvent(e)) if(e.type==sf::Event::Closed) app.close();
 		app.clear();
-		for(Ball& ball: balls) ball.update();
+		for(Ball& ball: balls) {
+			ball.checkBorderColision();
+			ball.update();
+		}
 		app.display();
 	}
 	return EXIT_SUCCESS;
