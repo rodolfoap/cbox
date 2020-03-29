@@ -18,8 +18,9 @@ build(){
 }
 case "$1" in
 	"")
-		[ -f app ] || build;
-		execute
+		#[ -f app ] || build;
+		#execute
+		code
 	;;
 	d)	# Debug
 		debug
