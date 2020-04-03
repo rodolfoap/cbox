@@ -21,6 +21,7 @@ void example2(){
 	// accepted if it is const;
 	tprint(a+b+2);
 	// rvalue print: takes a reference to a reference;
+	// which is only a temporary value where the sum is stored.
 	rprint(a+b+2);
 }
 
