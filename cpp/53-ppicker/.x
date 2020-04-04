@@ -1,4 +1,5 @@
 execute(){
+	./parsekml points_backyard.kml > points_backyard.dat
 	./app crowd.jpg
 }
 debug(){
