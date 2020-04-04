@@ -32,11 +32,16 @@ int main(int argc, char* argv[]) {
 		while (window.waitEvent(event)){
 			window.draw(background);
 			if(event.type==sf::Event::Resized){ window.clear(); }
-			if(event.type==sf::Event::MouseButtonReleased){
-				// See https://www.sfml-dev.org/tutorials/2.0/graphics-view.php#showing-more-when-the-window-is-resized
-				sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
-				sf::Vector2f worldPos = window.mapPixelToCoords(pixelPos);
-				dots.push_back(worldPos);
+			if(event.type==sf::Event::MouseButtonPressed){
+				// Left click is adding point
+				if (event.mouseButton.button == sf::Mouse::Left) {
+					// See https://www.sfml-dev.org/tutorials/2.0/graphics-view.php#showing-more-when-the-window-is-resized
+					sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
+					sf::Vector2f worldPos = window.mapPixelToCoords(pixelPos);
+					dots.push_back(worldPos);
+				}
+				// Right click is removing last point
+				if (event.mouseButton.button == sf::Mouse::Right) { if(dots.size()>0) dots.pop_back(); }
 			}
 			for(int i=0; i<dots.size(); i++){
 				dot.setPosition(dots[i].x-RADIUS-1, dots[i].y-RADIUS-1);
