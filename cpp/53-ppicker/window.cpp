@@ -1,5 +1,4 @@
 #include <SFML/Graphics.hpp>
-#include "functions.h"
 #include "window.h"
 #define RADIUS 4
 

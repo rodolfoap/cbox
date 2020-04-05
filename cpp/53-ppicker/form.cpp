@@ -1,6 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "functions.h"
+#include "functions.cpp"
 #include "mustache.hpp"
 #include "form.h"
 void Form::addcoords(kainjow::mustache::data& coordset, float x, float y){

@@ -21,6 +21,6 @@ set(CMAKE_C_FLAGS "-g")
 find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 set(SFML_STATIC_LIBRARIES TRUE)
 
-add_executable(app window.cpp form.cpp functions.cpp app.cpp)
+add_executable(app window.cpp form.cpp app.cpp)
 
 target_link_libraries(app sfml-graphics sfml-window sfml-system sfml-audio)
