@@ -12,5 +12,5 @@ public:
 	void adduv(int, int);
 	void addxy(float, float, std::string);
 	bool render(std::vector<sf::Vector2f>);
-	std::string getDescription(int);
+	void message(int);
 };

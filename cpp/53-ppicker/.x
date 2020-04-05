@@ -1,9 +1,9 @@
 execute(){
-	./parsekml points.kml > points.dat
-	./app crowd.jpg points.dat points.tpl
+	./parsekml points.kml|head -3 > points.dat
+	./ppicker crowd.jpg points.dat points.tpl
 }
 debug(){
-	nemiver app
+	nemiver ppicker
 }
 build(){
 	[ -d build/ ] && {
@@ -15,18 +15,18 @@ build(){
 	}
 	make -j8; STATUS=$?
 	popd &> /dev/null;
-	[ $STATUS == 0 ] && echo [100%] $(ls -l app) || echo [ERROR] Compilation error.
+	[ $STATUS == 0 ] && echo [100%] $(ls -l ppicker) || echo [ERROR] Compilation error.
 }
 case "$1" in
 	"")
-		[ -f app ] || build;
+		[ -f ppicker ] || build;
 		execute
 	;;
 	d)	# Debug
 		debug
 	;;
 	e)
-		vi -p app.cpp window.cpp window.h form.cpp form.h functions.cpp points.tpl CMakeLists.txt
+		vi -p main.cpp window.cpp window.h form.cpp form.h functions.cpp points.tpl CMakeLists.txt
 		build;
 		execute;
 	;;

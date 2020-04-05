@@ -11,17 +11,17 @@ int main(int argc, char* argv[]) {
 	Form form(argv[2], argv[3]);
 
 	// Loop
-	std::cerr<<"Please select: "<<form.getDescription(window.dots.size())<<std::endl;
+	form.message(window.dots.size());
 	while (window.isOpen()) {
 		// Process events: waitEvent() is blocking, pollEvent() is not.
 		while (window.waitEvent(event)) {
 			if(event.type==sf::Event::Resized) { window.clear(); }
 			if(event.type==sf::Event::MouseButtonPressed) {
 				// Left click is adding point
-				if (event.mouseButton.button==sf::Mouse::Left) { window.addDot(sf::Mouse::getPosition(window)); }
+				if(event.mouseButton.button==sf::Mouse::Left)  { window.addDot(sf::Mouse::getPosition(window)); }
 				// Right click is removing last point
 				if(event.mouseButton.button==sf::Mouse::Right) { window.removeDot(); }
-				std::cerr<<"Please select: "<<form.getDescription(window.dots.size())<<std::endl;
+				form.message(window.dots.size());
 			}
 			// Close window or pressing Q
 			if((event.key.code==sf::Keyboard::Q)||(event.type==sf::Event::Closed)) {
