@@ -8,6 +8,7 @@ Window::Window(const int width, const int height, const std::string title, const
 
 	// Background
 	texture.loadFromFile(bgndfile);
+	this->setSize(texture.getSize());
 	background.setTexture(texture);
 	// Dot
 	dot.setFillColor(sf::Color(255, 0, 0));

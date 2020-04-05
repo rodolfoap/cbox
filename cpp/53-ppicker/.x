@@ -1,5 +1,5 @@
 execute(){
-	./parsekml points.kml|head -3 > points.dat
+	./parsekml points.kml|head -5 > points.dat
 	./ppicker crowd.jpg points.dat points.tpl
 }
 debug(){
