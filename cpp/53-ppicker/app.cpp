@@ -19,9 +19,7 @@ int main(int argc, char* argv[]) {
 			if(event.type==sf::Event::Resized) { window.clear(); }
 			if(event.type==sf::Event::MouseButtonPressed) {
 				// Left click is adding point
-				if (event.mouseButton.button==sf::Mouse::Left) {
-					window.addDot(sf::Mouse::getPosition(window));
-				}
+				if (event.mouseButton.button==sf::Mouse::Left) { window.addDot(sf::Mouse::getPosition(window)); }
 				// Right click is removing last point
 				if(event.mouseButton.button==sf::Mouse::Right) { window.removeDot(); }
 			}
