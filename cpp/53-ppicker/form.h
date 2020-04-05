@@ -2,12 +2,15 @@
 class Form{
 private:
 	kainjow::mustache::data data;
+	kainjow::mustache::data coorduv;
 	kainjow::mustache::data coordxy;
-	kainjow::mustache::data coordll;
-	void addcoords(kainjow::mustache::data& coordset, float x, float y);
+	std::string pFile;
+	std::string tFile;
+	std::vector<std::tuple<float, float, std::string>> coords;
 public:
-	Form(): coordxy(kainjow::mustache::data::type::list), coordll(kainjow::mustache::data::type::list){}
-	void addxy(float x, float y);
-	void addll(float x, float y);
-	void render(std::vector<sf::Vector2f>);
+	Form(char*, char*);
+	void adduv(int, int);
+	void addxy(float, float, std::string);
+	bool render(std::vector<sf::Vector2f>);
+	std::string getDescription(int);
 };

@@ -5,16 +5,16 @@ image_points: !!opencv-matrix
     cols: 2
     dt: i
     data: [
-        {{#coordxy}}
+        {{#coorduv}}
         {{x}}, {{y}},
-        {{/coordxy}}
+        {{/coorduv}}
 ]
 world_points: !!opencv-matrix
     rows: {{rows}}
     cols: 2
     dt: d
     data: [
-        {{#coordll}}
-        {{x}}, {{y}},
-        {{/coordll}}
+        {{#coordxy}}
+        {{x}}, {{y}}, # {{c}}
+        {{/coordxy}}
 ]

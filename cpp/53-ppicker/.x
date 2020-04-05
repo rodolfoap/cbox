@@ -1,6 +1,6 @@
 execute(){
 	./parsekml points.kml > points.dat
-	./app crowd.jpg
+	./app crowd.jpg points.dat points.tpl
 }
 debug(){
 	nemiver app
