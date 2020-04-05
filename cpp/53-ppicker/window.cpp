@@ -1,9 +1,10 @@
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include "window.h"
 #define RADIUS 4
 
-Window::Window(const int width, const int height, const std::string title, const char* bgndfile):
-	sf::RenderWindow(sf::VideoMode(width, height), title), dot(RADIUS) {
+Window::Window(const int width, const int height, const std::string title, const char* bgndfile, int cSize):
+	sf::RenderWindow(sf::VideoMode(width, height), title), dot(RADIUS), cSize(cSize){
 
 	// Background
 	texture.loadFromFile(bgndfile);
@@ -20,9 +21,14 @@ void Window::drawBackground(){
 	this->draw(background);
 };
 void Window::addDot(sf::Vector2i pixelPos){
-	// See https://www.sfml-dev.org/tutorials/2.0/graphics-view.php#showing-more-when-the-window-is-resized
-	sf::Vector2f worldPos=this->mapPixelToCoords(pixelPos);
-	dots.push_back(worldPos);
+	if(dots.size()<cSize) { 
+		// See https://www.sfml-dev.org/tutorials/2.0/graphics-view.php#showing-more-when-the-window-is-resized
+		sf::Vector2f worldPos=this->mapPixelToCoords(pixelPos);
+		dots.push_back(worldPos);
+	}
+	else {
+		std::cerr<<"[ERROR] Cannot add more points."<<std::endl;
+	}
 }
 void Window::removeDot(){
 	if(dots.size()>0) dots.pop_back();

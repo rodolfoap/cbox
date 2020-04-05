@@ -13,4 +13,5 @@ public:
 	void addxy(float, float, std::string);
 	bool render(std::vector<sf::Vector2f>);
 	void message(int);
+	int cSize();
 };

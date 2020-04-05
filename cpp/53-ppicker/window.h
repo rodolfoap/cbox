@@ -5,7 +5,8 @@ struct Window: public sf::RenderWindow {
 	sf::CircleShape dot;
 	sf::Texture texture;
 	sf::Sprite background;
-	Window(const int, const int, const std::string, const char*);
+	int cSize;
+	Window(const int, const int, const std::string, const char*, int);
 	void drawBackground();
 	void addDot(sf::Vector2i);
 	void removeDot();
