@@ -26,7 +26,7 @@ case "$1" in
 		debug
 	;;
 	e)
-		vi -p app.cpp CMakeLists.txt points.tpl
+		vi -p app.cpp form.cpp form.h functions.cpp points.tpl CMakeLists.txt
 		build;
 		execute;
 	;;

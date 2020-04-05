@@ -3,9 +3,8 @@
 #include <sstream>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
-#include "mustache.hpp"
-#include "functions.cpp"
-#include "form.cpp"
+#include "functions.h"
+#include "form.h"
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 #define RADIUS 4
 
