@@ -1,4 +1,3 @@
-#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
 struct Window: public sf::RenderWindow {
@@ -6,9 +5,9 @@ struct Window: public sf::RenderWindow {
 	sf::CircleShape dot;
 	sf::Texture texture;
 	sf::Sprite background;
-	Window(const int width, const int height, const std::string title, const char* bgndfile);
+	Window(const int, const int, const std::string, const char*);
 	void drawBackground();
-	void addDot(const sf::Vector2f dot);
+	void addDot(sf::Vector2i);
 	void removeDot();
 	void drawDots();
 };

@@ -20,21 +20,16 @@ int main(int argc, char* argv[]) {
 			if(event.type==sf::Event::MouseButtonPressed) {
 				// Left click is adding point
 				if (event.mouseButton.button==sf::Mouse::Left) {
-					// See https://www.sfml-dev.org/tutorials/2.0/graphics-view.php#showing-more-when-the-window-is-resized
-					sf::Vector2i pixelPos=sf::Mouse::getPosition(window);
-					sf::Vector2f worldPos=window.mapPixelToCoords(pixelPos);
-					window.addDot(worldPos);
+					window.addDot(sf::Mouse::getPosition(window));
 				}
 				// Right click is removing last point
 				if(event.mouseButton.button==sf::Mouse::Right) { window.removeDot(); }
 			}
 			// Close window or pressing Q
 			if((event.key.code==sf::Keyboard::Q)||(event.type==sf::Event::Closed)) {
-				for(int i=0; i<window.dots.size(); i++) form.addxy(window.dots[i].x, window.dots[i].y);
-				form.render();
+				form.render(window.dots);
 				window.close();
 			}
-
 			// Drawing
 			window.drawBackground();
 			window.drawDots();

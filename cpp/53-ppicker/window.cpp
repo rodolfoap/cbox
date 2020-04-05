@@ -20,8 +20,10 @@ void Window::drawBackground(){
 	this->clear();
 	this->draw(background);
 };
-void Window::addDot(const sf::Vector2f dot){
-	dots.push_back(dot);
+void Window::addDot(sf::Vector2i pixelPos){
+	// See https://www.sfml-dev.org/tutorials/2.0/graphics-view.php#showing-more-when-the-window-is-resized
+	sf::Vector2f worldPos=this->mapPixelToCoords(pixelPos);
+	dots.push_back(worldPos);
 }
 void Window::removeDot(){
 	if(dots.size()>0) dots.pop_back();

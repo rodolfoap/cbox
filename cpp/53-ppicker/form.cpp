@@ -1,4 +1,5 @@
 #include <iostream>
+#include <SFML/Graphics.hpp>
 #include "functions.h"
 #include "mustache.hpp"
 #include "form.h"
@@ -10,7 +11,8 @@ void Form::addcoords(kainjow::mustache::data& coordset, float x, float y){
 }
 void Form::addxy(float x, float y){ addcoords(coordxy, x, y); }
 void Form::addll(float x, float y){ addcoords(coordll, x, y); }
-void Form::render(){
+void Form::render(std::vector<sf::Vector2f> dots){
+	for(int i=0; i<dots.size(); i++) addxy(dots[i].x, dots[i].y);
 	data.set("rows", "19");
 	data.set("coordxy", coordxy);
 	data.set("coordll", coordll);
