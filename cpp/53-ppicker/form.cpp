@@ -1,5 +1,7 @@
+#include <string>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "window.h"
 #include "functions.cpp"
 #include "mustache.hpp"
 #include "form.h"
@@ -22,10 +24,14 @@ void Form::addxy(float x, float y, std::string c){
 	pair.set("c", c);
 	coordxy<<kainjow::mustache::data{pair};
 }
-void Form::message(int i){
-	if(i<coords.size())  std::cerr<<"\nSelect point: "<<std::get<2>(coords[i])<<std::endl;
-	if(i==coords.size()) std::cerr<<"\n[DONE] Push Q to end and generate matrix."<<std::endl;
-	if(i>coords.size())  std::cerr<<"\n[ERROR] No more points. Roll back with mouse::RIGHT-CLICK."<<std::endl;
+void Form::message(Window& window){
+	int i=window.dots.size();
+	std::string msg;
+	if(i<coords.size())  msg="Select point: "+std::get<2>(coords[i]);
+	if(i==coords.size()) msg="[DONE] Push Q to end and generate matrix.";
+	if(i>coords.size())  msg="[ERROR] No more points. Roll back with mouse::RIGHT-CLICK.";
+  	std::cerr<<msg<<std::endl;
+	window.setTitle(msg);
 }
 int Form::cSize(){
 	return coords.size();

@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
 	Window window(1920, 1080, "PPicker", argv[1], form.cSize());
 
 	// Loop
-	form.message(window.dots.size());
+	form.message(window);
 	while (window.isOpen()) {
 		// Process events: waitEvent() is blocking, pollEvent() is not.
 		while (window.waitEvent(event)) {
@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
 				if(event.mouseButton.button==sf::Mouse::Left)  { window.addDot(sf::Mouse::getPosition(window)); }
 				// Right click is removing last point
 				if(event.mouseButton.button==sf::Mouse::Right) { window.removeDot(); }
-				form.message(window.dots.size());
+				form.message(window);
 			}
 			// Close window or pressing Q
 			if((event.key.code==sf::Keyboard::Q)||(event.type==sf::Event::Closed)) {

@@ -12,6 +12,6 @@ public:
 	void adduv(int, int);
 	void addxy(float, float, std::string);
 	bool render(std::vector<sf::Vector2f>);
-	void message(int);
+	void message(Window&);
 	int cSize();
 };
