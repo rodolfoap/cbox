@@ -8,46 +8,32 @@
 
 int n=0;
 struct Ball {
-	sf::Texture texture;
-	sf::Sprite sprite;
-	float radius;
-	sf::RenderWindow& win;
-	int width, height;
-	int id;
-	sf::Vector2f pos, speed;
-
-	// Constructors: only copies are initialized, check vector initialization method.
-	Ball(sf::RenderWindow& win, int width, int height): win(win), width(width), height(height), id(n++) {}
-	Ball(const Ball& b): win(b.win), width(b.width), height(b.height), id(n++) {
-		texture.loadFromFile("ball.png");
-		sprite=sf::Sprite(texture);
-		radius=sprite.getTextureRect().width/2+1;
-		pos=sf::Vector2f(rand()%width+1, rand()%height+1);
-		speed=sf::Vector2f(rand()%5-2, rand()%5-2);
-		std::cerr<<"Radius="<<radius<<std::endl;
-	}
-
 	// Two balls colliding require a treatment
 	void checkBallColision(Ball& o){
 		// Positions, radius calculation
-		sf::Vector2f distanceVect=sfm::Subtract(o.pos, pos);
-		double distanceVectMag=sfm::Length(distanceVect);
+		sf::Vector2f distanceVect=o.pos-pos;
+		float distanceVectMag=sfm::Length(distanceVect);
 		// Collision!
-		if(distanceVectMag<radius*2) {
+		if(distanceVectMag<minDistance) {
 			std::cerr<<"Collision: #"<<id<<" - #"<<o.id<<"; D="<<distanceVectMag<<"; P="<<distanceVect.x<<":"<<distanceVect.y<<std::endl;
 			// Correct distance to avoid overlapping: move the other
-			//	PVector distanceVectFixed=distanceVect.copy().normalize().mult(minDistance-distanceVect.mag());
-			//	other.position.add(distanceVectFixed);
+			sf::Vector2f distanceVectFixed=distanceVect;
+			sfm::Normalize(distanceVectFixed);
+			distanceVectFixed=distanceVectFixed*(minDistance-distanceVectMag);
+			o.pos+=distanceVectFixed;
+
 			// Rotate both speeds to emulate bouncing on a vertical wall
-			//	velocity.rotate(-distanceVectFixed.heading());
-			//	other.velocity.rotate(-distanceVectFixed.heading());
+			float angle=sfm::Angle(distanceVect);
+			std::cerr<<"Angle: "<<angle<<std::endl;
+			sfm::Rotate(speed, -angle);
+			sfm::Rotate(o.speed, -angle);
+
 			// Then, simply exchange horizontal speeds
-			//	float tempX = velocity.x;
-			//	velocity.x = other.velocity.x;
-			//	other.velocity.x = tempX;
+			std::swap(o.speed.x, speed.x);
+
 			// Rotate back to original coordinates
-			//	velocity.rotate(distanceVectFixed.heading());
-			//	other.velocity.rotate(distanceVectFixed.heading());
+			sfm::Rotate(speed, angle);
+			sfm::Rotate(o.speed, angle);
 		}
 	}
 
@@ -63,6 +49,34 @@ struct Ball {
 		pos+=speed;
 		sprite.setPosition(pos-sf::Vector2f(radius, radius));
 	}
+
+	sf::Texture texture;
+	sf::Sprite sprite;
+	float radius, minDistance;
+	sf::RenderWindow& win;
+	int width, height;
+	int id;
+	sf::Vector2f pos, speed;
+
+	// Constructors: only copies are initialized, check vector initialization method.
+	Ball(sf::RenderWindow& win, int width, int height): win(win), width(width), height(height), id(n++) {}
+	Ball(const Ball& b): win(b.win), width(b.width), height(b.height), id(n++) {
+		texture.loadFromFile("ball96.png");
+		sprite=sf::Sprite(texture);
+		radius=sprite.getTextureRect().width/2+1;
+		minDistance=radius*2;
+		if(id==1) {
+			pos=sf::Vector2f(200, 200);
+			speed=sf::Vector2f(2, 0);
+		} else if (id==2) {
+			pos=sf::Vector2f(600, 220);
+			speed=sf::Vector2f(0, 0);
+		} else {
+			pos=sf::Vector2f(rand()%width+1, rand()%height+1);
+			speed=sf::Vector2f(rand()%5-2, rand()%5-2);
+		}
+	}
+
 };
 
 /*
