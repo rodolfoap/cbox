@@ -23,4 +23,4 @@ set(SFML_STATIC_LIBRARIES TRUE)
 
 add_executable(app app.cpp)
 
-target_link_libraries(app sfml-graphics sfml-window sfml-system sfml-audio)
+target_link_libraries(app sfml-graphics sfml-window sfml-system)
