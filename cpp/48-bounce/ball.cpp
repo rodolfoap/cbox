@@ -5,6 +5,7 @@
 #include<SFML/System.hpp>
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 
+int n=0;
 class Ball {
 private:
 	sf::Texture texture;
@@ -13,10 +14,11 @@ private:
 	float radius;
 	sf::RenderWindow& win;
 	int width, height;
+	int id;
 public:
-	// Constructors: only copies are initialized, as per vector initialization
-	Ball(sf::RenderWindow& win, int width, int height): win(win), width(width), height(height) {}
-	Ball(const Ball& b): win(win), width(b.width), height(b.height) { 
+	// Constructors: only copies are initialized, check vector initialization method.
+	Ball(sf::RenderWindow& win, int width, int height): win(win), width(width), height(height), id(n++) {}
+	Ball(const Ball& b): win(b.win), width(b.width), height(b.height), id(n++) { 
 		texture.loadFromFile("ball.png");
 		ball=sf::Sprite(texture);
 		radius=ball.getTextureRect().width/2+1;
@@ -31,6 +33,7 @@ public:
 	}
 
 	void checkBallColision(Ball& other){
+		std::cerr<<"Interaction: #"<<id<<" - #"<<other.id<<std::endl;
 		//sf::Vector2f distance=
 	//	PVector distanceVect = PVector.sub(other.position, position);
 	//	float distanceVectMag = distanceVect.mag();
