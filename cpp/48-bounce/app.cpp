@@ -2,7 +2,7 @@
 #include <SFML/System.hpp>
 #include "ball.cpp"
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
-#define BALLS_QUANTITY 30
+#define BALLS_QUANTITY 100
 #define WIDTH 800
 #define HEIGHT 600
 sf::Event e;
