@@ -15,12 +15,16 @@ execute_process(COMMAND sed "s/^/\t/" CMakeLists.txt
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	RESULT_VARIABLE CMD_ERROR)
 
+
 # Equivalent to (CFLAGS) -g
 set(CMAKE_C_FLAGS "-g")
+
+#set(GLM_INSTALL_CONFIGDIR "${CMAKE_INSTALL_LIBDIR}/glm")
+find_package(glm REQUIRED)
 
 find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 set(SFML_STATIC_LIBRARIES TRUE)
 
 add_executable(app app.cpp)
 
-target_link_libraries(app sfml-graphics sfml-window sfml-system sfml-audio)
+target_link_libraries(app sfml-graphics sfml-window sfml-system sfml-audio glm)
