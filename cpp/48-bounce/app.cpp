@@ -26,7 +26,7 @@ int main() {
 		for(Ball& ball: balls) {
 			ball.checkBorderColision();
 			ball.update();
-			win.draw(ball.getsprite());
+			win.draw(ball.sprite);
 		}
 		win.display();
 	}

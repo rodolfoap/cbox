@@ -3,25 +3,25 @@
 #include<SFML/Audio.hpp>
 #include<SFML/Graphics.hpp>
 #include<SFML/System.hpp>
+#include <cmath>
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 
 int n=0;
-class Ball {
-private:
+struct Ball {
 	sf::Texture texture;
-	sf::Sprite ball;
-	sf::Vector2f pos, speed;
+	sf::Sprite sprite;
 	float radius;
 	sf::RenderWindow& win;
 	int width, height;
 	int id;
-public:
+	sf::Vector2f pos, speed;
+
 	// Constructors: only copies are initialized, check vector initialization method.
 	Ball(sf::RenderWindow& win, int width, int height): win(win), width(width), height(height), id(n++) {}
-	Ball(const Ball& b): win(b.win), width(b.width), height(b.height), id(n++) { 
+	Ball(const Ball& b): win(b.win), width(b.width), height(b.height), id(n++) {
 		texture.loadFromFile("ball.png");
-		ball=sf::Sprite(texture);
-		radius=ball.getTextureRect().width/2+1;
+		sprite=sf::Sprite(texture);
+		radius=sprite.getTextureRect().width/2+1;
 		pos=sf::Vector2f(rand()%width+1, rand()%height+1);
 		speed=sf::Vector2f(rand()%5-2, rand()%5-2);
 	}
@@ -32,12 +32,14 @@ public:
 		if(pos.y<radius||pos.y>(height-radius)) speed.y=-speed.y;
 	}
 
-	void checkBallColision(Ball& other){
-		std::cerr<<"Interaction: #"<<id<<" - #"<<other.id<<std::endl;
-		//sf::Vector2f distance=
-	//	PVector distanceVect = PVector.sub(other.position, position);
-	//	float distanceVectMag = distanceVect.mag();
-	//	if (distanceVectMag < minDistance) {	// Collision!
+	// Two balls colliding require a treatment
+	void checkBallColision(Ball& o){
+		// Distance calculation
+		double r=sqrt(pow(pos.x-o.pos.x, 2)+pow(pos.y-o.pos.y, 2));
+		// Collision!
+		if(r<radius*2) {
+			std::cerr<<"Collision: #"<<id<<" - #"<<o.id<<"; D="<<r<<std::endl;
+		}
 	//		// Correct distance to avoid overlapping: move the other
 	//		PVector distanceVectFixed=distanceVect.copy().normalize().mult(minDistance-distanceVect.mag());
 	//		other.position.add(distanceVectFixed);
@@ -54,15 +56,12 @@ public:
 	//		//calculateEntropy();
 	//	}
 	}
-	sf::Sprite& getsprite(){
-		return ball;
-	}
 
 	// The position is the center of the sprite, so, (0, 0)
 	// would mean only a quarter of the ball would be visible
 	void update() {
 		pos+=speed;
-		ball.setPosition(pos-sf::Vector2f(radius, radius));
+		sprite.setPosition(pos-sf::Vector2f(radius, radius));
 	}
 };
 
