@@ -7,17 +7,18 @@
 
 class Ball {
 private:
-	sf::Texture t2;
+	sf::Texture texture;
 	sf::Sprite ball;
-	sf::RenderWindow& app;
 	sf::Vector2f pos, speed;
 	float radius;
+	sf::RenderWindow& win;
 public:
-//	Ball(sf::RenderWindow& win, float x, float y, float dx, float dy): app(win), pos(x, y), speed(dx, dy) {
-	Ball(sf::RenderWindow& win): app(win) {
-		t2.loadFromFile("ball.png");
-		sf::Sprite ball2(t2);
-		this->ball=std::move(ball2);
+//	Ball(sf::RenderWindow& win, float x, float y, float dx, float dy): win(win), pos(x, y), speed(dx, dy) {
+	Ball(sf::RenderWindow& win): win(win) { init(); }
+	Ball(const Ball& old):       win(win) { init(); }
+	void init(){
+		texture.loadFromFile("ball.png");
+		ball=sf::Sprite(texture);
 		radius=ball.getTextureRect().width/2+1;
 	}
 	void setConfig(float x, float y, float dx, float dy){
@@ -52,13 +53,15 @@ public:
 	//		//calculateEntropy();
 	//	}
 	}
+	sf::Sprite& getsprite(){
+		return ball;
+	}
 	void update() {
 		pos+=speed;
-		float r=static_cast<float>(rand())/static_cast<float>(RAND_MAX);
+//	float r=static_cast<float>(rand())/static_cast<float>(RAND_MAX);
 		// The position is the center of the sprite, so (0,0)
 		// would mean only a quarter of the ball would be visible
-		ball.setPosition(pos-sf::Vector2f(radius,radius));
-		app.draw(ball);
+		ball.setPosition(pos-sf::Vector2f(radius, radius));
 	}
 };
 
