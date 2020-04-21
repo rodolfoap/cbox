@@ -14,8 +14,11 @@ private:
 	sf::RenderWindow& win;
 	int width, height;
 public:
-	Ball(sf::RenderWindow& win, int width, int height): win(win), width(width), height(height) { init(); }
-	Ball(const Ball& old): win(win), width(old.width), height(old.height) { init(); }
+	// Constructors
+	Ball(sf::RenderWindow& win, int width, int height):
+		win(win), width(width),     height(height)     { init(); }
+	Ball(const Ball& old):
+		win(win), width(old.width), height(old.height) { init(); }
 	void init(){
 		texture.loadFromFile("ball.png");
 		ball=sf::Sprite(texture);
@@ -23,17 +26,13 @@ public:
 		pos=sf::Vector2f(rand()%width+1, rand()%height+1);
 		speed=sf::Vector2f(rand()%5-2, rand()%5-2);
 	}
-	void setConfig(float x, float y, float dx, float dy){
-		pos.x=x;
-		pos.y=y;
-		speed.x=dx;
-		speed.y=dy;
-	}
+
+	// The sprite bounces between radius < x < 800-radius, etc.
 	void checkBorderColision(){
-		// The sprite bounces between radius < x < 800-radius
-		if(pos.x<radius||pos.x>(800-radius)) speed.x=-speed.x;
-		if(pos.y<radius||pos.y>(600-radius)) speed.y=-speed.y;
+		if(pos.x<radius||pos.x>(width -radius)) speed.x=-speed.x;
+		if(pos.y<radius||pos.y>(height-radius)) speed.y=-speed.y;
 	}
+
 	void checkBallColision(Ball& other){
 		//sf::Vector2f distance=
 	//	PVector distanceVect = PVector.sub(other.position, position);
@@ -58,11 +57,11 @@ public:
 	sf::Sprite& getsprite(){
 		return ball;
 	}
+
+	// The position is the center of the sprite, so, (0, 0)
+	// would mean only a quarter of the ball would be visible
 	void update() {
 		pos+=speed;
-//	float r=static_cast<float>(rand())/static_cast<float>(RAND_MAX);
-		// The position is the center of the sprite, so (0,0)
-		// would mean only a quarter of the ball would be visible
 		ball.setPosition(pos-sf::Vector2f(radius, radius));
 	}
 };

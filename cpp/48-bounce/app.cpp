@@ -12,6 +12,8 @@ int main() {
 	sf::RenderWindow win(sf::VideoMode(WIDTH, HEIGHT), "SFML window", sf::Style::Titlebar|sf::Style::Close);
 	win.setFramerateLimit(60);
 	std::vector<Ball> balls(BALLS_QUANTITY, Ball(win, WIDTH, HEIGHT));
+
+	// Loop
 	while(win.isOpen()) {
 		while (win.pollEvent(e)) if(e.type==sf::Event::Closed) win.close();
 		win.clear();
