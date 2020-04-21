@@ -12,14 +12,16 @@ private:
 	sf::Vector2f pos, speed;
 	float radius;
 	sf::RenderWindow& win;
+	int width, height;
 public:
-//	Ball(sf::RenderWindow& win, float x, float y, float dx, float dy): win(win), pos(x, y), speed(dx, dy) {
-	Ball(sf::RenderWindow& win): win(win) { init(); }
-	Ball(const Ball& old):       win(win) { init(); }
+	Ball(sf::RenderWindow& win, int width, int height): win(win), width(width), height(height) { init(); }
+	Ball(const Ball& old): win(win), width(old.width), height(old.height) { init(); }
 	void init(){
 		texture.loadFromFile("ball.png");
 		ball=sf::Sprite(texture);
 		radius=ball.getTextureRect().width/2+1;
+		pos=sf::Vector2f(rand()%width+1, rand()%height+1);
+		speed=sf::Vector2f(rand()%5-2, rand()%5-2);
 	}
 	void setConfig(float x, float y, float dx, float dy){
 		pos.x=x;
