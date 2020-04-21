@@ -14,12 +14,9 @@ private:
 	sf::RenderWindow& win;
 	int width, height;
 public:
-	// Constructors
-	Ball(sf::RenderWindow& win, int width, int height):
-		win(win), width(width),     height(height)     { init(); }
-	Ball(const Ball& old):
-		win(win), width(old.width), height(old.height) { init(); }
-	void init(){
+	// Constructors: only copies are initialized, as per vector initialization
+	Ball(sf::RenderWindow& win, int width, int height): win(win), width(width), height(height) {}
+	Ball(const Ball& b): win(win), width(b.width), height(b.height) { 
 		texture.loadFromFile("ball.png");
 		ball=sf::Sprite(texture);
 		radius=ball.getTextureRect().width/2+1;
