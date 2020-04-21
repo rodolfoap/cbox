@@ -37,6 +37,12 @@ template <class T>
 void Normalize(sf::Vector3<T> &vec) { float len = Length(vec); vec/=(len); }
 template <class T>
 void Normalize(sf::Vector2<T> &vec) { float len = Length(vec); vec/=(len); }
+template <class T>
+sf::Vector2<T> Normalized(sf::Vector2<T> &vec) {
+	sf::Vector2<T> result=vec;
+	result/=(Length(result));
+	return result;
+}
 
 // DOT product
 template <class T>
@@ -75,17 +81,6 @@ float Angle(const sf::Vector2<T> &v1) {
 	return atan2(v1.y, v1.x);
 }
 
-//Calculate angle between two vectors and returns it in degrees.
-template <class T>
-float AngleBetweenD(const sf::Vector3<T> &v1, const sf::Vector3<T> &v2) {
-	return RADTODEG(AngleBetweenR(v1, v2));
-}
-
-template <class T>
-float AngleBetweenD(const sf::Vector2<T> &v1, const sf::Vector2<T> &v2) {
-	return RADTODEG(AngleBetweenR(v1, v2));
-}
-
 //Calculate the cross product of two 3D vectors
 template <class T>
 sf::Vector3<T> Cross(const sf::Vector3<T> &v1, const sf::Vector3<T> &v2) {
@@ -112,6 +107,6 @@ float Distance(const sf::Vector2<T> &v1, const sf::Vector2<T> &v2) {
 //Convert a 2D vector to a 3D vector ( nothing fancy just for a time saver )
 template <class T>
 sf::Vector3<T> Convert2Dto3D(const sf::Vector2<T> &vec) { return sf::Vector3<T>(vec.x, vec.y, 0); }
-}// namespace sfMath
 
+}// namespace sfMath
 #endif

@@ -16,7 +16,6 @@ struct Ball {
 
 		// Collision!
 		if(distanceVectMag<minDistance) {
-			std::cerr<<"Collision: #"<<id<<" - #"<<o.id<<"; D="<<distanceVectMag<<"; P="<<distanceVect.x<<":"<<distanceVect.y<<std::endl;
 			// Correct distance to avoid overlapping: move the other
 			sf::Vector2f distanceVectFixed=distanceVect;
 			sfm::Normalize(distanceVectFixed);
@@ -25,7 +24,6 @@ struct Ball {
 
 			// Rotate both speeds to emulate bouncing on a vertical wall
 			float angle=sfm::Angle(distanceVect);
-			std::cerr<<"Angle: "<<angle<<std::endl;
 			sfm::Rotate(speed, -angle);
 			sfm::Rotate(o.speed, -angle);
 
