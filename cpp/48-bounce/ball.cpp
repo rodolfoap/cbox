@@ -3,7 +3,7 @@
 #include<SFML/Audio.hpp>
 #include<SFML/Graphics.hpp>
 #include<SFML/System.hpp>
-#include <cmath>
+#include"rixmath.h"
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 
 int n=0;
@@ -24,37 +24,37 @@ struct Ball {
 		radius=sprite.getTextureRect().width/2+1;
 		pos=sf::Vector2f(rand()%width+1, rand()%height+1);
 		speed=sf::Vector2f(rand()%5-2, rand()%5-2);
+		std::cerr<<"Radius="<<radius<<std::endl;
+	}
+
+	// Two balls colliding require a treatment
+	void checkBallColision(Ball& o){
+		// Positions, radius calculation
+		sf::Vector2f distanceVect=sfm::Subtract(o.pos, pos);
+		double distanceVectMag=sfm::Length(distanceVect);
+		// Collision!
+		if(distanceVectMag<radius*2) {
+			std::cerr<<"Collision: #"<<id<<" - #"<<o.id<<"; D="<<distanceVectMag<<"; P="<<distanceVect.x<<":"<<distanceVect.y<<std::endl;
+			// Correct distance to avoid overlapping: move the other
+			//	PVector distanceVectFixed=distanceVect.copy().normalize().mult(minDistance-distanceVect.mag());
+			//	other.position.add(distanceVectFixed);
+			// Rotate both speeds to emulate bouncing on a vertical wall
+			//	velocity.rotate(-distanceVectFixed.heading());
+			//	other.velocity.rotate(-distanceVectFixed.heading());
+			// Then, simply exchange horizontal speeds
+			//	float tempX = velocity.x;
+			//	velocity.x = other.velocity.x;
+			//	other.velocity.x = tempX;
+			// Rotate back to original coordinates
+			//	velocity.rotate(distanceVectFixed.heading());
+			//	other.velocity.rotate(distanceVectFixed.heading());
+		}
 	}
 
 	// The sprite bounces between radius < x < 800-radius, etc.
 	void checkBorderColision(){
 		if(pos.x<radius||pos.x>(width -radius)) speed.x=-speed.x;
 		if(pos.y<radius||pos.y>(height-radius)) speed.y=-speed.y;
-	}
-
-	// Two balls colliding require a treatment
-	void checkBallColision(Ball& o){
-		// Distance calculation
-		double r=sqrt(pow(pos.x-o.pos.x, 2)+pow(pos.y-o.pos.y, 2));
-		// Collision!
-		if(r<radius*2) {
-			std::cerr<<"Collision: #"<<id<<" - #"<<o.id<<"; D="<<r<<std::endl;
-		}
-	//		// Correct distance to avoid overlapping: move the other
-	//		PVector distanceVectFixed=distanceVect.copy().normalize().mult(minDistance-distanceVect.mag());
-	//		other.position.add(distanceVectFixed);
-	//		// Rotate both speeds to emulate bouncing on a vertical wall
-	//		velocity.rotate(-distanceVectFixed.heading());
-	//		other.velocity.rotate(-distanceVectFixed.heading());
-	//		// Then, simply exchange horizontal speeds
-	//		float tempX = velocity.x;
-	//		velocity.x = other.velocity.x;
-	//		other.velocity.x = tempX;
-	//		// Rotate back to original coordinates
-	//		velocity.rotate(distanceVectFixed.heading());
-	//		other.velocity.rotate(distanceVectFixed.heading());
-	//		//calculateEntropy();
-	//	}
 	}
 
 	// The position is the center of the sprite, so, (0, 0)
