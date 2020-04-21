@@ -6,35 +6,23 @@
 #include "rixmath.h"
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 
-int n=0;
 struct Ball {
 	sf::Texture texture;
 	sf::Sprite sprite;
 	float radius, minDistance;
 	sf::RenderWindow& win;
 	int width, height;
-	int id;
 	sf::Vector2f pos, speed;
 
 	// Constructors: only copies are initialized, check vector initialization method.
-	Ball(sf::RenderWindow& win, int width, int height): win(win), width(width), height(height), id(n++) {}
-	Ball(const Ball& b): win(b.win), width(b.width), height(b.height), id(n++) {
+	Ball(sf::RenderWindow& win, int width, int height): win(win), width(width), height(height) {}
+	Ball(const Ball& b): win(b.win), width(b.width), height(b.height) {
 		texture.loadFromFile("ball.png");
 		sprite=sf::Sprite(texture);
 		radius=sprite.getTextureRect().width/2+1;
 		minDistance=radius*2;
-		//if(id==1) {
-		//	pos=sf::Vector2f(200, 200);
-		//	speed=sf::Vector2f(5, 0);
-		//} else if (id==2) {
-		//	pos=sf::Vector2f(600, 220);
-		//	speed=sf::Vector2f(0, 0);
-		//} else {
-		float x=radius+1+rand()%(width -2*(int)radius);
-		float y=radius+1+rand()%(height-2*(int)radius);
-		pos=sf::Vector2f(x, y);
+		pos=sf::Vector2f(radius+1+rand()%(width -2*(int)radius), radius+1+rand()%(height-2*(int)radius));
 		speed=sf::Vector2f(rand()%5-2, rand()%5-2);
-		//}
 	}
 
 	// Two balls colliding require a treatment

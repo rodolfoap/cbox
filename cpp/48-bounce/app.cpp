@@ -16,7 +16,8 @@ int main() {
 	// Loop
 	srand(time(0));
 	while(win.isOpen()) {
-		while (win.pollEvent(e)) if(e.type==sf::Event::Closed) win.close();
+                // Close window or pressing Q
+		while (win.pollEvent(e)) if(e.key.code==sf::Keyboard::Q||e.type==sf::Event::Closed) win.close();
 		// Double loop for interactions: 1-2, 1-3, 1-4, 2-3, 2-4, 3-4 (if 4 objects)
 		for (std::vector<Ball>::iterator ball=balls.begin(); ball!=balls.end(); ++ball)
 			for (std::vector<Ball>::iterator ball2=ball+1; ball2!=balls.end(); ++ball2)
