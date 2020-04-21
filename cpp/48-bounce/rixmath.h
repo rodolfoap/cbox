@@ -1,11 +1,10 @@
-//Author: Stefan Woskowiak, www.rixcode.com
+//Based on Stefan Woskowiak(www.rixcode.com) rixmath.h
 #ifndef SFMATH_H_
 #define SFMATH_H_
 
 //include only the headers we need
 #include <SFML/System/Vector2.hpp>
 #include <SFML/System/Vector3.hpp>
-#include <iostream>
 #include <limits>
 #include <math.h>
 
