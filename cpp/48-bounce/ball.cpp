@@ -5,8 +5,6 @@
 #include <SFML/System.hpp>
 #include "rixmath.h"
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
-#define TENDENCY_TO_GOAL 0.1
-#define ENTROPY_FACTOR 0.2
 
 struct Ball {
 	sf::Texture texture;
@@ -14,18 +12,17 @@ struct Ball {
 	float radius, minDistance;
 	sf::RenderWindow& win;
 	int width, height;
-	sf::Vector2f pos, speed, goal, entropy;
+	sf::Vector2f pos, speed;
 
 	// Constructors: only copies are initialized, check vector initialization method.
 	Ball(sf::RenderWindow& win, int width, int height): win(win), width(width), height(height) {}
 	Ball(const Ball& b): win(b.win), width(b.width), height(b.height) {
-		texture.loadFromFile("ball12.png");
+		texture.loadFromFile("ball96.png");
 		sprite=sf::Sprite(texture);
 		radius=sprite.getTextureRect().width/2;
 		minDistance=radius*2;
 		pos=sf::Vector2f(radius+1+rand()%(width -2*(int)radius), radius+1+rand()%(height-2*(int)radius));
 		speed=sf::Vector2f(rand()%5-2, rand()%5-2);
-		goal=sf::Vector2f(1, -0.5);
 	}
 
 	// Two balls colliding require a treatment
@@ -64,12 +61,6 @@ struct Ball {
 	// would mean only a quarter of the ball is visible
 	void update() {
 		pos+=speed;
-		speed.x+=(goal.x-speed.x)/2*TENDENCY_TO_GOAL;
-		speed.y+=(goal.y-speed.y)/2*TENDENCY_TO_GOAL;
-		// Entropy
-		speed+=sf::Vector2f(sfm::random(-ENTROPY_FACTOR, ENTROPY_FACTOR), sfm::random(-ENTROPY_FACTOR, ENTROPY_FACTOR));
-		sfm::Normalize(speed);
-		speed=speed*0.5f;
 	}
 
 	// The position is the center of the sprite, so, (0, 0)
