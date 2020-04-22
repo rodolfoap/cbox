@@ -22,7 +22,7 @@ struct Ball {
 		radius=sprite.getTextureRect().width/2;
 		minDistance=radius*2;
 		pos=sf::Vector2f(radius+1+rand()%(width -2*(int)radius), radius+1+rand()%(height-2*(int)radius));
-		speed=sf::Vector2f(rand()%5-2, rand()%5-2);
+		speed=sf::Vector2f(rand()%20-10, rand()%20-10);
 	}
 
 	// Two balls colliding require a treatment

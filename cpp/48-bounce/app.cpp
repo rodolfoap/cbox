@@ -3,8 +3,8 @@
 #include "ball.cpp"
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 #define BALLS_QUANTITY 10
-#define WIDTH 800
-#define HEIGHT 600
+#define WIDTH 1600
+#define HEIGHT 1000
 sf::Event e;
 
 int main() {
