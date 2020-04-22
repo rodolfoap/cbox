@@ -68,6 +68,8 @@ struct Ball {
 		speed.y+=(goal.y-speed.y)/2*TENDENCY_TO_GOAL;
 		// Entropy
 		speed+=sf::Vector2f(sfm::random(-ENTROPY_FACTOR, ENTROPY_FACTOR), sfm::random(-ENTROPY_FACTOR, ENTROPY_FACTOR));
+		sfm::Normalize(speed);
+		speed=speed*0.5f;
 	}
 
 	// The position is the center of the sprite, so, (0, 0)
