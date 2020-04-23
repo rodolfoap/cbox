@@ -1,14 +1,14 @@
 #include <iostream>
 #include <initializer_list>
+#include <utility>
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 
 struct Polygon {
-	Polygon(std::initializer_list<int> args){
-		for (int i: args) std::cout << i << '\n';
+	Polygon(std::initializer_list<std::pair<int, int>> args){
+		for(std::pair<int, int> pair: args) std::cerr<<'['<<std::get<0>(pair)<<','<<std::get<1>(pair)<<']'<<'\n';
 	}
 };
 
 int main() {
-	Polygon p({2, 3, 4, 5});
-	std::cerr<<"Hello, World!"<<std::endl;
+	Polygon p({{2, 3}, {4, 5}});
 }
