@@ -25,7 +25,7 @@ case "$1" in
 		debug
 	;;
 	e)
-		vi -p app.cpp rixmath.h
+		vi -p app.cpp crowdmath.h
 		build;
 		execute;
 	;;
