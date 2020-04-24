@@ -22,8 +22,8 @@ public:
 		homog2d::Point2d p2 = h * p1;
 		double x=p2.getX();
 		double y=p2.getY();
-		double u=x * d/(y+600) * multH + shiftH;
-		double v=z * d/(y+600) * multV + shiftV;
+		double u=x * d/(y+400) * multH + shiftH;
+		double v=z * d/(y+400) * multV + shiftV;
 		h.clear();
 		return sf::Vector2f(u, v);
 	}
@@ -37,8 +37,8 @@ int main() {
 	sf::CircleShape grn(1); grn.setFillColor(sf::Color(000, 255, 000));
 	// Values: (ground_alt, shiftH, shiftV, multH, multV);
 	Perspective per( 20, 		// Ground altitude
-			400,  -100,	// shift
-			600,  8000);	// multipliers
+			400,   -50,	// shift
+			600,  2000);	// multipliers
 	while (window.isOpen()) {
 		while (window.pollEvent(e)) if(e.key.code==sf::Keyboard::Q||e.type==sf::Event::Closed) window.close();
 		window.clear();
