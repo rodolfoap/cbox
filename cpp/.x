@@ -1,9 +1,9 @@
-[ -z "$1" ] && { echo "Usage: x [NNN-Title]"; return 1; }
-[ e == "$1" ] && { echo "Usage: x [NNN-Title]"; return 1; }
-[ -d "$1" ] && { echo "$1 already exists. Aborting."; return 1; }
+[    -z "$1" ] && { echo "Usage: x [Title]"; return 1; }
+[  e == "$1" ] && { echo "Usage: x [Title]"; return 1; }
 
-mkdir $1
-cat > $1/app.cpp << EOF
+DIR=$(echo 1+$(ls -d1 [0-9]*|sort|cut -f1 -d'-'|tail -1)|bc)-$1
+mkdir $DIR
+cat > $DIR/app.cpp << EOF
 #include<iostream>
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 
@@ -12,7 +12,7 @@ int main(){
 	return 0;
 }
 EOF
-cp -r 02-streams/{CMakeLists.txt,.k,.x} $1
-find $1 -type f
-cd $1
+cp -r 02-streams/{CMakeLists.txt,.k,.x} $DIR
+find $DIR -type f
+cd $DIR
 x
