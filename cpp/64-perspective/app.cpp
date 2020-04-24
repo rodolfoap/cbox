@@ -9,9 +9,9 @@ int main() {
 	sf::CircleShape red(1); red.setFillColor(sf::Color(255, 000, 000));
 	sf::CircleShape grn(1); grn.setFillColor(sf::Color(000, 255, 000));
 	// Values: (ground_alt, shiftH, shiftV, multH, multV);
-	Perspective per( 20, 		// Ground altitude
-			400,  -20,	// shift
-			600,  2000);	// multipliers
+	Perspective per(100, 		// Ground altitude
+			350, -250,	// shift
+			700, 3200);	// multipliers
 	while (window.isOpen()) {
 		while (window.pollEvent(e)) if(e.key.code==sf::Keyboard::Q||e.type==sf::Event::Closed) window.close();
 		window.clear();

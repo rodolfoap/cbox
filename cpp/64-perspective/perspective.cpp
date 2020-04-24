@@ -13,14 +13,14 @@ public:
 		z(z), shiftH(shiftH), shiftV(shiftV), multH(multH), multV(multV) { }
 
 	sf::Vector2f transformUV(double& a, double& b){
-		h.setRotation(110*3.1416/180);
+		h.setRotation(100*3.1416/180);
 		h.addTranslation(0, 0);
 		homog2d::Point2d p1(a, b);
 		homog2d::Point2d p2 = h * p1;
 		double x=p2.getX();
 		double y=p2.getY();
-		double u=x * d/(y+400) * multH + shiftH;
-		double v=z * d/(y+400) * multV + shiftV;
+		double u=x * d/(y+800) * multH + shiftH;
+		double v=z * d/(y+800) * multV + shiftV;
 		h.clear();
 		return sf::Vector2f(u, v);
 	}
