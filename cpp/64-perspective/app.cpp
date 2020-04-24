@@ -1,7 +1,6 @@
 #include<iostream>
 #include<SFML/Audio.hpp>
 #include<SFML/Graphics.hpp>
-#include"homog2d.hpp"
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 #define SHIFT_U +10
 #define SHIFT_V -500
@@ -14,7 +13,6 @@ int main() {
 	// Dot
 	sf::CircleShape red(1); red.setFillColor(sf::Color(255,   0, 0));
 	sf::CircleShape grn(1); grn.setFillColor(sf::Color(   0,255, 0));
-	homog2d::Homogr h;
 	// Game loop
 	while (window.isOpen()) {
 		while (window.pollEvent(e)) if(e.key.code==sf::Keyboard::Q||e.type==sf::Event::Closed) window.close();
