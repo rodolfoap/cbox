@@ -4,12 +4,12 @@
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 #define BALLS_QUANTITY 10
 #define WIDTH 1278
-#define HEIGHT 748
+#define HEIGHT 749
 sf::Event e;
 
 int main() {
 	// Window
-	sf::RenderWindow win(sf::VideoMode(WIDTH, HEIGHT), "SFML window", sf::Style::Titlebar|sf::Style::Close);
+	sf::RenderWindow win(sf::VideoMode(WIDTH, HEIGHT), "SFML window", sf::Style::Titlebar||sf::Style::Close);
 	win.setPosition(sf::Vector2i(0, 0));
 	win.setFramerateLimit(60);
 	std::vector<Ball> balls(BALLS_QUANTITY, Ball(win, WIDTH, HEIGHT));
