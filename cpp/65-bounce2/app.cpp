@@ -9,7 +9,6 @@
 #define SOCIAL_DISTANCE 5
 #define SOCIAL_INFLUENCE 2
 
-
 // Globals
 sf::Event e;
 sf::RenderWindow win(sf::VideoMode(WIDTH, HEIGHT), "Bouncing", sf::Style::Titlebar||sf::Style::Close);
@@ -38,10 +37,11 @@ void checkBallCollision(Ball& a, Ball& b) {
 
 // Classical
 void checkBorderCollision(Ball& b){
-	if(b.pos.x<0)      { b.pos.x=WIDTH; }
-	if(b.pos.x>WIDTH)  { b.pos.x=0; }
-	if(b.pos.y<0)      { b.pos.y=HEIGHT; }
-	if(b.pos.y>HEIGHT) { b.pos.y=0; }
+	if(b.pos.x<0)      { b.pos.x=0;      b.speed.x=-b.speed.x; }
+	if(b.pos.x>WIDTH)  { b.pos.x=WIDTH;  b.speed.x=-b.speed.x; }
+	if(b.pos.y<0)      { b.pos.y=0;      b.speed.y=-b.speed.y; }
+	if(b.pos.y>HEIGHT) { b.pos.y=HEIGHT; b.speed.y=-b.speed.y; }
+
 }
 
 // Main entry point
