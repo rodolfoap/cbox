@@ -22,5 +22,5 @@ find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 set(SFML_STATIC_LIBRARIES TRUE)
 
 add_executable(app app.cpp ball.cpp)
-#target_include_directories(app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(app sfml-graphics sfml-window sfml-system)
