@@ -22,31 +22,17 @@ void checkBallCollision(Ball& a, Ball& b) {
 		// Correct distance to avoid overlapping: move myself (and the other?)
 		sf::Vector2f segmentDelta=cdm::Normalized(segment, a.radius*2-segmentLen);
 		a.pos-=segmentDelta;
-		// b.pos+=segmentDelta;
-		// Rotate both speeds to emulate bouncing on a vertical wall
-		float angle=cdm::Angle(segment);
-		cdm::Rotate(a.speed, -angle);
-		cdm::Rotate(b.speed, -angle);
-		// Then, simply exchange horizontal speeds
-		std::swap(b.speed.x, a.speed.x);
-		// Rotate back to original coordinates
-		cdm::Rotate(a.speed, angle);
-		cdm::Rotate(b.speed, angle);
+		b.pos+=segmentDelta;
+		// // Rotate both speeds to emulate bouncing on a vertical wall
+		// float angle=cdm::Angle(segment);
+		// cdm::Rotate(a.speed, -angle);
+		// cdm::Rotate(b.speed, -angle);
+		// // Then, simply exchange horizontal speeds
+		// std::swap(b.speed.x, a.speed.x);
+		// // Rotate back to original coordinates
+		// cdm::Rotate(a.speed, angle);
+		// cdm::Rotate(b.speed, angle);
 	}
-/*	if(segmentLen<SOCIAL_DISTANCE*a.radius*2){
-		float view=cos(cdm::Angle(a.speed)-cdm::Angle(b.speed));
-		if(view<-0.25) { // 60 deg
-			// Rotate both speeds to emulate bouncing on a vertical wall
-			float angle=cdm::Angle(segment);
-			cdm::Rotate(a.speed, -angle);
-			cdm::Rotate(b.speed, -angle);
-			// Then, simply exchange horizontal speeds
-			std::swap(b.speed.x, a.speed.x);
-			// Rotate back to original coordinates
-			cdm::Rotate(a.speed, angle);
-			cdm::Rotate(b.speed, angle);
-		}
-	}*/
 }
 
 // Classical
