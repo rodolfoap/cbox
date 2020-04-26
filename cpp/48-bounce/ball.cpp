@@ -3,7 +3,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include "rixmath.h"
+#include "crowdmath.h"
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 
 struct Ball {
@@ -17,7 +17,7 @@ struct Ball {
 	// Constructors: only copies are initialized, check vector initialization method.
 	Ball(sf::RenderWindow& win, int width, int height): win(win), width(width), height(height) {}
 	Ball(const Ball& b): win(b.win), width(b.width), height(b.height) {
-		texture.loadFromFile("ball96.png");
+		texture.loadFromFile("ball48.png");
 		sprite=sf::Sprite(texture);
 		radius=sprite.getTextureRect().width/2;
 		minDistance=radius*2;
@@ -29,23 +29,23 @@ struct Ball {
 	void checkBallColision(Ball& o) {
 		// Positions, radius calculation
 		sf::Vector2f segment=o.pos-pos;
-		float segmentLen=sfm::Length(segment);
+		float segmentLen=cdm::Length(segment);
 		// Collision!
 		if(segmentLen<minDistance) {
 			// Correct distance to avoid overlapping: move myself
-			sf::Vector2f segmentDelta=sfm::Normalized(segment)*(minDistance-segmentLen);
+			sf::Vector2f segmentDelta=cdm::Normalized(segment, minDistance-segmentLen);
 			pos-=segmentDelta;
 			// Correct distance to avoid overlapping: move the other
 			o.pos+=segmentDelta;
 			// Rotate both speeds to emulate bouncing on a vertical wall
-			float angle=sfm::Angle(segment);
-			sfm::Rotate(speed, -angle);
-			sfm::Rotate(o.speed, -angle);
+			float angle=cdm::Angle(segment);
+			cdm::Rotate(speed, -angle);
+			cdm::Rotate(o.speed, -angle);
 			// Then, simply exchange horizontal speeds
 			std::swap(o.speed.x, speed.x);
 			// Rotate back to original coordinates
-			sfm::Rotate(speed, angle);
-			sfm::Rotate(o.speed, angle);
+			cdm::Rotate(speed, angle);
+			cdm::Rotate(o.speed, angle);
 		}
 	}
 
