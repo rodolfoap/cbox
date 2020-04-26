@@ -7,7 +7,7 @@
 
 struct Ball: sf::Sprite {
 	sf::Texture texture;
-	float radius, minDistance;
+	float radius;
 	sf::Vector2f pos, speed;
 
 	void init(int width, int height, sf::Texture& texture);

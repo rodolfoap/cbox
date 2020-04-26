@@ -18,9 +18,9 @@ void checkBallCollision(Ball& a, Ball& b) {
 	sf::Vector2f segment=b.pos-a.pos;
 	float segmentLen=cdm::Length(segment);
 	// Collision!
-	if(segmentLen<a.minDistance) {
+	if(segmentLen<a.radius*2) {
 		// Correct distance to avoid overlapping: move myself (and the other?)
-		sf::Vector2f segmentDelta=cdm::Normalized(segment, a.minDistance-segmentLen);
+		sf::Vector2f segmentDelta=cdm::Normalized(segment, a.radius*2-segmentLen);
 		a.pos-=segmentDelta;
 		// b.pos+=segmentDelta;
 		// Rotate both speeds to emulate bouncing on a vertical wall
@@ -33,14 +33,28 @@ void checkBallCollision(Ball& a, Ball& b) {
 		cdm::Rotate(a.speed, angle);
 		cdm::Rotate(b.speed, angle);
 	}
+/*	if(segmentLen<SOCIAL_DISTANCE*a.radius*2){
+		float view=cos(cdm::Angle(a.speed)-cdm::Angle(b.speed));
+		if(view<-0.25) { // 60 deg
+			// Rotate both speeds to emulate bouncing on a vertical wall
+			float angle=cdm::Angle(segment);
+			cdm::Rotate(a.speed, -angle);
+			cdm::Rotate(b.speed, -angle);
+			// Then, simply exchange horizontal speeds
+			std::swap(b.speed.x, a.speed.x);
+			// Rotate back to original coordinates
+			cdm::Rotate(a.speed, angle);
+			cdm::Rotate(b.speed, angle);
+		}
+	}*/
 }
 
 // Classical
 void checkBorderCollision(Ball& b){
-	if(b.pos.x<b.radius)        { b.pos.x=b.radius;        b.speed.x=-b.speed.x; }
-	if(b.pos.x>WIDTH -b.radius) { b.pos.x=WIDTH -b.radius; b.speed.x=-b.speed.x; }
-	if(b.pos.y<b.radius)        { b.pos.y=b.radius;        b.speed.y=-b.speed.y; }
-	if(b.pos.y>HEIGHT-b.radius) { b.pos.y=HEIGHT-b.radius; b.speed.y=-b.speed.y; }
+	if(b.pos.x<0)      { b.pos.x=WIDTH; }
+	if(b.pos.x>WIDTH)  { b.pos.x=0; }
+	if(b.pos.y<0)      { b.pos.y=HEIGHT; }
+	if(b.pos.y>HEIGHT) { b.pos.y=0; }
 }
 
 // Main entry point

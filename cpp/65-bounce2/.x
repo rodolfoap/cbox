@@ -29,7 +29,7 @@ case "$1" in
 		build;
 	;;
 	e)
-		vi -p app.cpp ball.cpp ball.h # rixmath.h # CMakeLists.txt .x
+		vi -p app.cpp ball.cpp include/ball.h crowdmath.h CMakeLists.txt .x
 		build;
 		execute;
 	;;
