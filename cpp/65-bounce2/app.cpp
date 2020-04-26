@@ -6,6 +6,9 @@
 #define BALLS_QUANTITY 100
 #define WIDTH 1278
 #define HEIGHT 749
+#define SOCIAL_DISTANCE 5
+#define SOCIAL_INFLUENCE 2
+
 
 // Globals
 sf::Event e;
@@ -23,15 +26,13 @@ void checkBallCollision(Ball& a, Ball& b) {
 		sf::Vector2f segmentDelta=cdm::Normalized(segment, a.radius*2-segmentLen);
 		a.pos-=segmentDelta;
 		b.pos+=segmentDelta;
-		// // Rotate both speeds to emulate bouncing on a vertical wall
-		// float angle=cdm::Angle(segment);
-		// cdm::Rotate(a.speed, -angle);
-		// cdm::Rotate(b.speed, -angle);
-		// // Then, simply exchange horizontal speeds
-		// std::swap(b.speed.x, a.speed.x);
-		// // Rotate back to original coordinates
-		// cdm::Rotate(a.speed, angle);
-		// cdm::Rotate(b.speed, angle);
+	}
+	// Social forces
+	if(segmentLen<a.radius*2*SOCIAL_DISTANCE) {
+		float intensity=pow(1-segmentLen/(a.radius*2*SOCIAL_DISTANCE), 2);
+		sf::Vector2f segmentDelta=cdm::Normalized(segment, intensity*(1+SOCIAL_INFLUENCE));
+		a.pos-=segmentDelta;
+		b.pos+=segmentDelta;
 	}
 }
 
