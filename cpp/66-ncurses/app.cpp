@@ -11,20 +11,20 @@ void update(char c) {
 
 int main(){
 	initscr();
-//	noecho();
-//	int c;
-//	attron(A_BOLD);
-//	attron(A_REVERSE);
-//	curs_set(1);
-	//start_color();
-	//use_default_colors();
-	//init_pair(1, COLOR_GREEN, COLOR_BLACK);
-	//init_pair(2, COLOR_CYAN, COLOR_BLUE);
-	//attron(COLOR_PAIR(1));
+	noecho();
+	int c;
+	attron(A_BOLD);
+	attron(A_REVERSE);
+	curs_set(1);
+	start_color();
+	use_default_colors();
+	init_pair(1, COLOR_GREEN, COLOR_BLACK);
+	init_pair(2, COLOR_CYAN, COLOR_BLUE);
+	attron(COLOR_PAIR(1));
 
 	// main loop, close with q;
-//	update(0);
-//	while((c=getch())!=113) update(c);
+	update(0);
+	while((c=getch())!=113) update(c);
 
 	// Bye!
 	//clear();
