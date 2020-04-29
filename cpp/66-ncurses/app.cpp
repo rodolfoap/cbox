@@ -16,7 +16,7 @@ int main(){
 	attron(A_BOLD);
 	attron(A_REVERSE);
 	curs_set(1); // shows (1) or hides (0) the cursor
-//	start_color(); // starts the modules color
+//	start_color(); // starts the modules color, disabled because it is awful
 	use_default_colors(); // ncurses has horrible colors, this uses the users' default... more or less.
 	init_pair(1, COLOR_GREEN, COLOR_BLACK); // id, foreground, background
 	attron(COLOR_PAIR(1));
