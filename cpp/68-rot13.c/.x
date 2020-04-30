@@ -1,18 +1,15 @@
 execute(){
-	echo abcdefghijklm nopqrstuvwxyz ABCDEFGHIJKLM NOPQRSTUVWXYZ 1234567890|./rot13
-	echo nopqrstuvwxyz abcdefghijklm NOPQRSTUVWXYZ ABCDEFGHIJKLM 1234567890|./rot13
-}
-build(){
-	gcc rot13.c -o rot13
+	rm -f rot13
+	gcc -Wno-implicit-int -Wno-implicit-function-declaration rot13.c -o rot13
+	echo ABCDEFGHIJKLM NOPQRSTUVWXYZ abcdefghijklm nopqrstuvwxyz 1234567890|./rot13
+#	echo NOPQRSTUVWXYZ ABCDEFGHIJKLM nopqrstuvwxyz abcdefghijklm 1234567890|./rot13
 }
 case "$1" in
 	"")
-		build;
 		execute
 	;;
 	e)
 		vi -p rot13.c
-		build;
 		execute;
 	;;
 esac
