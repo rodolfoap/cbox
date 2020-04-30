@@ -3,7 +3,7 @@ execute(){
 	echo nopqrstuvwxyz abcdefghijklm NOPQRSTUVWXYZ ABCDEFGHIJKLM 1234567890|./rot13
 }
 build(){
-	gcc app.cpp -o rot13
+	gcc rot13.c -o rot13
 }
 case "$1" in
 	"")
@@ -11,7 +11,7 @@ case "$1" in
 		execute
 	;;
 	e)
-		vi -p app.cpp
+		vi -p rot13.c
 		build;
 		execute;
 	;;
