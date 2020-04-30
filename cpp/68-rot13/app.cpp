@@ -1,4 +1,4 @@
-#include <iostream>
+#include <stdio.h>
 #include <unistd.h>
 
 void rot13(char* t) {
@@ -15,7 +15,7 @@ int main(){
 	while(read(STDIN_FILENO, &c, 1)>0) t[n++]=c; t[n]=0;
 
 	rot13(t);
-	printf("%s\n", t);
+	printf("%s", t);
 
 	return 0;
 }

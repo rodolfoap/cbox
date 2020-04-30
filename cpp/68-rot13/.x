@@ -1,31 +1,17 @@
 execute(){
-	./app
-}
-debug(){
-	nemiver app
+	echo abcdefghijklm nopqrstuvwxyz ABCDEFGHIJKLM NOPQRSTUVWXYZ 1234567890|./rot13
+	echo nopqrstuvwxyz abcdefghijklm NOPQRSTUVWXYZ ABCDEFGHIJKLM 1234567890|./rot13
 }
 build(){
-	[ -d build/ ] && {
-		pushd build &> /dev/null;
-	} || {
-		mkdir build;
-		pushd build &> /dev/null;
-		cmake .. -Wdev;
-	}
-	make -j8; STATUS=$?
-	popd &> /dev/null;
-	[ $STATUS == 0 ] && echo [100%] $(ls -l app) || echo [ERROR] Compilation error.
+	gcc app.cpp -o rot13
 }
 case "$1" in
 	"")
-		[ -f app ] || build;
+		build;
 		execute
 	;;
-	d)	# Debug
-		debug
-	;;
 	e)
-		vi -p app.cpp CMakeLists.txt
+		vi -p app.cpp
 		build;
 		execute;
 	;;
