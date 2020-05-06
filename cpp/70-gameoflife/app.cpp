@@ -8,8 +8,7 @@ std::vector<std::vector<bool>> grid;
 std::vector<std::vector<int>> igrid;
 
 int getNeigh(int y, int x, int h, int w) {
-	if(x>=0 && y>=0 && x<w && y<h) return grid[y][x]?1:0;
-       	else return 0;
+	if(x>=0 && y>=0 && x<w && y<h) return grid[y][x]?1:0; else return 0;
 }
 
 int main() {
@@ -42,7 +41,7 @@ int main() {
 				igrid[y][x]+=getNeigh(y+1, x  , height, width);
 				igrid[y][x]+=getNeigh(y+1, x+1, height, width);
 				// Draw life matrix
-				std::cerr<<(grid[y][x]?'#':'.')<<' ';
+				std::cerr<<(grid[y][x]?std::to_string(igrid[y][x]):".")<<' ';
 			}
 			std::cerr<<std::endl;
 		}
@@ -61,8 +60,9 @@ int main() {
 			}
 			// std::cerr<<std::endl;
 		}
-		usleep(100000);
-		// std::cin.ignore();
+		// usleep(200000);
+		// Or use this to debug:
+		std::cin.ignore();
 	}
 	return 0;
 }
