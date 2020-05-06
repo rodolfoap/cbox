@@ -15,13 +15,11 @@ int main() {
 	// Read binary file
 	std::ifstream infile("binary.array");
 	std::string line;
+	int value;
 	while(std::getline(infile, line)) {
-		std::vector<bool> temp;
-		int value;
-		// With each line, create an istringstream...
 		std::istringstream iss(line);
-		// ... and load it into the vector.
-		while(iss>>value) { temp.push_back(value==1?true:false); }
+		std::vector<bool> temp;
+		while(iss>>value) temp.push_back(value==1?true:false);
 		grid.push_back(temp);
 	}
 	int height=grid.size();
