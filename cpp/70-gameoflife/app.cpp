@@ -60,9 +60,9 @@ int main() {
 			}
 			// std::cerr<<std::endl;
 		}
-		// usleep(200000);
+		usleep(200000);
 		// Or use this to debug:
-		std::cin.ignore();
+		// std::cin.ignore();
 	}
 	return 0;
 }
