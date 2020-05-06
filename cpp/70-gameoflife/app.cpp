@@ -8,8 +8,13 @@ std::vector<std::vector<bool>> grid;
 std::vector<std::vector<int>> igrid;
 
 int getNeigh(int y, int x, int h, int w) {
-	if(x>0 && y>0 && x<(w-1) && y<(h-1)) return grid[y][x]?1:0;
-	return 0;
+	if(x>=0 && y>=0 && x<w && y<h) {
+		std::cerr <<"\ty="<<y <<"\tx="<<x <<"\t["<< (grid[y][x]?1:0) <<"]";
+		return grid[y][x]?1:0;
+	} else {
+		std::cerr <<"\ty="<<y <<"\tx="<<x <<"\t[_]";
+		return 0;
+	}
 }
 
 int main() {
@@ -37,10 +42,10 @@ int main() {
 		igrid=std::vector<std::vector<int>>(height, std::vector<int>(width, 0));
 		for(int y=0; y<height; y++) {
 			for(int x=0; x<width; x++) {
-			//	igrid[y][x]+=getNeigh(y-1, x-1, height, width);
+				igrid[y][x]+=getNeigh(y-1, x-1, height, width);
 			//	igrid[y][x]+=getNeigh(y-1, x  , height, width);
 			//	igrid[y][x]+=getNeigh(y-1, x+1, height, width);
-				igrid[y][x]+=getNeigh(y  , x-1, height, width);
+			//	igrid[y][x]+=getNeigh(y  , x-1, height, width);
 			//igrid[y][x]+=getNeigh(y  , x+1, height, width);
 			//	igrid[y][x]+=getNeigh(y+1, x-1, height, width);
 			//	igrid[y][x]+=getNeigh(y+1, x  , height, width);
