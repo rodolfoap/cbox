@@ -1,5 +1,6 @@
-#include<iostream>
-#include<sstream>
+#include <iostream>
+#include <sstream>
+#include <fstream>
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 
 int main(){
@@ -14,8 +15,11 @@ int main(){
 	iss.str("2 3.2");
 	iss >> intg;
 	iss >> flot;
+	// Output: intg=2
 	std::cerr << "intg=" << intg << std::endl;
+	// Output: flot=3.2
 	std::cerr << "flot=" << flot << std::endl;
 
 	return 0;
 }
+
