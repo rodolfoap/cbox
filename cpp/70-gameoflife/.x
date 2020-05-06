@@ -18,6 +18,7 @@ build(){
 }
 case "$1" in
 	"")
+		rm -f app
 		[ -f app ] || build;
 		execute
 	;;
@@ -26,6 +27,7 @@ case "$1" in
 	;;
 	e)
 		vi -p app.cpp CMakeLists.txt
+		rm -f app
 		build;
 		execute;
 	;;
