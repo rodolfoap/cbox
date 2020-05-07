@@ -7,9 +7,7 @@
 std::vector<std::vector<bool>> grid;
 std::vector<std::vector<int>> igrid;
 
-int getNeigh(int y, int x, int h, int w) {
-	if(x>=0 && y>=0 && x<w && y<h) return grid[y][x]?1:0; else return 0;
-}
+int getNeigh(int y, int x, int h, int w) { if(x>=0 && y>=0 && x<w && y<h) return grid[y][x]?1:0; else return 0; }
 
 int main() {
 	// Read binary file
@@ -25,7 +23,7 @@ int main() {
 	int height=grid.size();
 	int width=grid[0].size();
 	while(true) {
-		std::cout<<"\033[2J\033[1;1H"; // cls
+		std::cout<<"\033[2J\033[1;1H"; // Clear Screen
 		igrid=std::vector<std::vector<int>>(height, std::vector<int>(width, 0));
 		for(int y=0; y<height; y++) {
 			for(int x=0; x<width; x++) {
@@ -39,11 +37,10 @@ int main() {
 				igrid[y][x]+=getNeigh(y+1, x  , height, width);
 				igrid[y][x]+=getNeigh(y+1, x+1, height, width);
 				// Draw life matrix
-				std::cerr<<(grid[y][x]?std::to_string(igrid[y][x]):".")<<' ';
-			}
-			std::cerr<<std::endl;
-		}
-		std::cerr<<std::endl;
+				std::cerr<<(grid[y][x]?"#":" ")<<' ';
+				//std::cerr<<(grid[y][x]?std::to_string(igrid[y][x]):".")<<' ';
+			} std::cerr<<std::endl;
+		} std::cerr<<std::endl;
 
 		for(int y=0; y<height; y++) {
 			for(int x=0; x<width; x++) {
@@ -53,12 +50,8 @@ int main() {
 					case 2: break;
 					default: grid[y][x]=false;
 				}
-				// And draw neighbors matrix
-				// std::cerr<<igrid[y][x]<<" ";
 			}
-			// std::cerr<<std::endl;
-		}
-		usleep(200000);
+		} usleep(200000);
 		// Or use this to debug:
 		// std::cin.ignore();
 	}
