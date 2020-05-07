@@ -1,60 +1,32 @@
 #include <iostream>
-#include <sstream>
 #include <fstream>
-#include <vector>
+#include <string.h>
 #include <unistd.h>
-#define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
-std::vector<std::vector<bool>> grid;
-std::vector<std::vector<int>> igrid;
-
-int getNeigh(int y, int x, int h, int w) { if(x>=0 && y>=0 && x<w && y<h) return grid[y][x]?1:0; else return 0; }
-
-int main() {
-	// Read binary file
-	std::ifstream infile("binary.array");
-	std::string line;
-	int value;
-	while(std::getline(infile, line)) {
-		std::istringstream iss(line);
-		std::vector<bool> temp;
-		while(iss>>value) temp.push_back(value==1?true:false);
-		grid.push_back(temp);
-	}
-	int height=grid.size();
-	int width=grid[0].size();
-	while(true) {
+#define B(p, q)(b[y+p][x+q]=='#')
+int main(int n, char**v) {
+	int col=0, row=0;
+	char b[128][256];
+	std::ifstream f(v[1]);
+	while(f>>b[row++]);
+	col=strlen(b[0]);
+	while(1) {
 		std::cout<<"\033[2J\033[1;1H"; // Clear Screen
-		igrid=std::vector<std::vector<int>>(height, std::vector<int>(width, 0));
-		for(int y=0; y<height; y++) {
-			for(int x=0; x<width; x++) {
-				// Calc neighbors matrix
-				igrid[y][x]+=getNeigh(y-1, x-1, height, width);
-				igrid[y][x]+=getNeigh(y-1, x  , height, width);
-				igrid[y][x]+=getNeigh(y-1, x+1, height, width);
-				igrid[y][x]+=getNeigh(y  , x-1, height, width);
-				igrid[y][x]+=getNeigh(y  , x+1, height, width);
-				igrid[y][x]+=getNeigh(y+1, x-1, height, width);
-				igrid[y][x]+=getNeigh(y+1, x  , height, width);
-				igrid[y][x]+=getNeigh(y+1, x+1, height, width);
-				// Draw life matrix
-				std::cerr<<(grid[y][x]?"#":" ")<<' ';
-				//std::cerr<<(grid[y][x]?std::to_string(igrid[y][x]):".")<<' ';
-			} std::cerr<<std::endl;
-		} std::cerr<<std::endl;
 
-		for(int y=0; y<height; y++) {
-			for(int x=0; x<width; x++) {
-				// Apply life rules
-				switch(igrid[y][x]) {
-					case 3: grid[y][x]=true; break;
-					case 2: break;
-					default: grid[y][x]=false;
-				}
+		// Calculate neighbors number and print actual state
+		int i[128][256]{0};
+		for(int y=0; y<row; ++y) { for(int x=0; x<col; ++x) {
+			i[y][x]=B(-1,-1)+B(-1,0)+B(-1,1)+B(0,-1)+B(0,1)+B(1,-1)+B(1,0)+B(1,1);
+			std::cerr<<b[y][x];
+		} std::cerr<<std::endl; } std::cerr<<std::endl;
+
+		// Apply rules over neighbors number
+		for(int y=0; y<row; ++y) { for(int x=0; x<col; ++x) {
+			// Apply life rules
+			switch(i[y][x]) {
+				case 3: b[y][x]='#'; break;
+				case 2: break;
+				default: b[y][x]='.';
 			}
-		} usleep(200000);
-		// Or use this to debug:
-		// std::cin.ignore();
+		} } usleep(200000);
 	}
-	return 0;
 }
-

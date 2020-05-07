@@ -1,5 +1,5 @@
 execute(){
-	./app
+	./app r-pentomino.matrix
 }
 debug(){
 	nemiver app
