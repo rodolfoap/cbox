@@ -37,8 +37,8 @@
 
 # Local
 app
-*.cpp.tu*
 app.dbg
+*.cpp.tu*
 publisher
 subscribr
 server
@@ -46,4 +46,3 @@ client
 *.class
 build/
 .vscode
-

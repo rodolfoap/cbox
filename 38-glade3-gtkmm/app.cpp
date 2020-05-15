@@ -1,4 +1,5 @@
 #include<gtkmm.h>
+#include<string>
 
 class MainWindow: public Gtk::Window {
 	Gtk::Box *main_gtk_box;
@@ -18,8 +19,11 @@ public:
 		show_all();
 	}
 private:
-	// Still not reversing
-        void button1_clicked(){ entry2->set_text( entry1->get_text() ); }
+        void button1_clicked() {
+		std::string t=entry1->get_text();
+		std::reverse(t.begin(), t.end());
+		entry2->set_text(t);
+	}
         void button2_clicked(){ MainWindow::hide(); }
 };
 
