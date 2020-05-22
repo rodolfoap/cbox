@@ -12,17 +12,19 @@ Form::Form(char* pFile, char* tFile):
 	pFile(pFile), tFile(tFile) {
 	coords=readPoints(pFile);
 }
-void Form::adduv(int x, int y) {
+void Form::adduv(float x, float y, bool last) {
 	kainjow::mustache::data pair;
 	pair.set("x", std::to_string(x));
 	pair.set("y", std::to_string(y));
+	pair.set("last", last);
 	coorduv<<kainjow::mustache::data{pair};
 }
-void Form::addxy(float x, float y, std::string c) {
+void Form::addxy(float x, float y, std::string c, bool last) {
 	kainjow::mustache::data pair;
 	pair.set("x", std::to_string(x));
 	pair.set("y", std::to_string(y));
 	pair.set("c", c);
+	pair.set("last", last);
 	coordxy<<kainjow::mustache::data{pair};
 }
 void Form::message(Window& window) {
@@ -42,8 +44,8 @@ bool Form::render(std::vector<sf::Vector2f> dots) {
 		std::cerr<<"[ERROR] The number of expected("<<coords.size()<<") and provided points ("<<dots.size()<<") is different."<<std::endl;
 		return false;
 	}
-	for(int i=0; i<coords.size(); i++) addxy(std::get<0>(coords[i]), std::get<1>(coords[i]), std::get<2>(coords[i]));
-	for(int i=0; i<dots.size(); i++) adduv(dots[i].x, dots[i].y);
+	for(int i=0; i<coords.size(); i++) addxy(std::get<0>(coords[i]), std::get<1>(coords[i]), std::get<2>(coords[i]), (i+1==coords.size()));
+	for(int i=0; i<dots.size(); i++) adduv(dots[i].x, dots[i].y, (i+1==coords.size()));
 	data.set("rows", std::to_string(dots.size()));
 	data.set("coorduv", coorduv);
 	data.set("coordxy", coordxy);

@@ -9,8 +9,8 @@ private:
 	std::vector<std::tuple<float, float, std::string>> coords;
 public:
 	Form(char*, char*);
-	void adduv(int, int);
-	void addxy(float, float, std::string);
+	void adduv(float, float, bool);
+	void addxy(float, float, std::string, bool);
 	bool render(std::vector<sf::Vector2f>);
 	void message(Window&);
 	int cSize();

@@ -2,19 +2,19 @@
 ---
 image_points: !!opencv-matrix
   rows: {{rows}}
-  cols: 2
-  dt: i
+  cols: 1
+  dt: "2f"
   data: [
     {{#coorduv}}
-    {{x}}, {{y}},
+    {{x}}, {{y}}{{^last}},{{/last}}
     {{/coorduv}}
   ]
 world_points: !!opencv-matrix
   rows: {{rows}}
-  cols: 2
-  dt: d
+  cols: 1
+  dt: "3f"
   data: [
     {{#coordxy}}
-    {{x}}, {{y}}, # {{c}}
+    {{x}}, {{y}}, 0.0{{^last}},{{/last}} # {{c}}
     {{/coordxy}}
   ]

@@ -19,7 +19,7 @@ case "$1" in
 		build
 	;;
 	e)
-		vi -p main.cpp window.cpp window.h form.cpp form.h functions.cpp points.tpl CMakeLists.txt
+		vi -p main.cpp window.cpp window.h form.cpp form.h functions.cpp points-matrix.tpl CMakeLists.txt
 		rm -f ${BINARY}
 		build;
 		execute;
