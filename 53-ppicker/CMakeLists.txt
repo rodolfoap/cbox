@@ -23,4 +23,4 @@ set(SFML_STATIC_LIBRARIES TRUE)
 
 add_executable(ppicker window.cpp form.cpp main.cpp)
 
-target_link_libraries(ppicker sfml-graphics sfml-window sfml-system sfml-audio)
+target_link_libraries(ppicker sfml-graphics sfml-window sfml-system sfml-audio stdc++fs)

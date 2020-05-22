@@ -1,32 +1,26 @@
+BINARY=ppicker
 execute(){
-	./parsekml points.kml|head -5 > points.dat
-	./ppicker crowd.jpg points.dat points.tpl
-}
-debug(){
-	nemiver ppicker
+	./parsekml-geoportail.py placewilson/placewilson.kml > placewilson/placewilson.points
+	./${BINARY} placewilson/placewilson.jpg placewilson/placewilson.points matrix.tpl
 }
 build(){
-	[ -d build/ ] && {
-		pushd build &> /dev/null;
-	} || {
-		mkdir build;
-		pushd build &> /dev/null;
-		cmake .. -Wdev;
-	}
-	make -j8; STATUS=$?
+	mkdir -p build;
+	pushd build &> /dev/null;
+	[ -f Makefile ] || cmake .. -Wdev;
+	make -j$(nproc); STATUS=$?
 	popd &> /dev/null;
-	[ $STATUS == 0 ] && echo [100%] $(ls -l ppicker) || echo [ERROR] Compilation error.
 }
 case "$1" in
 	"")
-		[ -f ppicker ] || build;
+		[ -f ${BINARY} ] || build;
 		execute
 	;;
-	d)	# Debug
-		debug
+	b)
+		build
 	;;
 	e)
 		vi -p main.cpp window.cpp window.h form.cpp form.h functions.cpp points.tpl CMakeLists.txt
+		rm -f ${BINARY}
 		build;
 		execute;
 	;;
