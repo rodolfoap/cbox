@@ -1,7 +1,7 @@
 BINARY=ppicker
 execute(){
 	./parsekml-geoportail.py placewilson/placewilson.kml > placewilson/placewilson.points
-	./${BINARY} placewilson/placewilson.jpg placewilson/placewilson.points matrix.tpl
+	./${BINARY} placewilson/placewilson.jpg placewilson/placewilson.points points-matrix.tpl
 }
 build(){
 	mkdir -p build;
