@@ -21,11 +21,11 @@ set(CMAKE_C_FLAGS "-g")
 #find_package(OpenCV REQUIRED)
 #include_directories(${OpenCV_INCLUDE_DIRS})
 
-#find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
-#set(SFML_STATIC_LIBRARIES TRUE)
+find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
+set(SFML_STATIC_LIBRARIES TRUE)
 
 add_executable(app app.cpp)
 
 # Equivalent to (CLIBS) -lm
 # target_include_directories(gen-points PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
-# target_link_libraries(app m sfml-graphics sfml-window sfml-system sfml-audio ${OpenCV_LIBS} stdc++fs)
+target_link_libraries(app sfml-graphics stdc++fs)
