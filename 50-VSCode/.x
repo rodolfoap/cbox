@@ -1,33 +1,25 @@
 execute(){
 	./app
 }
-debug(){
-	nemiver app
-}
 build(){
-	[ -d build/ ] && {
-		pushd build &> /dev/null;
-	} || {
-		mkdir build;
-		pushd build &> /dev/null;
-		cmake .. -Wdev;
-	}
-	make -j8; STATUS=$?
+	mkdir -p build;
+	pushd build &> /dev/null;
+	[ -f Makefile ] || cmake .. -Wdev;
+	make -j$(nproc); STATUS=$?
 	popd &> /dev/null;
-	[ $STATUS == 0 ] && echo [100%] $(ls -l app) || echo [ERROR] Compilation error.
 }
 case "$1" in
-	"")
-		#[ -f app ] || build;
-		#execute
-		code
-	;;
-	d)	# Debug
-		debug
-	;;
-	e)
-		vi -p app.cpp CMakeLists.txt
-		build;
-		execute;
-	;;
+# Execute
+"")	[ -f app ] || build;
+	execute
+;;
+# Build
+b)	build
+;;
+# Check
+c)	meld ~/.config/Code/User/settings.json .vscode/settings.json
+;;
+# Open editor
+e)	code .
+;;
 esac
