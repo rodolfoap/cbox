@@ -1,9 +1,9 @@
 ## Config
 
-* Settings are in .vscode/settings.json. 
+* Settings are in .vscode/settings.json.
 * Better to avoid settings being in ~/.config/Code/User/settings.json (delete it).
 * Start the app with "code ." or just 'e'
-* Install extensions with 'x c'. Or: FILE/Preferences/Extensions: Install "CMake Tools" and "C/C++" extensions
+* Config the app with 'x c'.
 * If Code asks for kits, scan for them and select "Unspecified: let CMake select.."
 
 ## Usage
