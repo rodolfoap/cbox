@@ -1,9 +1,7 @@
 execute(){ ./app; }
 checkconf(){
 	tar xvfj .vscode.tz
-	code --install-extension ms-vscode.cmake-tools
-	code --install-extension ms-vscode.cpptools
-	code --install-extension takanotume24.pdf
+	for a in $(grep -v '[][{}]' .vscode/extensions.json|cut -f2 -d'"'); do code --install-extension $a; done
 	[ -f ~/.config/Code/User/settings.json ] && { echo Please remove ~/.config/Code/User/settings.json; }
 }
 build(){

@@ -15,3 +15,4 @@ Just needs uncompressing the `.vscode.tbz` file and running 'x c' (execute confi
 * Below, on the status bar, run with the right-pointing triangle
 * Also, run with [CONTROL][F5]
 * Format code with [CTRL][SHIFT][i]
+* Snippets appear with [CTRL][SPACE]
