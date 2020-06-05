@@ -1,3 +1,7 @@
+# VSCode with C++ and Cmake
+
+Just needs the `.x` and `.vscode.tbz` files.
+
 ## Config
 
 * Settings are in .vscode/settings.json.
