@@ -16,9 +16,6 @@ case "$1" in
 # Build
 b)	build
 ;;
-# Check
-c)	meld ~/.config/Code/User/settings.json .vscode/settings.json
-;;
 # Open editor
 e)	code .
 ;;
