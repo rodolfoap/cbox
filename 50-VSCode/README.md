@@ -1,14 +1,13 @@
 # VSCode with C++ and Cmake
 
-Just needs the `.x` and `.vscode.tbz` files.
+Just needs uncompressing the `.vscode.tbz` file and running 'x c' (execute config).
 
 ## Config
 
 * Settings are in .vscode/settings.json.
 * Better to avoid settings being in ~/.config/Code/User/settings.json (delete it).
 * Start the app with "code ." or just 'e'
-* Config the app with 'x c'.
-* If Code asks for kits, scan for them and select "Unspecified: let CMake select.."
+* If VSCode asks for kits, scan for them and select "Unspecified: let CMake select.."
 
 ## Usage
 
