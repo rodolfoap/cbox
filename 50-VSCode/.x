@@ -1,4 +1,4 @@
-execute(){ ./app }
+execute(){ ./app; }
 checkconf(){
 	tar xvfj .vscode.tz
 	code --install-extension ms-vscode.cmake-tools
@@ -13,7 +13,7 @@ build(){
 	make -j$(nproc); STATUS=$?
 	popd &> /dev/null;
 }
-saveconf(){ tar cvfj .vscode.tz .vscode/ }
+saveconf(){ tar cvfj .vscode.tz .vscode/; }
 case "$1" in
 s)	saveconf;  ;; # Save Config
 c)	checkconf; ;; # Check Config
