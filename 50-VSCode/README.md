@@ -16,3 +16,4 @@ Just needs uncompressing the `.vscode.tbz` file and running 'x c' (execute confi
 * Also, run with [CONTROL][F5]
 * Format code with [CTRL][SHIFT][i]
 * Snippets appear with [CTRL][SPACE]
+* [CTRL][SHIFT][b] builds and runs using the tasks.json file and the `.x` script.
