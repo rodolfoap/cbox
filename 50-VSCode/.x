@@ -1,4 +1,3 @@
-[ -f ~/.config/Code/User/settings.json ] && { echo Please remove ~/.config/Code/User/settings.json; exit; }
 execute(){
 	./app
 }
@@ -11,6 +10,7 @@ EOF
 	code --install-extension ms-vscode.cmake-tools
 	code --install-extension ms-vscode.cpptools
 	code --install-extension takanotume24.pdf
+	[ -f ~/.config/Code/User/settings.json ] && { echo Please remove ~/.config/Code/User/settings.json; }
 }
 build(){
 	mkdir -p build;
