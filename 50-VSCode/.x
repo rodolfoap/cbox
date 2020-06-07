@@ -3,6 +3,7 @@ checkconf(){
 	tar xvfj .vscode.tbz2
 	for a in $(grep -v '[][{}]' .vscode/extensions.json|cut -f2 -d'"'); do code --install-extension $a; done
 	[ -f ~/.config/Code/User/settings.json ] && { echo Please remove ~/.config/Code/User/settings.json; }
+	cp .vscode/keybindings.json ~/.config/Code/User/keybindings.json
 }
 build(){
 	mkdir -p build;
