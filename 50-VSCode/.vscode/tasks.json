@@ -5,8 +5,15 @@
 			"label": "build_and_run",
 			"type": "shell",
 			"command": "source .x",
-			"group": { "kind": "build", "isDefault": true },
-			"problemMatcher": []
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": [],
+			"presentation": {
+				"clear": true,
+				"showReuseMessage": false
+			}
 		}
 	]
 }
