@@ -49,6 +49,6 @@ void load() {
 }
 int main() {
 	save();
-	//load();
+	load();
 	return 0;
 }
