@@ -12,18 +12,21 @@ typedef struct Register {
 	float score;
 	std::string state;
 	void print() { printf("%d:%s:%d:%f:%s\n", id, name.c_str(), zone, score, state.c_str()); }
+	Register() {}
+	Register(uint i, std::string n, int z, float s, std::string t):id(i), name(n), zone(z), score(s), state(t) {}
 } Register;
 void save() {
 	log("Saving...");
-	char data[4][64]{"1927 Frank_Holdsworth 62 0.3272 Arizona",
-			 "1862 Jim_Scofield 32 0.1323 Arkansas",
-			 "6271 Thelonious_Grenadier 44 0.42864 Missouri",
-			 "8261 Albert_Swallow 51 0.28674 Toronto"};
+	Register regs[4]{{1927, "Frank_Holdsworth", 62, 0.32728, "Arizona"},
+		{1862, "Jim_Scofield", 32, 0.13237, "Arkansas"},
+		{6271, "Thelonious_Grenadier", 44, 0.42864, "Missouri"},
+		{8261, "Albert_Swallow", 51, 0.28674, "Toronto"}};
 	std::ofstream outFile;
 	outFile.open("table.data");
+	char s=' ';
 	for(int i=0; i<4; ++i) {
-		std::cerr<<data[i]<<std::endl;
-		outFile<<data[i]<<std::endl;
+		std::cerr<<regs[i].id<<s<<regs[i].name<<s<<regs[i].zone<<s<<regs[i].score<<s<<regs[i].state<<std::endl;
+		outFile<<regs[i].id<<s<<regs[i].name<<s<<regs[i].zone<<s<<regs[i].score<<s<<regs[i].state<<std::endl;
 	}
 	outFile.close();
 	log("Done.");
@@ -46,6 +49,6 @@ void load() {
 }
 int main() {
 	save();
-	load();
+	//load();
 	return 0;
 }
