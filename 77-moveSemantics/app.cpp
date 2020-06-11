@@ -18,7 +18,7 @@ public:
 	}
 	// Never used, since it takes an lvalue
 	Ztring(const Ztring& other){
-		printf("Z.Copy Constructor&\n");
+		printf("Z.Copy Constructor&: NOT USED\n");
 		size=other.size;
 		data=new char[size];
 		memcpy(data, other.data, size);
