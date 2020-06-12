@@ -36,9 +36,7 @@ int main(){
 	// Avoid strlen()
 	char s[]="0123456789\0abcdefg";
 	for(int i=0; s[i]; i++) log(s[i]); // prints 10 chars
-	for(char& c: s) { // prints 19 chars!
-		log(c); // includes \0
-	}
+	for(char& c: s) log(c); // prints 19 chars!
 
 	return 0;
 }
