@@ -14,8 +14,9 @@ This is a personal C++ cookbook. A set of precooked recipes. Mostly mine, but a 
 Include this in your .bashrc to accelerate the process:
 
 ```
-x() { source .x $@; }
-k() { source .k $@; }
+x() { source .x $@; } # eXecute
+e() { source .x e;  } # Edit
+k() { source .k $@; } # Kill, cancel, ESC, delete, etc.
 ```
 So, the bash command `x` will e**x**ecute the application (see the `.x` file). `k` will delete (**k**ill) all unnecessary files (see `.k`)
 

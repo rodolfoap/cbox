@@ -4,44 +4,61 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <iostream>
-#define within(num) (int)((float)num * random() / (RAND_MAX + 1.0))
+#include <thread>
+#include <fmt/format.h>
+#define randint(n1, n2) (int)(((float)n2-(float)n1)*random()/(RAND_MAX+1.0)+n1)
 #define log(text)(std::cerr<<text<<std::endl)
-//template<typename ...T> void log(T&& ...v){(std::cerr<<...<<v)<<std::endl;}
+
+class Server {
+public:
+	Server() {
+		context=zmq::context_t(1);
+		std::thread tsend=std::thread(&Server::fsend, this);
+		std::thread tsink=std::thread(&Server::fsink, this);
+                tsend.join();
+                tsink.join();
+	}
+private:
+	zmq::context_t context;
+	zmq::message_t getMessage(std::string s) {
+		int length=s.length();
+		zmq::message_t message(length);
+		memcpy(message.data(), s.c_str(), length);
+		return message;
+	}
+	std::string getString(zmq::message_t* m) {
+		std::string r(static_cast<char*>(m->data()), (m->size()));
+		return r;
+	}
+
+	void fsink(){
+		zmq::socket_t sockSink(context, ZMQ_PULL);
+		sockSink.connect("tcp://127.0.0.1:5558");
+		log("Sink: tcp://127.0.0.1:5558");
+		while(1){
+			zmq::message_t message;
+			sockSink.recv(&message);
+			std::string smessage=getString(&message);
+			log("RECEIVED: "<<smessage);
+			sleep(1);
+		}
+
+	}
+	void fsend(){
+		zmq::socket_t sockSend(context, ZMQ_PUSH);
+		sockSend.bind("tcp://*:5557");
+		log("Ventilator: tcp://127.0.0.1:5557");
+		while(1) {
+			std::string pkt=fmt::format("DATA:{}", randint(0, 256));
+			sockSend.send(getMessage(pkt));
+			log("SENT: "<<pkt);
+			sleep(1);
+		}
+		log("Done.");
+	}
+};
 
 int main(int argc, char *argv[]) {
-	zmq::context_t context(1);
-	zmq::socket_t sender(context, ZMQ_PUSH);
-	zmq::socket_t sink(context, ZMQ_PUSH);
-	sender.bind("tcp://*:5557");
-	log("Ventilator: tcp://127.0.0.1:5557");
-	sink.connect("tcp://127.0.0.1:5558");
-	log("Sink: tcp://127.0.0.1:5557");
-
-	//  The first message is "0" and signals start of batch
-	zmq::message_t message(2);
-	memcpy(message.data(), "0", 1);
-	sink.send(message);
-	log("SENT: SOC [0]");
-
-	//  Initialize random number generator
-	srandom((unsigned)time(NULL));
-
-	//  Send some tasks
-	int total_msec=0; //  Total expected cost in msecs
-	for(int i=0; i<10; i++) {
-		int workload;
-		//  Random workload from 1 to 100msecs
-		workload=within(100) + 1;
-		total_msec+=workload;
-
-		message.rebuild(10);
-		memset(message.data(), '\0', 10);
-		sprintf((char *)message.data(), "%d", workload);
-		sender.send(message);
-		log("message:"<<message<<':'<<workload);
-	}
-	std::cout<<"Total expected cost: "<<total_msec<<" msec"<<std::endl;
-	sleep(1); //  Give 0MQ time to deliver
-
+	Server s;
 	return 0;
 }
