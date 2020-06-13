@@ -32,23 +32,34 @@ private:
 	}
 
 	void fsink(){
-		zmq::socket_t sockSink(context, ZMQ_PULL);
+		// This seems to be a client
+		zmq::socket_t sockSink(context, ZMQ_PUSH);
 		sockSink.connect("tcp://127.0.0.1:5558");
 		log("Sink: tcp://127.0.0.1:5558");
+		sockSink.send(getMessage("0"));
+		log("SENT: 0");
+
+		// And this is the server
+		zmq::socket_t sockRcpt(context,ZMQ_PULL);
+		sockRcpt.bind("tcp://*:5558");
+		// First reception
+		{	zmq::message_t message;
+			sockRcpt.recv(&message);
+			std::string smessage=getString(&message);
+			log("ZERO RECEIVED: "<<smessage); }
 		while(1){
 			zmq::message_t message;
-			sockSink.recv(&message);
+			sockRcpt.recv(&message);
 			std::string smessage=getString(&message);
 			log("RECEIVED: "<<smessage);
 			sleep(1);
 		}
-
 	}
 	void fsend(){
 		zmq::socket_t sockSend(context, ZMQ_PUSH);
 		sockSend.bind("tcp://*:5557");
 		log("Ventilator: tcp://127.0.0.1:5557");
-		while(1) {
+		while(1){
 			std::string pkt=fmt::format("DATA:{}", randint(0, 256));
 			sockSend.send(getMessage(pkt));
 			log("SENT: "<<pkt);

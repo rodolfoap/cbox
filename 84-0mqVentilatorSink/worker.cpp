@@ -1,6 +1,7 @@
 #include "zhelpers.hpp"
 #include <string>
 #include <thread>
+#include <fmt/format.h>
 #define randint(n1, n2) (int)(((float)n2-(float)n1)*random()/(RAND_MAX+1.0)+n1)
 #define log(text)(std::cerr<<text<<std::endl)
 
@@ -8,9 +9,9 @@ class Client {
 public:
 	Client() {
 		context=zmq::context_t(1);
-		//std::thread tsend=std::thread(&Client::fsend, this);
+		std::thread tsend=std::thread(&Client::fsend, this);
 		std::thread trcpt=std::thread(&Client::frcpt, this);
-                //tsend.join();
+                tsend.join();
                 trcpt.join();
 	}
 private:
@@ -27,26 +28,25 @@ private:
 	}
 
 	void frcpt(){
-		zmq::socket_t receiver(context, ZMQ_PULL);
-		receiver.connect("tcp://127.0.0.1:5557");
+		zmq::socket_t sockRcpt(context, ZMQ_PULL);
+		sockRcpt.connect("tcp://127.0.0.1:5557");
 		while(1){
 			zmq::message_t message;
-			receiver.recv(&message);
+			sockRcpt.recv(&message);
 			std::string smessage=getString(&message);
 			log("RECEIVED: "<<smessage);
 			sleep(1);
 		}
 	}
 	void fsend(){
-		//  Socket to send messages to
-	//	zmq::socket_t sender(context, ZMQ_PUSH);
-	//	sender.connect("tcp://localhost:5558");
-	//	while(1) {
-	//		s_sleep(1);
-	//		message.rebuild();
-	//		sender.send(message);
-	//		log("SENT:"<<smessage);
-	//	}
+		zmq::socket_t sockSend(context, ZMQ_PUSH);
+		sockSend.connect("tcp://127.0.0.1:5558");
+		while(1) {
+			std::string pkt=fmt::format("DATA:{}", randint(0, 256));
+			sockSend.send(getMessage(pkt));
+			log("SENT: "<<pkt);
+			sleep(1);
+		}
 	}
 };
 
