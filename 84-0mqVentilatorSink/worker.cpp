@@ -1,4 +1,5 @@
-#include "zhelpers.hpp"
+#include <zmq.hpp>
+#include <iostream>
 #include <string>
 #include <thread>
 #include <chrono>
@@ -25,24 +26,25 @@ private:
 		std::string r(static_cast<char*>(m->data()), (m->size()));
 		return r;
 	}
-
 	void fsend(){
 		zmq::context_t context(1);
-		// The sender
+		// The Sender
 		zmq::socket_t sockSend(context, ZMQ_PUSH);
 		sockSend.connect("tcp://127.0.0.1:5558");
+		log("Sender: tcp://127.0.0.1:5558");
 		while(1) {
 			std::string pkt=fmt::format("WORKER:{}", randomf(200, 300));
 			sockSend.send(getMessage(pkt));
-			//log("SENT: "<<pkt);
+			// log("SENT: "<<pkt);
 			std::this_thread::sleep_for(std::chrono::milliseconds(555));
 		}
 	}
 	void frcpt(){
 		zmq::context_t context(1);
-		// The receiver
+		// The Receiver
 		zmq::socket_t sockRcpt(context, ZMQ_PULL);
 		sockRcpt.connect("tcp://127.0.0.1:5557");
+		log("Receiver: tcp://127.0.0.1:5557");
 		while(1){
 			zmq::message_t message;
 			sockRcpt.recv(&message);
