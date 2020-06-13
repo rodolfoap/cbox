@@ -29,7 +29,7 @@ private:
 	void fsend(){
 		zmq::context_t context(1);
 		// The Ventilator
-		zmq::socket_t sockSend(context, ZMQ_PUSH);
+		zmq::socket_t sockSend(context, ZMQ_PUB);
 		sockSend.bind("tcp://*:5557");
 		log("Ventilator: tcp://*:5557");
 		while(1){
