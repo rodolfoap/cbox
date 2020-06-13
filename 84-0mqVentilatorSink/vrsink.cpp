@@ -6,6 +6,7 @@
 #include <iostream>
 #define within(num) (int)((float)num * random() / (RAND_MAX + 1.0))
 #define log(text)(std::cerr<<text<<std::endl)
+//template<typename ...T> void log(T&& ...v){(std::cerr<<...<<v)<<std::endl;}
 
 int main(int argc, char *argv[]) {
 	zmq::context_t context(1);
@@ -25,10 +26,9 @@ int main(int argc, char *argv[]) {
 	//  Initialize random number generator
 	srandom((unsigned)time(NULL));
 
-	//  Send 100 tasks
-	int task_nbr;
+	//  Send some tasks
 	int total_msec=0; //  Total expected cost in msecs
-	for(task_nbr=0; task_nbr<100; task_nbr++) {
+	for(int i=0; i<10; i++) {
 		int workload;
 		//  Random workload from 1 to 100msecs
 		workload=within(100) + 1;
@@ -38,6 +38,7 @@ int main(int argc, char *argv[]) {
 		memset(message.data(), '\0', 10);
 		sprintf((char *)message.data(), "%d", workload);
 		sender.send(message);
+		log("message:"<<message<<':'<<workload);
 	}
 	std::cout<<"Total expected cost: "<<total_msec<<" msec"<<std::endl;
 	sleep(1); //  Give 0MQ time to deliver
