@@ -13,13 +13,13 @@
 
 struct Message{
 	std::string uuid;
-	std::uint64_t currentTimeNanos;
-	std::string miscdata;
-	Message(std::string message):
-		uuid(genuuid()),
-		currentTimeNanos(std::chrono::duration_cast<std::chrono::nanoseconds>
-				(std::chrono::system_clock::now().time_since_epoch()).count()),
-		miscdata(message) { }
+	std::uint64_t timeNanos;
+	std::string command;
+	std::vector<std::pair<std::string, std::string>> parameters, options;
+	Message(std::string command):
+		uuid(genuuid()), command(command),
+		timeNanos(std::chrono::duration_cast<std::chrono::nanoseconds>
+			 (std::chrono::system_clock::now().time_since_epoch()).count()) {}
 	std::string genuuid() {
 		static uuid_t uuidObj;
 		char charuuid[37];
@@ -27,13 +27,28 @@ struct Message{
 		uuid_unparse_lower(uuidObj, charuuid);
 		return charuuid;
 	}
+	void addParameters(std::string key, std::string val){
+		parameters.push_back(std::pair<std::string, std::string>(key, val));
+	}
+	void addOptions(std::string key, std::string val){
+		options.push_back(std::pair<std::string, std::string>(key, val));
+	}
+	std::string getJson(){
+		nlohmann::json j={ {"uuid", uuid}, {"timenanos", timeNanos}, {"command", command} };
+		for(auto p: parameters){ j["parameters"][p.first]=p.second; }
+		for(auto p:    options){ j[   "options"][p.first]=p.second; }
+		return j.dump();
+	}
 };
 
 class Server {
 public:
 	Server() {
-		Message m("{ 'Hello': 'World!' }");
-		log("Message:"<<m.miscdata);
+		Message m("raisealert");
+		m.addParameters("text", "Hello, World");
+		m.addParameters("priority", "0");
+		m.addOptions   ("requireack", "true");
+		log("Message:"<<m.getJson());
 		std::thread tsend=std::thread(&Server::fsend, this);
 		std::thread tsink=std::thread(&Server::fsink, this);
                 tsend.join();
