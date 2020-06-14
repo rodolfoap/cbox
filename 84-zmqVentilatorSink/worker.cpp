@@ -4,6 +4,8 @@
 #include <thread>
 #include <chrono>
 #include <fmt/format.h>
+#include "json.hpp"
+#include "functions.cpp"
 #define randomf(n1, n2) (((float)n2-(float)n1)*random()/(RAND_MAX+1.0)+n1)
 #define log(text)(std::cerr<<text<<std::endl)
 
@@ -16,16 +18,6 @@ public:
                 trcpt.join();
 	}
 private:
-	zmq::message_t getMessage(std::string s) {
-		int length=s.length();
-		zmq::message_t message(length);
-		memcpy(message.data(), s.c_str(), length);
-		return message;
-	}
-	std::string getString(zmq::message_t* m) {
-		std::string r(static_cast<char*>(m->data()), (m->size()));
-		return r;
-	}
 	void fsend(){
 		zmq::context_t context(1);
 		// The Sender

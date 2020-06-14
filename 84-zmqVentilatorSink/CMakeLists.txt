@@ -19,5 +19,5 @@ add_executable(vrsink vrsink.cpp)
 add_executable(worker worker.cpp)
 
 # Equivalent to (CLIBS) -lm
-target_link_libraries(vrsink zmq pthread fmt::fmt)
-target_link_libraries(worker zmq pthread fmt::fmt)
+target_link_libraries(vrsink zmq pthread fmt::fmt uuid)
+target_link_libraries(worker zmq pthread fmt::fmt uuid)
