@@ -3,19 +3,21 @@
 #include <string>
 #include <thread>
 #include <chrono>
-#include <fmt/format.h>
 #include <uuid/uuid.h>
+#include <fmt/format.h>
 #include <time.h>
 #include "json.hpp"
 #include "functions.cpp"
 #define randomf(n1, n2) (((float)n2-(float)n1)*random()/(RAND_MAX+1.0)+n1)
 #define log(text)(std::cerr<<text<<std::endl)
 
-struct Message{
+class Message{
+private:
 	std::string uuid;
 	std::uint64_t timeNanos;
 	std::string command;
-	std::vector<std::pair<std::string, std::string>> parameters, options;
+	std::map<std::string, std::string> parms, optns;
+public:
 	Message(std::string command):
 		uuid(genuuid()), command(command),
 		timeNanos(std::chrono::duration_cast<std::chrono::nanoseconds>
@@ -27,16 +29,13 @@ struct Message{
 		uuid_unparse_lower(uuidObj, charuuid);
 		return charuuid;
 	}
-	void addParameters(std::string key, std::string val){
-		parameters.push_back(std::pair<std::string, std::string>(key, val));
-	}
-	void addOptions(std::string key, std::string val){
-		options.push_back(std::pair<std::string, std::string>(key, val));
-	}
+	void addParam(std::string key, std::string val){ parms.insert({key, val}); }
+	void setParam(std::string key, std::string val){ parms.at(key)=val; }
+	void addOptns(std::string key, std::string val){ optns.insert({key, val}); }
 	std::string getJson(){
 		nlohmann::json j={ {"uuid", uuid}, {"timenanos", timeNanos}, {"command", command} };
-		for(auto p: parameters){ j["parameters"][p.first]=p.second; }
-		for(auto p:    options){ j[   "options"][p.first]=p.second; }
+		for(auto& p: parms){ j["parameters"][p.first]=p.second; }
+		for(auto& p: optns){ j["options"][p.first]=p.second; }
 		return j.dump();
 	}
 };
@@ -44,11 +43,6 @@ struct Message{
 class Server {
 public:
 	Server() {
-		Message m("raisealert");
-		m.addParameters("text", "Hello, World");
-		m.addParameters("priority", "0");
-		m.addOptions   ("requireack", "true");
-		log("Message:"<<m.getJson());
 		std::thread tsend=std::thread(&Server::fsend, this);
 		std::thread tsink=std::thread(&Server::fsink, this);
                 tsend.join();
@@ -56,15 +50,19 @@ public:
 	}
 private:
 	void fsend(){
+		Message m("raisealert");
+		m.addParam("text", "Hello, World");
+		m.addParam("priority", "0");
+		m.addOptns("requireack", "true");
+
 		zmq::context_t context(1);
 		// The Ventilator
 		zmq::socket_t sockSend(context, ZMQ_PUB);
 		sockSend.bind("tcp://*:5557");
 		log("Ventilator: tcp://*:5557");
 		while(1){
-			std::string pkt=fmt::format("SINK:{}", randomf(100, 200));
-			sockSend.send(getMessage(pkt));
-			// log("SENT: "<<pkt);
+			m.setParam("text", fmt::format("Collapsing probability is: {}", randomf(0, 1)));
+			sockSend.send(getMessage(m.getJson()));
 			std::this_thread::sleep_for(std::chrono::milliseconds(600));
 		}
 	}
