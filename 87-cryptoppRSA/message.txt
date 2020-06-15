@@ -1,0 +1,1 @@
+if you do it like the following (but properly wrapped up nicely unlike below), you can read in the file without worrying about a 0x1A byte in the file (for example) cutting the reading of the file short. The previously suggested methods will choke on a 0x1A (for example) in a file.
