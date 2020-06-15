@@ -14,7 +14,7 @@ static partial class Program {
 			sockSend.Connect("tcp://127.0.0.1:5558");
 			while(true) {
 				int value=new Random().Next(10, 100);
-				string ss=String.Concat("WORKER:", value);
+				string ss="{\"command\":\"ack\",\"options\":{\"ack\":\"true\"}}";
 				byte[] bytes=Encoding.ASCII.GetBytes(ss);
 				sockSend.Send(bytes, 0, bytes.Length);
 				Thread.Sleep(1000);

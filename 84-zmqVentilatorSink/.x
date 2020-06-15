@@ -10,7 +10,7 @@ build(){
 }
 case "$1" in
 	e)
-		vi -p vrsink.cpp worker.cpp CMakeLists.txt
+		vi -p vrsink.cpp worker.cpp message.cpp functions.cpp include/message.hpp include/functions.hpp
 		rm -f worker vrsink
 		build;
 		execute;
