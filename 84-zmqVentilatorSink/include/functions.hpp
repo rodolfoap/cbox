@@ -19,4 +19,7 @@ std::string getString(zmq::message_t* m);
 // Generates a uuid string
 std::string genuuid();
 
+// Trivial encryption/decryption
+void encryptDecrypt(std::string& s);
+
 #endif
