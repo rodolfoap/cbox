@@ -20,7 +20,5 @@ std::string genuuid() {
 	return charuuid;
 }
 void encryptDecrypt(std::string& m) {
-	char key[]="gtd-international.com";
-	for(int i=0; i<m.size(); i++)
-	m[i] = m[i]^key[i%(sizeof(key)/sizeof(char))];
+	true;
 }

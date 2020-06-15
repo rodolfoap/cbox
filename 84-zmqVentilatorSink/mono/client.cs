@@ -8,13 +8,16 @@ using ZeroMQ;
 
 namespace Examples {
 static partial class Program {
+	public static string encryptDecrypt(string s){
+		return s;
+	}
 	public static void sender(){
 		using(var context=new ZContext()) using(var sockSend=new ZSocket(context, ZSocketType.PUSH)) {
 			Console.WriteLine("Sender: tcp://127.0.0.1:5558");
 			sockSend.Connect("tcp://127.0.0.1:5558");
 			while(true) {
 				int value=new Random().Next(10, 100);
-				string ss="{\"command\":\"ack\",\"options\":{\"ack\":\"true\"}}";
+				string ss=encryptDecrypt("{\"command\":\"ack\",\"options\":{\"ack\":\"true\"}}");
 				byte[] bytes=Encoding.ASCII.GetBytes(ss);
 				sockSend.Send(bytes, 0, bytes.Length);
 				Thread.Sleep(1000);
@@ -28,7 +31,7 @@ static partial class Program {
 			sockRcpt.Subscribe("");
 			while(true) {
 				using(var replyFrame=sockRcpt.ReceiveFrame()) {
-					string reply=replyFrame.ReadString();
+					string reply=encryptDecrypt(replyFrame.ReadString());
 					Console.WriteLine("RECEIVED: "+reply);
 				}
 			}
