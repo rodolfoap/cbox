@@ -8,44 +8,40 @@
 class ICarrier {
 public:
 	ICarrier(){}
-	void startListener(ICarrier& carrier){
-		// See https://stackoverflow.com/a/45823556/9911256
-		std::thread tsub=std::thread(&ICarrier::fsub, this, std::ref(carrier));
-		tsub.join();
-	}
-	void setUrl(char* _url){
-		url=_url;
-	}
+	void setRemoteProvider(char* url){ remoteProviderURL=url; }
+	void startReceiver(){ threadReceive=std::thread(&ICarrier::receiverLoop, this); }
+	void  waitReceiver(){ threadReceive.join(); }
+	void       disable(){ active=false; }
 private:
-	char* url;
-	void fsub(ICarrier& carrier) {
+	char* remoteProviderURL;
+	std::thread threadReceive;
+	bool active=true;
+	void receiverLoop() {
 		zmq::context_t context(1);
-		// The Subscriber
-		zmq::socket_t sockRcpt(context, ZMQ_SUB);
-		sockRcpt.setsockopt(ZMQ_SUBSCRIBE, "", 0);
-		sockRcpt.connect(url);
-		log("Subscriber: "<<url);
-		while(1){
+		zmq::socket_t subSocket(context, ZMQ_SUB);
+		subSocket.setsockopt(ZMQ_SUBSCRIBE, "", 0);
+		subSocket.connect(remoteProviderURL);
+		log("RemoteProviderURL: "<<remoteProviderURL);
+		while(active){
 			zmq::message_t message;
-			sockRcpt.recv(&message);
-			std::string smessage=getString(&message);
-			// carrier.msgArrived(smessage);
-			msgArrived(smessage);
+			subSocket.recv(&message);
+			messageReceived(getString(&message));
 		}
 	}
-	virtual void msgArrived(std::string message){
-		log("RECEIVED: "<<message);
+	virtual void messageReceived(std::string message){
+		log("messageReceived() must be overridden.");
 	}
 };
 
 class Client: public ICarrier{
 public:
-	Client(char* url){
-		setUrl(url);
-		startListener(*this);
+	Client(char* remoteProviderURL){
+		setRemoteProvider(remoteProviderURL);
+		startReceiver();
+		waitReceiver();
 	}
-	void msgArrived(std::string message){
-		log("Arrived: "<<message);
+	void messageReceived(std::string message){
+		log("RECEIVED: "<<message);
 	}
 };
 
