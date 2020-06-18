@@ -13,7 +13,7 @@ public:
 		startReceiver();
 		waitReceiver();
 	}
-	void messageReceived(std::string message){
+	void messageReceived(std::string message) override {
 		log("RECEIVED: "<<message);
 	}
 };
