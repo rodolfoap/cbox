@@ -15,14 +15,12 @@ public:
 	void startReceiver();
 	void waitReceiver();
 	void disable();
-	void publish(zmq::message_t message){
-		log("publish");
- 		pubSocket->send(message);
-	}
+	void publish(zmq::message_t message);
 private:
 	char* remoteProviderURL;
 	char* localServerURL;
-	zmq::socket_t* pubSocket;
+	zmq::context_t* pubContext, subContext;
+	zmq::socket_t* pubSocket, subSocket;
 	std::thread threadReceive;
 	bool active=true;
 	void receiverLoop();

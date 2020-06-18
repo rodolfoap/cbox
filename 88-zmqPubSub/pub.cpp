@@ -9,9 +9,9 @@
 class Publisher: public ICarrier{
 public:
 	Publisher(char* localServerURL){
-log("aaaa");
+LOG;
 		setLocalServer(localServerURL);
-log("bbbb");
+LOG;
 		while(1){
 			Message m("raisealert");
 			m.addOptns("requireack", "true");
@@ -19,7 +19,6 @@ log("bbbb");
 			m.addParam("text", fmt::format("Collapsing probability is: {}", frandom(0, 1)));
 			lognoflush('.');
 			publish(getMessage(m.getJson()));
-			//pubSocket->send(getMessage(m.getJson()));
 			std::this_thread::sleep_for(std::chrono::milliseconds(600));
 		}
 	}
