@@ -1,5 +1,5 @@
 execute(){
-	./vrsink
+	./server
 }
 build(){
 	mkdir -p build;
@@ -10,8 +10,8 @@ build(){
 }
 case "$1" in
 	e)
-		vi -p vrsink.cpp worker.cpp message.cpp functions.cpp include/message.hpp include/functions.hpp
-		rm -f worker vrsink
+		vi -p server.cpp message.cpp functions.cpp include/message.hpp include/functions.hpp
+		rm -f server
 		build;
 		execute;
 	;;
@@ -19,7 +19,7 @@ case "$1" in
 		build;
 	;;
 	"")
-		[ -f worker ] && [ -f vrsink ] || build;
+		[ -f worker ] && [ -f server ] || build;
 		execute
 	;;
 esac
