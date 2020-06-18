@@ -1,5 +1,5 @@
 execute(){
-	./server
+	./pub
 }
 build(){
 	mkdir -p build;
@@ -10,8 +10,8 @@ build(){
 }
 case "$1" in
 	e)
-		vi -p server.cpp message.cpp functions.cpp include/message.hpp include/functions.hpp
-		rm -f server
+		vi -p pub.cpp sub.cpp message.cpp functions.cpp include/message.hpp include/functions.hpp
+		rm -f pub sub
 		build;
 		execute;
 	;;
@@ -19,7 +19,7 @@ case "$1" in
 		build;
 	;;
 	"")
-		[ -f worker ] && [ -f server ] || build;
+		[ -f pub ] && [ -f sub ] || build;
 		execute
 	;;
 esac
