@@ -7,7 +7,13 @@
 
 class Client {
 public:
-	Client(char* url) {
+        Client(char* url): url(url) {
+                std::thread tsub=std::thread(&Client::fsub, this);
+                tsub.join();
+        }
+private:
+	char* url;
+	void fsub() {
 		zmq::context_t context(1);
 		// The Subscriber
 		zmq::socket_t sockRcpt(context, ZMQ_SUB);
