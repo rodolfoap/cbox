@@ -1,5 +1,8 @@
 execute(){
-	./pub
+	./pub "tcp://*:5557"
+}
+execsub(){
+	./sub "tcp://127.0.0.1:5557"
 }
 build(){
 	mkdir -p build;
@@ -14,6 +17,9 @@ case "$1" in
 		rm -f pub sub
 		build;
 		execute;
+	;;
+	s)
+		execsub;
 	;;
 	b)
 		build;

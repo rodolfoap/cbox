@@ -7,29 +7,26 @@
 
 class Server {
 public:
-	Server() {
-		std::thread tpub=std::thread(&Server::fpub, this);
-                tpub.join();
-	}
-private:
-	void fpub(){
+	Server(char* url){
 		zmq::context_t context(1);
 		// The Publisher
 		zmq::socket_t sockSend(context, ZMQ_PUB);
-		sockSend.bind("tcp://*:5557");
-		log("Ventilator: tcp://*:5557");
+		sockSend.bind(url);
+		log("Publisher: "<<url);
 		while(1){
 			Message m("raisealert");
 			m.addOptns("requireack", "true");
 			m.addParam("priority", "0");
 			m.addParam("text", fmt::format("Collapsing probability is: {}", frandom(0, 1)));
+			lognoflush('.');
 			sockSend.send(getMessage(m.getJson()));
 			std::this_thread::sleep_for(std::chrono::milliseconds(600));
 		}
 	}
 };
 
-int main(int argc, char *argv[]) {
-	Server s;
+int main(int argc, char** argv) {
+	if(argc<1) { log("Usage: "<<argv[0]<<" [CONNECTION_URL]"); exit(1); }
+	Server s(argv[1]);
 	return 0;
 }

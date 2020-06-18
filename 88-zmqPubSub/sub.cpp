@@ -7,18 +7,13 @@
 
 class Client {
 public:
-	Client() {
-		std::thread tsub=std::thread(&Client::fsub, this);
-                tsub.join();
-	}
-private:
-	void fsub(){
+	Client(char* url) {
 		zmq::context_t context(1);
 		// The Subscriber
 		zmq::socket_t sockRcpt(context, ZMQ_SUB);
 		sockRcpt.setsockopt(ZMQ_SUBSCRIBE, "", 0);
-		sockRcpt.connect("tcp://127.0.0.1:5557");
-		log("Receiver: tcp://127.0.0.1:5557");
+		sockRcpt.connect(url);
+		log("Subscriber: "<<url);
 		while(1){
 			zmq::message_t message;
 			sockRcpt.recv(&message);
@@ -28,7 +23,8 @@ private:
 	}
 };
 
-int main(int argc, char *argv[]) {
-	Client s;
+int main(int argc, char** argv) {
+	if(argc<1) { log("Usage: "<<argv[0]<<" [CONNECTION_URL]"); exit(1); }
+	Client s(argv[1]);
 	return 0;
 }
