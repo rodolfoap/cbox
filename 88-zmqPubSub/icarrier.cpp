@@ -5,13 +5,13 @@ void ICarrier::setRemoteProvider(char* url){
 	subSocket=new zmq::socket_t(*subContext, ZMQ_SUB);
 	subSocket->setsockopt(ZMQ_SUBSCRIBE, "", 0);
 	subSocket->connect(url);
-	log("Subscriber: "<<url);
+	log("Subscriber/RemoteProvider="<<url);
 }
 void ICarrier::setLocalServer(char* url){
 	pubContext=new zmq::context_t(1);
 	pubSocket=new zmq::socket_t(*pubContext, ZMQ_PUB);
 	pubSocket->bind(url);
-	log("Publisher: "<<url);
+	log("Publisher/LocalServer="<<url);
 }
 void ICarrier::publish(zmq::message_t message){ pubSocket->send(message); }
 void ICarrier::startReceiver(){ threadReceive=std::thread(&ICarrier::receiverLoop, this); }
