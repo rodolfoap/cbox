@@ -17,10 +17,10 @@ public:
 	void disable();
 	void publish(zmq::message_t message);
 private:
-	char* remoteProviderURL;
-	char* localServerURL;
 	zmq::context_t* pubContext;
+	zmq::context_t* subContext;
 	zmq::socket_t* pubSocket;
+	zmq::socket_t* subSocket;
 	std::thread threadReceive;
 	bool active=true;
 	void receiverLoop();
