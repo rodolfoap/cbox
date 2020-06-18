@@ -6,9 +6,9 @@
 #include "message.hpp"
 #include "icarrier.hpp"
 
-class Client: public ICarrier{
+class Subscriber: public ICarrier{
 public:
-	Client(char* remoteProviderURL){
+	Subscriber(char* remoteProviderURL){
 		setRemoteProvider(remoteProviderURL);
 		startReceiver();
 		waitReceiver();
@@ -20,6 +20,6 @@ public:
 
 int main(int argc, char** argv) {
 	if(argc<1) { log("Usage: "<<argv[0]<<" [CONNECTION_URL]"); exit(1); }
-	Client s(argv[1]);
+	Subscriber s(argv[1]);
 	return 0;
 }
