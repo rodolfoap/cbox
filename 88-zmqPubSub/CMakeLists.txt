@@ -15,8 +15,8 @@ find_package(fmt REQUIRED CONFIG)
 # Equivalent to (CFLAGS) -g
 set(CMAKE_C_FLAGS "-g")
 
-add_executable(pub pub.cpp message.cpp functions.cpp)
-add_executable(sub sub.cpp message.cpp functions.cpp)
+add_executable(pub pub.cpp message.cpp functions.cpp icarrier.cpp)
+add_executable(sub sub.cpp message.cpp functions.cpp icarrier.cpp)
 target_include_directories(pub PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_include_directories(sub PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(pub zmq pthread fmt::fmt uuid)

@@ -4,34 +4,7 @@
 #include <fmt/format.h>
 #include "functions.hpp"
 #include "message.hpp"
-
-class ICarrier {
-public:
-	ICarrier(){}
-	void setRemoteProvider(char* url){ remoteProviderURL=url; }
-	void startReceiver(){ threadReceive=std::thread(&ICarrier::receiverLoop, this); }
-	void  waitReceiver(){ threadReceive.join(); }
-	void       disable(){ active=false; }
-private:
-	char* remoteProviderURL;
-	std::thread threadReceive;
-	bool active=true;
-	void receiverLoop() {
-		zmq::context_t context(1);
-		zmq::socket_t subSocket(context, ZMQ_SUB);
-		subSocket.setsockopt(ZMQ_SUBSCRIBE, "", 0);
-		subSocket.connect(remoteProviderURL);
-		log("RemoteProviderURL: "<<remoteProviderURL);
-		while(active){
-			zmq::message_t message;
-			subSocket.recv(&message);
-			messageReceived(getString(&message));
-		}
-	}
-	virtual void messageReceived(std::string message){
-		log("messageReceived() must be overridden.");
-	}
-};
+#include "icarrier.hpp"
 
 class Client: public ICarrier{
 public:

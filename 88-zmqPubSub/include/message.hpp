@@ -1,3 +1,6 @@
+#ifndef MESSAGE_H
+#define MESSAGE_H
+
 #include <string>
 #include <map>
 
@@ -13,3 +16,5 @@ public:
 	void addParam(std::string key, std::string val);
 	void addOptns(std::string key, std::string val);
 };
+
+#endif
