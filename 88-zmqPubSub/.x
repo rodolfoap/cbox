@@ -13,7 +13,7 @@ build(){
 }
 case "$1" in
 	e)
-		vi -p pub.cpp sub.cpp message.cpp functions.cpp include/message.hpp include/functions.hpp
+		vi -p sub.cpp pub.cpp message.cpp functions.cpp include/message.hpp include/functions.hpp
 		rm -f pub sub
 		build;
 		execute;

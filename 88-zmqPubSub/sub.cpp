@@ -5,15 +5,20 @@
 #include "functions.hpp"
 #include "message.hpp"
 
-class Client {
+class ICarrier {
 public:
-        Client(char* url): url(url) {
-                std::thread tsub=std::thread(&Client::fsub, this);
-                tsub.join();
-        }
+	ICarrier(){}
+	void startListener(ICarrier& carrier){
+		// See https://stackoverflow.com/a/45823556/9911256
+		std::thread tsub=std::thread(&ICarrier::fsub, this, std::ref(carrier));
+		tsub.join();
+	}
+	void setUrl(char* _url){
+		url=_url;
+	}
 private:
 	char* url;
-	void fsub() {
+	void fsub(ICarrier& carrier) {
 		zmq::context_t context(1);
 		// The Subscriber
 		zmq::socket_t sockRcpt(context, ZMQ_SUB);
@@ -24,8 +29,23 @@ private:
 			zmq::message_t message;
 			sockRcpt.recv(&message);
 			std::string smessage=getString(&message);
-			log("RECEIVED: "<<smessage);
+			// carrier.msgArrived(smessage);
+			msgArrived(smessage);
 		}
+	}
+	virtual void msgArrived(std::string message){
+		log("RECEIVED: "<<message);
+	}
+};
+
+class Client: public ICarrier{
+public:
+	Client(char* url){
+		setUrl(url);
+		startListener(*this);
+	}
+	void msgArrived(std::string message){
+		log("Arrived: "<<message);
 	}
 };
 
