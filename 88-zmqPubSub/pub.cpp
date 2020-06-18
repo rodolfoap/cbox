@@ -9,9 +9,7 @@
 class Publisher: public ICarrier{
 public:
 	Publisher(char* localServerURL){
-log("aaaa");
 		setLocalServer(localServerURL);
-log("bbbb");
 		while(1){
 			Message m("raisealert");
 			m.addOptns("requireack", "true");

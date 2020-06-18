@@ -3,12 +3,14 @@
 void ICarrier::setRemoteProvider(char* url){ remoteProviderURL=url; }
 void ICarrier::setLocalServer(char* url){
 	localServerURL=url;
-	zmq::context_t context(1);
+	pubContext=new zmq::context_t(1);
 	// The Publisher
-	//zmq::socket_t pubSocket(context, ZMQ_PUB);
-	pubSocket=new zmq::socket_t(context, ZMQ_PUB);
+	pubSocket=new zmq::socket_t(*pubContext, ZMQ_PUB);
 	pubSocket->bind(url);
-	log("Publisher-----------: "<<url);
+	log("Publisher: "<<url);
+}
+void ICarrier::publish(zmq::message_t message){
+ 	pubSocket->send(message);
 }
 void ICarrier::startReceiver(){ threadReceive=std::thread(&ICarrier::receiverLoop, this); }
 void ICarrier::waitReceiver(){ threadReceive.join(); }
