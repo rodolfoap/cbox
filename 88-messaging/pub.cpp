@@ -2,7 +2,6 @@
 #include <string>
 #include <thread>
 #include <fmt/format.h>
-#include "functions.hpp"
 #include "message.hpp"
 #include "icarrier.hpp"
 
