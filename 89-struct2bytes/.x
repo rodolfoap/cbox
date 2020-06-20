@@ -1,5 +1,6 @@
 execute(){
 	./app "Hello, World!"
+	hexdump -C data.dat
 }
 build(){
 	mkdir -p build;
