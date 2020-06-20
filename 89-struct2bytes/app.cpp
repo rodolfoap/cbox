@@ -4,24 +4,37 @@
 #define log(text)(std::cerr<<text<<std::endl)
 
 struct Register {
-    float yaw;
-    float pitch;
-    float roll;
+	char type;
+	uint64_t hsize=sizeof(char)+sizeof(uint64_t);
+	uint64_t dsize;
+	char* data;
+	Register(char t, uint64_t length, char* d): type(t), dsize(hsize+length), data(new char[dsize]) {
+		sprintf(data, "%c%08d", type, dsize);
+		memcpy(hsize+data, d, dsize);
+	}
+
+	//Register(uint64_t length, char* d): type(d), dsize(length), data(new char[length-hsize)
+	//{memcpy(hsize+data, d, dsize);}
+
+	~Register() { delete data; }
+	void print(){
+		log("Register: ("<<type<<", "<<dsize<<", "<<data<<")");
+	}
 };
 
-int main() {
-    Register source( {87.96, -114.58, 100.50} );
+int main(int argc, char** argv) {
+	Register source( {'A', strlen(argv[1]), argv[1]} );
+	source.print();
 
-    // Get Size
-    size_t size=sizeof(source);
-    log("Size:"<<size);
+	// To bytes
+	char b[source.dsize+1];
+	memcpy(b, source.data, source.dsize);
+	b[source.dsize]=0;
+	log(b);
 
-    // To bytes
-    char b[size];
-    memcpy(b, &source, size);
-
-    // To Struct
-    Register target;
-    memcpy(&target, b, sizeof(target));
-    log("Register: ("<<target.yaw<<", "<<target.pitch<<", "<<target.roll<<")");
+//	// To Struct
+//	Register target(b, source.dsize);
+//	target.print();
+//	memcpy(&target, b, sizeof(target));
+//	log("Register: ("<<target.yaw<<", "<<target.pitch<<", "<<target.roll<<")");
 }

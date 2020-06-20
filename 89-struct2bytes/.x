@@ -1,5 +1,5 @@
 execute(){
-	./app
+	./app "Hello, World!"
 }
 build(){
 	mkdir -p build;
