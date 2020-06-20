@@ -7,39 +7,39 @@
 
 struct Register {
 	char type;
-	uint64_t hsize=sizeof(char)+sizeof(uint64_t);
-	uint64_t dsize;
-	char* packet;
+	uint64_t size; //packet size, does not include type
+	char* data=nullptr;
 
-	// When using this constructor,  data=[TYPE+DSIZE+DATA], dsize=[HSIZE+DSIZE]
-	Register(char t, uint64_t length, char* d): type(t), dsize(hsize+length), packet(new char[dsize]) {
-		sprintf(packet, "%c%08d", type, dsize);
-		memcpy(packet+hsize, d, length);
+	// When created with this constructor, data contains the type
+	// This is intended to generate a serialized packet
+	Register(char t, uint64_t length, char* d): type(t), size(length), data(new char[length+1]) {
+		data[0]=t;
+		memcpy(data+1, d, length);
 	}
 
-	// When using this constructor, type=DATA[0], dsize=DATA[1..8], data=DATA
-	Register(uint64_t length, char* d): type(d[0]), dsize(length), packet(new char[length-hsize]) {
-		memcpy(packet, d+hsize, dsize);
+	// When created with this constructor, data does not contain the type
+	// This is intended to deserialize a packet
+	Register(uint64_t length, char* d): type(d[0]), size(length-1), data(new char[size]) {
+		memcpy(data, d+1, length);
 	}
-
-	~Register() { delete packet; }
-	void print() {
-		log("Register: ("<<type<<", "<<dsize<<", "<<packet<<")");
-	}
+	~Register() { delete data; }
+	void print() { log("Struct: ("<<type<<", "<<size<<", "<<data<<")"); }
 };
 
 int main(int argc, char** argv) {
+	log("Creating register");
 	Register source( {'A', strlen(argv[1]), argv[1]} );
 	source.print();
 
-	// To bytes
-	char b[source.dsize];
-	memcpy(b, source.packet, source.dsize);
-	log(b<<"["<<sizeof(b)<<"]");
+	log("Struct to bytes");
+	char b[source.size+1];
+	memcpy(b, source.data, source.size+1);
+	log("BYTES: "<<b<<"["<<sizeof(b)<<"]");
 
+	log("Writing to file");
 	fwrite("data.dat", b);
 
-	// To Struct
+	log("Bytes to struct");
 	Register target(sizeof(b), b);
 	target.print();
 }
