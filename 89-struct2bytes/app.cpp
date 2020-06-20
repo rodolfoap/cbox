@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <cstring>
 #define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 #define log(text)(std::cerr<<text<<std::endl)
@@ -7,18 +8,24 @@ struct Register {
 	char type;
 	uint64_t hsize=sizeof(char)+sizeof(uint64_t);
 	uint64_t dsize;
-	char* data;
-	Register(char t, uint64_t length, char* d): type(t), dsize(hsize+length), data(new char[dsize]) {
-		sprintf(data, "%c%08d", type, dsize);
-		memcpy(hsize+data, d, dsize);
+	char* payload;
+	char* packet;
+
+	Register(char t, uint64_t length, char* d): type(t), dsize(hsize+length),
+		payload(new char[length]), packet(new char[dsize]) {
+
+		sprintf(packet, "%c%08d", type, dsize);
+		memcpy(packet+hsize, d, length);
+		memcpy(payload, d, length);
 	}
 
-	//Register(uint64_t length, char* d): type(d), dsize(length), data(new char[length-hsize)
-	//{memcpy(hsize+data, d, dsize);}
+	Register(uint64_t length, char* d): type(d[0]), dsize(length), payload(new char[length-hsize]) {
+		memcpy(payload, d+hsize, dsize);
+	}
 
-	~Register() { delete data; }
-	void print(){
-		log("Register: ("<<type<<", "<<dsize<<", "<<data<<")");
+	~Register() { delete payload; }
+	void print() {
+		log("Register: ("<<type<<", "<<dsize<<", "<<payload<<", "<<packet<<")");
 	}
 };
 
@@ -28,12 +35,14 @@ int main(int argc, char** argv) {
 
 	// To bytes
 	char b[source.dsize+1];
-	memcpy(b, source.data, source.dsize);
+	memcpy(b, source.packet, source.dsize);
 	b[source.dsize]=0;
 	log(b);
+	log(sizeof(b));
 
-//	// To Struct
-//	Register target(b, source.dsize);
+	std::ofstream("data.dat");
+	// To Struct
+//	Register target(sizeof(b), b);
 //	target.print();
 //	memcpy(&target, b, sizeof(target));
 //	log("Register: ("<<target.yaw<<", "<<target.pitch<<", "<<target.roll<<")");
