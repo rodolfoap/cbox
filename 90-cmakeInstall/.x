@@ -9,7 +9,7 @@ install(){
 }
 case "$1" in
 	e)
-		vi -p helloworld.cpp include/helloworld.hpp CMakeLists.txt
+		vi -p CMakeLists.txt lib_helloworld.cpp include/helloworld.hpp app_helloworld.cpp
 		install
 	;;
 	"")
