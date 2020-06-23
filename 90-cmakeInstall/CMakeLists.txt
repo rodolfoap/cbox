@@ -32,6 +32,8 @@ target_link_libraries(helloworld-bin helloworld)
 # 	target_link_libraries(helloworld helloworld)'
 # this is only an issue of this example, is not generic
 set_target_properties(helloworld-bin PROPERTIES OUTPUT_NAME helloworld)
+# this avoids complains: '-- Set runtime path of "/usr/local/bin/helloworld" to ""'
+set_target_properties(helloworld-bin PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 install(TARGETS helloworld-bin
 	RUNTIME DESTINATION bin
