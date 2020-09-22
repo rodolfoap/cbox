@@ -8,13 +8,16 @@ void PrintSomething(std::string s){}
 
 We just define...  */
 
-template <typename T> void PrintSomething(T s){ std::cout << s << std::endl; }
+template <typename T>
+void PrintSomething(T s){ std::cout << s << std::endl; }
 
 /* This even applies to classes, instead of doing...
 
 class Entity{
 private:
 	int list[5];
+	// another with
+	// std::string list[5];
 public:
 	void bytelen(){ std::cout << sizeof(list) << std::endl; }
 };
@@ -25,7 +28,8 @@ e.printsize();
 
 We just define...  */
 
-template <typename T, int S> class Entity{
+template <typename T, int S>
+class Entity{
 private:
 	T list[S];
 public:
