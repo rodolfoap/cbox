@@ -4,10 +4,11 @@
 
 class TextHolder{
 public:
+	std::string name;
+
 	// Constructor with initializer list
 	TextHolder(std::string aname) :name(aname){}
 
-	std::string name;
 	void reverse(){
 		std::reverse(this->name.begin(), this->name.end());
 	}

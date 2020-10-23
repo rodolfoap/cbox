@@ -29,4 +29,6 @@ int main() {
 
 	sing1.getInstance();
 	sing2.getInstance();
+	sing1.getInstance().getAddress();
+	sing2.getInstance().getAddress();
 }

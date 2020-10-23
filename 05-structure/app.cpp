@@ -23,7 +23,6 @@ int main(){
 	Teacher t(c, 5, 5);
 	FILE *file;
 	file=fopen("freadwrt.dat", "w+");
-	//clrscr();
 
 	strcpy(s.name, "RodolfoAP"); s.age=65; s.value=6.9;
 	fwrite(&s, sizeof(s), 1, file);

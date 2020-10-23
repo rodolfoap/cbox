@@ -1,5 +1,8 @@
 execute(){
-	./server
+	./server & ./client &
+	sleep 3;
+	killall server
+	killall client
 }
 build(){
 	[ -d build/ ] && {
