@@ -1,27 +1,27 @@
-#include<iostream>
+#include <iostream>
 
-class Thing{
+class Thing {
 protected:
 	std::string name;
 };
 
-class Solid :public Thing{
+class Solid: public Thing {
 public:
 	std::string getName() const;
 	void setName(std::string);
 };
 
-std::string Solid::getName() const{
+std::string Solid::getName() const {
 	return this->name;
 }
 
-void Solid::setName(std::string name){
+void Solid::setName(std::string name) {
 	this->name=name;
 }
 
-int main(){
+int main() {
 	Solid solid;
 	solid.setName("solid0");
-	std::cerr << solid.getName() << std::endl;
+	std::cerr<<solid.getName()<<std::endl;
 	return 0;
 }
