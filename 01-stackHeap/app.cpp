@@ -1,5 +1,4 @@
-#include<iostream>
-#include"print.h"
+#include "print.h"
 
 struct Point{
 	float x, y, z;
