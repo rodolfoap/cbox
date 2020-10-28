@@ -15,8 +15,14 @@ execute_process(COMMAND sed "s/^/\t/" CMakeLists.txt
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	RESULT_VARIABLE CMD_ERROR)
 
-find_package(SDL2 REQUIRED)
-include_directories(${SDL2_INCLUDE_DIRS})
+find_package(OpenCV REQUIRED)
+find_package(PkgConfig)
+pkg_check_modules(GST REQUIRED gstreamer-1.0>=1.4
+                               gstreamer-sdp-1.0>=1.4
+                               gstreamer-video-1.0>=1.4
+                               gstreamer-app-1.0>=1.4) 
+include_directories(${GST_INCLUDE_DIRS})
+include_directories(${OpenCV_INCLUDE_DIRS})
 
 add_executable(app app.cpp)
-target_link_libraries(app vlc ${SDL2_LIBRARIES})
+target_link_libraries(app ${GST_LIBRARIES} ${OpenCV_LIBS})
