@@ -1,15 +1,14 @@
 #include <stdio.h>
 
-
 int main(){
 // 	1. Example simple
 	struct person1{ int age; };
 
 	// Error
 	// person0 p;
+
 	// Valid
 	struct person1 p={1};
-
 	printf("p=%d\n", p);
 
 //	2. Improved example, using typedef
