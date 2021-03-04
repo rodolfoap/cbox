@@ -13,7 +13,7 @@ int main(){
 	return 0;
 }
 EOF
-cp -r 02-streams/{CMakeLists.txt,.k,.x} $DIR
+cp -r 002-streams/{CMakeLists.txt,.k,.x} $DIR
 find $DIR -type f
 cd $DIR
 x
