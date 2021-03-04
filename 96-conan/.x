@@ -4,7 +4,6 @@ execute(){
 build(){
 	mkdir -p build;
 	pushd build &> /dev/null;
-	[ -f ../conanfile.txt ] && { [ -f conaninfo.txt ] || conan install ..; }
 	[ -f Makefile ] || cmake .. -Wdev;
 	make -j$(nproc); STATUS=$?
 	popd &> /dev/null;
