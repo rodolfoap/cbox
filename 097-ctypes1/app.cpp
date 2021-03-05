@@ -9,7 +9,7 @@ int main(){
 
 	k->sayHello();
 	k->printFloat(19.17);
-	std::cout<<"Double of 19: "<<k->doubleme(19)<<std::endl;
+	std::cout<<"Double of 19: "<<k->doubleMe(19)<<std::endl;
 	std::cout<<k->sayHelloName(name)<<std::endl;
 
 	delete k;

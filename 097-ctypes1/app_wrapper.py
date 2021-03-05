@@ -16,7 +16,7 @@ class Hello():
 		self.libhello.printFloat(self.hello, c_double(floatValue))
 
 	def doubleMe(self, intValue):
-		return self.libhello.doubleme(self.hello, intValue)
+		return self.libhello.doubleMe(self.hello, intValue)
 
 # So, the code becomes:
 hello = Hello()

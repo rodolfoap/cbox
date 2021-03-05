@@ -20,9 +20,10 @@ extern "C" {
 		return hello->printFloat(input);
 	}
 	// Takes the object and an integer as argument
-	int doubleme(Hello* hello, int input) {
-		return hello->doubleme(input);
+	int doubleMe(Hello* hello, int input) {
+		return hello->doubleMe(input);
 	}
+	// Takes the object and a char array
 	const char *sayHelloName(Hello* hello, char* name){
 		return hello->sayHelloName(name);
 	}

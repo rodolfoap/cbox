@@ -12,7 +12,7 @@ void Hello::sayHello() {
 void Hello::printFloat(double input) {
 	std::cout<<"printFloat(): "<<input<<std::endl;
 }
-int Hello::doubleme(int input) {
+int Hello::doubleMe(int input) {
 	return 2 * input;
 }
 const char* Hello::sayHelloName(char* name){
