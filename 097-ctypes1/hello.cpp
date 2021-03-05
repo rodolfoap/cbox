@@ -1,3 +1,7 @@
+//
+// Code for a simple class
+//
+
 #include <iostream>
 #include <hello.hpp>
 #include <hello_c.hpp>

@@ -1,3 +1,7 @@
+//
+// Headers for a simple class
+//
+
 #include <iostream>
 
 class Hello {

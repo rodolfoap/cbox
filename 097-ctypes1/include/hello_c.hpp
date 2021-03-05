@@ -1,3 +1,7 @@
+//
+// Headers for external functions
+//
+
 #include <iostream>
 
 extern "C" {

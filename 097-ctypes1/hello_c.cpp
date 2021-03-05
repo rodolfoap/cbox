@@ -1,3 +1,7 @@
+//
+// Code for external functions
+//
+
 #include <iostream>
 #include <hello.hpp>
 #include <hello_c.hpp>
