@@ -18,8 +18,13 @@ class Hello():
 	def doubleMe(self, intValue):
 		return self.libhello.doubleMe(self.hello, intValue)
 
+	def sayHelloName(self, string):
+		self.libhello.sayHelloName.restype=c_char_p
+		return self.libhello.sayHelloName(self.hello, string).decode("utf-8")
+
 # So, the code becomes:
 hello = Hello()
 hello.sayHello()
 hello.printFloat(19.17)
 print("Double of 19:", hello.doubleMe(19))
+print(hello.sayHelloName(b"Thelonious"))
