@@ -11,5 +11,5 @@ hello = libhello.helloFactory()
 
 # Call functions
 libhello.sayHello(hello)
-libhello.printfloat(hello, c_double(19.17))
+libhello.printFloat(hello, c_double(19.17))
 print("Double of 19:", libhello.doubleme(hello, 19))

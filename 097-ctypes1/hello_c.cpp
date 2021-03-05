@@ -16,16 +16,14 @@ extern "C" {
 		hello->sayHello();
 	}
 	// Takes the object and a double as argument
-	void printfloat(Hello* hello, double input) {
-		return hello->printfloat(input);
+	void printFloat(Hello* hello, double input) {
+		return hello->printFloat(input);
 	}
 	// Takes the object and an integer as argument
 	int doubleme(Hello* hello, int input) {
 		return hello->doubleme(input);
 	}
-	/*
 	const char *sayHelloName(Hello* hello, char* name){
 		return hello->sayHelloName(name);
 	}
-	*/
 }

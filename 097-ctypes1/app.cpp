@@ -4,11 +4,13 @@
 #define log(t) std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"(): "<<t<<std::endl
 
 int main(){
+	char name[]="Thelonious";
 	Hello* k=helloFactory();
 
 	k->sayHello();
-	k->printfloat(19.17);
+	k->printFloat(19.17);
 	std::cout<<"Double of 19: "<<k->doubleme(19)<<std::endl;
+	std::cout<<k->sayHelloName(name)<<std::endl;
 
 	delete k;
 	return 0;

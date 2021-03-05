@@ -2,12 +2,10 @@
 // Headers for a simple class
 //
 
-#include <iostream>
-
 class Hello {
 public:
 	void sayHello();
-	void printfloat(double input);
+	void printFloat(double input);
 	int doubleme(int input);
-	//const char *sayHelloName(char* name);
+	const char *sayHelloName(char* name);
 };

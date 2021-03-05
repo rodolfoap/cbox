@@ -13,7 +13,7 @@ class Hello():
 		self.libhello.sayHello(self.hello)
 
 	def printFloat(self, floatValue):
-		self.libhello.printfloat(self.hello, c_double(floatValue))
+		self.libhello.printFloat(self.hello, c_double(floatValue))
 
 	def doubleMe(self, intValue):
 		return self.libhello.doubleme(self.hello, intValue)
