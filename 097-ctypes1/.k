@@ -1,1 +1,1 @@
-rm -rf build app app.dbg *.so *.o *.a
+rm -rf build app app.dbg *.so *.o *.a libholder.* __pycache__

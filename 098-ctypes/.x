@@ -14,14 +14,12 @@ build(){
 }
 case "$1" in
 	"")
-		[ -f libholder.so ] || build;
+		[ -f libhello.so ] || build;
 		execute
 	;;
 	e)
-		vi -p ./holder.cpp ./include/holder.hpp ./holder.py ./app.py CMakeLists.txt
+		vi -p app.py hello.cpp include/hello.hpp hello_c.cpp include/hello_c.hpp app.cpp app_wrapper.py CMakeLists.txt
 		build;
 		execute;
 	;;
 esac
-
-
