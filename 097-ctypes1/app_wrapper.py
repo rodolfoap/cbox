@@ -2,6 +2,7 @@
 from ctypes import cdll
 from ctypes import c_char_p
 from ctypes import c_double
+from ctypes import c_int
 
 # Naturally, all calls can all be included in a wrapper:
 class Hello():
@@ -19,6 +20,7 @@ class Hello():
 		return self.libhello.doubleMe(self.hello, intValue)
 
 	def sayHelloName(self, string):
+		self.libhello.sayHelloName.argtypes=[c_int, c_char_p]
 		self.libhello.sayHelloName.restype=c_char_p
 		return self.libhello.sayHelloName(self.hello, string).decode("utf-8")
 
