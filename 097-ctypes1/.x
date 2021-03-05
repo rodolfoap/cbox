@@ -11,7 +11,6 @@ build(){
 	}
 	make -j8; STATUS=$?
 	popd &> /dev/null;
-#	[ $STATUS == 0 ] && echo [100%] $(ls -l libhello.so) || echo [ERROR] Compilation error.
 }
 case "$1" in
 	"")
@@ -19,7 +18,7 @@ case "$1" in
 		execute
 	;;
 	e)
-		vi -p hello.cpp app.py CMakeLists.txt
+		vi -p hello.cpp include/hello.hpp hello_c.cpp include/hello_c.hpp app.cpp app.py app_wrapper.py CMakeLists.txt
 		build;
 		execute;
 	;;

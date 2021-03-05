@@ -11,7 +11,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_library(hello SHARED hello.cpp)
+add_library(hello SHARED hello.cpp hello_c.cpp)
+target_include_directories(hello PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-# Equivalent to (CLIBS) -lm
-target_link_libraries(hello m)
+add_executable(app app.cpp hello.cpp)
+target_include_directories(app PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
