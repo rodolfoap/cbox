@@ -1,13 +1,9 @@
 #include <iostream>
 #include <cstring>
+#include <holder.hpp>
 
 extern "C" {
-	class secbroker {
-	public:
-		int32_t width;
-		std::string name="-";
-		void print(std::string label){ std::cerr<<label<<"::print(): "<<name<<"/"<<width<<std::endl; }
-	};
+	void secbroker::print(std::string label){ std::cerr<<label<<"::print(): "<<name<<"/"<<width<<std::endl; }
 
 	secbroker *create(int32_t width, const char *name) {
 		secbroker *holder=new secbroker();

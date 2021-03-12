@@ -18,7 +18,7 @@ case "$1" in
 		execute
 	;;
 	e)
-		vi -p ./holder.cpp ./holder.py ./app.py CMakeLists.txt
+		vi -p ./holder.cpp include/holder.hpp ./holder.py ./app.py CMakeLists.txt
 		build;
 		execute;
 	;;
