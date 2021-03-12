@@ -2,30 +2,31 @@
 #include <cstring>
 
 extern "C" {
-	class HOLDER {
+	class secbroker {
 	public:
 		int32_t width;
-		char name[32];
+		std::string name="-";
+		void print(std::string label){ std::cerr<<label<<"::print(): "<<name<<"/"<<width<<std::endl; }
 	};
 
-	HOLDER *create(int32_t width, const char *fname) {
-		std::cerr<<"create(): "<<fname<<std::endl;
-		HOLDER *holder=new HOLDER();
+	secbroker *create(int32_t width, const char *fname) {
+		secbroker *holder=new secbroker();
 		holder->width=width;
-		strcpy(holder->name, fname);
+		holder->name=fname;
 		return holder;
 	}
 
-	void modify(HOLDER *holder, const char *fname, uint32_t x) {
-		if(holder) std::cerr<<"PRE/modify(): "<<holder->width<<"; "<<holder->name<<std::endl;
-		strcpy(holder->name, fname);
-		holder->width=x;
-		if(holder) std::cerr<<"POST/modify(): "<<holder->width<<"; "<<holder->name<<std::endl;
+	void print(secbroker *holder, const char *message) {
+		if(holder) holder->print(message);
 	}
 
-	void destroy(HOLDER **holder) {
+	void modify(secbroker *holder, const char *fname, uint32_t x) {
+		holder->name=fname;
+		holder->width=x;
+	}
+
+	void destroy(secbroker **holder) {
 		if(*holder !=nullptr) {
-			std::cerr<<"destroy(): "<<(*holder)->name<<std::endl;
 			delete(*holder);
 			*holder=nullptr;
 		}
