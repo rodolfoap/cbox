@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(app)
+# See https://github.com/sol-prog/Python-using-C-CPP-libraries-with-ctypes
 
 # Force C++17
 set(CMAKE_CXX_STANDARD 17)

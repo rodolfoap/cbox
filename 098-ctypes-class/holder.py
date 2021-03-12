@@ -17,9 +17,9 @@ class holder():
 		self._create.argtypes=[ctypes.c_int32, ctypes.c_char_p]
 		self._create.restype=ctypes.POINTER(_secbroker)
 
-		self._print=self._holder.print
-		self._print.argtypes=[ctypes.POINTER(_secbroker), ctypes.c_char_p]
-		self._print.restype=None
+		self._display=self._holder.display
+		self._display.argtypes=[ctypes.POINTER(_secbroker), ctypes.c_char_p]
+		self._display.restype=None
 
 		self._modify=self._holder.modify
 		self._modify.argtypes=[ctypes.POINTER(_secbroker), ctypes.c_char_p, ctypes.c_uint32]
@@ -31,8 +31,8 @@ class holder():
 
 		self.holder=self._create(a, b)
 
-	def print(self, text):
-		self._print(self.holder, text)
+	def display(self, text):
+		self._display(self.holder, text)
 
 	def modify(self, a, b):
 		self._modify(self.holder, a, b)

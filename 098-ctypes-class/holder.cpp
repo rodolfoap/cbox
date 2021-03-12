@@ -16,7 +16,7 @@ extern "C" {
 		return holder;
 	}
 
-	void print(secbroker *holder, const char *message) {
+	void display(secbroker *holder, const char *message) {
 		if(holder) holder->print(message);
 	}
 
