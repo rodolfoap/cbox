@@ -4,7 +4,6 @@
 extern "C" {
 	class HOLDER {
 	public:
-		void *handle;
 		int32_t width;
 		char name[32];
 	};

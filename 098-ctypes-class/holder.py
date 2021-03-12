@@ -8,10 +8,8 @@ import sys, platform
 
 holder = ctypes.cdll.LoadLibrary('./libholder.so')
 class HOLDER(ctypes.Structure):
-	_fields_ = [	('handle', ctypes.c_void_p),
-			('width', ctypes.c_int32),
-			('height', ctypes.c_int32),
-			('channels', ctypes.c_int32)
+	_fields_ = [	('width', ctypes.c_int32),
+			('height', ctypes.c_int32)
 	]
 # Make the function names visible at the module level and add types
 create = holder.create
