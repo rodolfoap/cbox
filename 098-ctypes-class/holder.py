@@ -6,12 +6,11 @@ from ctypes import c_int
 from ctypes import c_double
 import sys, platform
 
-
-
-class app():
+class holder():
 	def __init__(self, a, b):
 		class _secbroker(ctypes.Structure):
-			_fields_=[('width', ctypes.c_int32), ('height', ctypes.c_int32)]
+			fields=[('width', ctypes.c_int32), ('height', ctypes.c_int32)]
+
 		self._holder=ctypes.cdll.LoadLibrary('./libholder.so')
 
 		self._create=self._holder.create

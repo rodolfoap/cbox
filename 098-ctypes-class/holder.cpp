@@ -9,10 +9,10 @@ extern "C" {
 		void print(std::string label){ std::cerr<<label<<"::print(): "<<name<<"/"<<width<<std::endl; }
 	};
 
-	secbroker *create(int32_t width, const char *fname) {
+	secbroker *create(int32_t width, const char *name) {
 		secbroker *holder=new secbroker();
 		holder->width=width;
-		holder->name=fname;
+		holder->name=name;
 		return holder;
 	}
 
@@ -20,8 +20,8 @@ extern "C" {
 		if(holder) holder->print(message);
 	}
 
-	void modify(secbroker *holder, const char *fname, uint32_t x) {
-		holder->name=fname;
+	void modify(secbroker *holder, const char *name, uint32_t x) {
+		holder->name=name;
 		holder->width=x;
 	}
 
