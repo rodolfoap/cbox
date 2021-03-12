@@ -1,5 +1,5 @@
 execute(){
-	./app.py
+	./client.py
 }
 build(){
 	[ -d build/ ] && {
@@ -18,7 +18,7 @@ case "$1" in
 		execute
 	;;
 	e)
-		vi -p ./secbroker.cpp include/secbroker.hpp secbroker.cpp include/secbroker.hpp ./secbroker.py ./app.py CMakeLists.txt
+		vi -p ./secbroker.cpp include/secbroker.hpp secbroker.cpp include/secbroker.hpp ./secbroker.py ./client.py CMakeLists.txt
 		build;
 		execute;
 	;;
