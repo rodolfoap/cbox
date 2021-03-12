@@ -1,5 +1,5 @@
 execute(){
-	./app
+	./app.py
 }
 build(){
 	mkdir -p build;
@@ -15,7 +15,6 @@ case "$1" in
 	;;
 	e)
 		vi -p app.cpp CMakeLists.txt
-		rm -f app
 		build;
 		execute;
 	;;
