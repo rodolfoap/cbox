@@ -7,14 +7,14 @@ from ctypes import c_double
 import sys, platform
 
 class secbroker():
-	def __init__(self, a, b):
+	def __init__(self, name, size):
 		class _secbroker(ctypes.Structure):
-			fields=[('width', ctypes.c_int32), ('height', ctypes.c_int32)]
+			fields=[('name', ctypes.c_char_p), ('size', ctypes.c_int32)]
 
 		self._secbroker=ctypes.cdll.LoadLibrary('./libsecbroker.so')
 
 		self._create=self._secbroker.create
-		self._create.argtypes=[ctypes.c_int32, ctypes.c_char_p]
+		self._create.argtypes=[ctypes.c_char_p, ctypes.c_int32]
 		self._create.restype=ctypes.POINTER(_secbroker)
 
 		self._display=self._secbroker.display
@@ -29,13 +29,13 @@ class secbroker():
 		self._destroy.argtypes=[ctypes.POINTER(ctypes.POINTER(_secbroker))]
 		self._destroy.restype=None
 
-		self.secbroker=self._create(a, b)
+		self.secbroker=self._create(name, size)
 
 	def display(self, text):
 		self._display(self.secbroker, text)
 
-	def modify(self, a, b):
-		self._modify(self.secbroker, a, b)
+	def modify(self, name, size):
+		self._modify(self.secbroker, name, size)
 
 	def destroy(self):
 		self._destroy(self.secbroker)

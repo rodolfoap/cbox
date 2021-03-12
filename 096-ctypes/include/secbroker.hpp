@@ -4,7 +4,7 @@
 
 class SecBroker {
 public:
-	int32_t width;
 	std::string name="-";
+	int32_t size;
 	void print(std::string);
 };

@@ -1,10 +1,10 @@
 #include <secbroker_c.hpp>
 
 extern "C" {
-	SecBroker *create(int32_t width, const char *name) {
+	SecBroker *create(const char *name, uint32_t size) {
 		SecBroker *secbroker=new SecBroker();
-		secbroker->width=width;
 		secbroker->name=name;
+		secbroker->size=size;
 		return secbroker;
 	}
 
@@ -13,9 +13,9 @@ extern "C" {
 		else std::cerr<<"secbroker==nullptr"<<std::endl;
 	}
 
-	void modify(SecBroker *secbroker, const char *name, uint32_t x) {
+	void modify(SecBroker *secbroker, const char *name, uint32_t size) {
 		secbroker->name=name;
-		secbroker->width=x;
+		secbroker->size=size;
 	}
 
 	void destroy(SecBroker **secbroker) {

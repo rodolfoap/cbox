@@ -1,5 +1,5 @@
 execute(){
-	./client.py
+	./app.py
 }
 build(){
 	[ -d build/ ] && {
@@ -14,14 +14,12 @@ build(){
 }
 case "$1" in
 	"")
-		[ -f libsecbroker.so ] || build;
+		[ -f libhello.so ] || build;
 		execute
 	;;
 	e)
-		vi -p ./secbroker.cpp include/secbroker.hpp secbroker.cpp include/secbroker.hpp ./secbroker.py ./client.py CMakeLists.txt
+		vi -p hello_c.cpp include/hello_c.hpp hello.cpp include/hello.hpp app.cpp app.py app_wrapper.py CMakeLists.txt
 		build;
 		execute;
 	;;
 esac
-
-

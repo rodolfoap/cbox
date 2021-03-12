@@ -1,21 +1,27 @@
 execute(){
-	./app.py
+	./client.py
 }
 build(){
-	mkdir -p build;
-	pushd build &> /dev/null;
-	[ -f Makefile ] || cmake .. -Wdev;
-	make -j$(nproc); STATUS=$?
+	[ -d build/ ] && {
+		pushd build &> /dev/null;
+	} || {
+		mkdir build;
+		pushd build &> /dev/null;
+		cmake .. -Wdev;
+	}
+	make -j8; STATUS=$?
 	popd &> /dev/null;
 }
 case "$1" in
 	"")
-		[ -f app ] || build;
+		[ -f libsecbroker.so ] || build;
 		execute
 	;;
 	e)
-		vi -p app.cpp app.py CMakeLists.txt
+		vi -p ./secbroker_c.cpp include/secbroker_c.hpp secbroker.cpp include/secbroker.hpp ./secbroker.py ./client.py CMakeLists.txt
 		build;
 		execute;
 	;;
 esac
+
+
