@@ -2,8 +2,11 @@
 #include <cstring>
 #include <holder.hpp>
 
+void secbroker::print(std::string label){
+	std::cerr<<label<<"::print(): "<<name<<"/"<<width<<std::endl;
+}
+
 extern "C" {
-	void secbroker::print(std::string label){ std::cerr<<label<<"::print(): "<<name<<"/"<<width<<std::endl; }
 
 	secbroker *create(int32_t width, const char *name) {
 		secbroker *holder=new secbroker();
