@@ -20,16 +20,3 @@ extern "C" {
         int doubleMe(Hello* hello, int input)			{ return hello->doubleMe(input); }
         const char *sayHelloName(Hello* hello, char* name)	{ return hello->sayHelloName(name); }
 }
-
-int main(){
-	char name[]="Thelonious";
-	Hello* k=helloFactory();
-
-	k->sayHello();
-	k->printFloat(19.17);
-	std::cout<<"Double of 19: "<<k->doubleMe(19)<<std::endl;
-	std::cout<<k->sayHelloName(name)<<std::endl;
-
-	delete k;
-	return 0;
-}
