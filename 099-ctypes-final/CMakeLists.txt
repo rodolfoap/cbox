@@ -12,5 +12,5 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_library(holder SHARED holder.cpp)
+add_library(holder SHARED holder.cpp secbroker.cpp)
 target_include_directories(holder PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

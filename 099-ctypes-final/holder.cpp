@@ -1,10 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <holder.hpp>
-
-void secbroker::print(std::string label){
-	std::cerr<<label<<"::print(): "<<name<<"/"<<width<<std::endl;
-}
+#include <secbroker.hpp>
 
 extern "C" {
 

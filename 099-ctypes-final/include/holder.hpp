@@ -1,12 +1,7 @@
+#pragma once
 #include <iostream>
 #include <cstring>
-
-class secbroker {
-public:
-	int32_t width;
-	std::string name="-";
-	void print(std::string);
-};
+#include <secbroker.hpp>
 
 extern "C" {
 	secbroker *create(int32_t width, const char *name);
