@@ -14,11 +14,11 @@ build(){
 }
 case "$1" in
 	"")
-		[ -f libholder.so ] || build;
+		[ -f libsecbroker.so ] || build;
 		execute
 	;;
 	e)
-		vi -p secbroker.cpp include/secbroker.hpp ./holder.cpp include/holder.hpp ./holder.py ./app.py CMakeLists.txt
+		vi -p ./secbroker.cpp include/secbroker.hpp secbroker.cpp include/secbroker.hpp ./secbroker.py ./app.py CMakeLists.txt
 		build;
 		execute;
 	;;

@@ -1,8 +1,8 @@
 #pragma once
+#include <string>
 #include <iostream>
-#include <cstring>
 
-class secbroker {
+class SecBroker {
 public:
 	int32_t width;
 	std::string name="-";
