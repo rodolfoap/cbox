@@ -14,7 +14,7 @@ case "$1" in
 		execute
 	;;
 	e)
-		vi -p app.cpp CMakeLists.txt
+		vi -p app.cpp app.py CMakeLists.txt
 		build;
 		execute;
 	;;
