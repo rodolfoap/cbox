@@ -18,6 +18,8 @@ target_include_directories(helloworld PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/includ
 set_target_properties(helloworld PROPERTIES PUBLIC_HEADER include/helloworld.hpp)
 
 install(TARGETS helloworld
+	# Gives a name to this file set                        [F]
+        EXPORT ${PROJECT_NAME}Config
 	# Will install /usr/local/lib/libhelloworld.so 		[1]
 	LIBRARY DESTINATION lib
 	# Will install /usr/local/include/helloworld.hpp 	[2]
@@ -38,3 +40,23 @@ set_target_properties(helloworld-bin PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE
 install(TARGETS helloworld-bin
 	RUNTIME DESTINATION bin
 )
+
+# Config Helpers
+include(CMakePackageConfigHelpers)
+# Creates Version file
+write_basic_package_version_file(
+        ${PROJECT_NAME}ConfigVersion.cmake
+        VERSION 7.2.0
+        COMPATIBILITY AnyNewerVersion
+)
+# Writes the Version File
+install(FILES
+        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${CMAKE_PROJECT_NAME}"
+)
+# Writes config-helper for [F]
+install(EXPORT ${PROJECT_NAME}Config
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${CMAKE_PROJECT_NAME}"
+        NAMESPACE ${PROJECT_NAME}::
+)
+
