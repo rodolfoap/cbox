@@ -1,0 +1,41 @@
+# image: registry.gtd-international.com/rodolfoap/infrastructure/gitlab-runners/runner-default
+
+variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+
+stages:
+    - build
+    - deploy
+
+build:
+    stage: build
+    script:
+        - CONAN_PASSWORD="${CI_JOB_TOKEN}" conan user ci_user -r gtd -p
+        - mkdir build
+        - cd build
+        - cmake -DBUILD_TESTS=ON -DCMAKE_BUILD_TYPE=release ..
+        - make -j$(nproc)
+
+#build_conan:
+#    stage: build
+#    tags: [rodolfoap]
+#    except: [dev,master]
+#    except:
+#        variables:
+#            - $DO_RELEASE
+#    script:
+#        - CONAN_PASSWORD="${CI_JOB_TOKEN}" conan user ci_user -r gtd -p
+#        - conan create . rodolfoap+plateforme+libs+messaging/stable --build missing
+#
+#deploy_conan:
+#    stage: deploy
+#    tags: [rodolfoap]
+#    only: [dev,master]
+#    except:
+#        variables:
+#            - $DO_RELEASE
+#    script:
+#        - CONAN_PASSWORD="${CI_JOB_TOKEN}" conan user ci_user -r gtd -p
+#        - conan create . rodolfoap+plateforme+libs+messaging/stable --build missing
+#        - . VERSION
+#        - conan upload messaging/${VERSION}@rodolfoap+plateforme+libs+messaging/stable --all -r gtd
