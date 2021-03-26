@@ -1,7 +1,3 @@
-set(${PROJECT_NAME}_HEADERS ../include/helloworld.hpp)
-set(${PROJECT_NAME}_SOURCES helloworld.cpp ${${PROJECT_NAME}_HEADERS})
-add_library(${PROJECT_NAME} ${${PROJECT_NAME}_SOURCES})
+add_library(${PROJECT_NAME} helloworld.cpp)
 target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
 target_include_directories(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include/>)
-set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME hello_world)
-install(DIRECTORY ../include/ DESTINATION include)

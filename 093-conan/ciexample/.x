@@ -4,11 +4,12 @@ set -x
 	export VERSION
 	mkdir -p build;
 	pushd build &> /dev/null;
-	[ -f Makefile ] || cmake .. -Wdev -DBUILD_TESTS=ON -DCMAKE_BUILD_TYPE=release
+	[ -f Makefile ] || cmake .. -Wdev -DCMAKE_BUILD_TYPE=release
 	make -j$(nproc)
-	#sudo make install
+	sudo make install
 	popd &> /dev/null;
 	sudo ldconfig
+set +x
 }
 remoteinstall(){
 set -x
@@ -23,7 +24,8 @@ set +x
 }
 case "$1" in
 	e)
-		vi -p conanfile.py src/helloworld.cpp include/helloworld.hpp CMakeLists.txt src/CMakeLists.txt
+		#vi -p conanfile.py src/helloworld.cpp include/helloworld.hpp CMakeLists.txt src/CMakeLists.txt
+		vi -O CMakeLists.txt src/CMakeLists.txt
 		localinstall
 	;;
 	r)	remoteinstall;
