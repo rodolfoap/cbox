@@ -11,9 +11,18 @@ execute_process(
 	COMMAND conan install "${CMAKE_CURRENT_SOURCE_DIR}" --build missing
 	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 )
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup(NO_OUTPUT_DIRS)
+# Option 1: use generators: cmake in conanfile.txt
+#include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+#conan_basic_setup(NO_OUTPUT_DIRS)
+
+# Option 2: use generators: cmake_paths and cmake_find_package in conanfile.txt
+include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
+find_package(Poco REQUIRED)
 # Conan end ---------------------
 
 add_executable(app app.cpp)
+
+# For Option 1:
 target_link_libraries(app ${CONAN_LIBS})
+# For Option 2:
+target_link_libraries(app Poco::Poco)
