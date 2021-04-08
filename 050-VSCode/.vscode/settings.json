@@ -8,8 +8,8 @@
 	"editor.tabSize": 8,
 	"editor.tabCompletion": "on",
 	"editor.fontFamily": "Terminus \\(TTF\\)",
-	"editor.fontSize": 18,
-	"terminal.integrated.fontSize": 16,
+	"editor.fontSize": 22,
+	"terminal.integrated.fontSize": 22,
 	"cmake.installPrefix": "/usr/local",
 	"files.associations": {
 		"ostream": "cpp"
