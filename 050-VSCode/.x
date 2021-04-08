@@ -12,7 +12,7 @@ build(){
 	make -j$(nproc); STATUS=$?
 	popd &> /dev/null;
 }
-saveconf(){ tar cvfj .vscode.tbz2 .vscode/ .x .k README.md; }
+saveconf(){ tar cvfj .vscode.tbz2 .vscode/ .x .k README.md; cp -v .vscode.tbz2 /home/rodolfoap/git/home/; }
 case "$1" in
 s)	saveconf;  ;; # Save Config
 c)	checkconf; ;; # Check Config
