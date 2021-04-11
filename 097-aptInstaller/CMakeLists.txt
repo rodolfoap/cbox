@@ -29,6 +29,8 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/nlohmann_json/include/nlohmann/json.hp
 
 # /usr/share/doc/helloworld/README.md
 install(FILES ${PROJECT_SOURCE_DIR}/README.md DESTINATION share/doc/${PROJECT_NAME}/)
+install(FILES ${PROJECT_SOURCE_DIR}/LICENSE DESTINATION share/doc/${PROJECT_NAME}/)
+install(FILES ${PROJECT_SOURCE_DIR}/doc/helloworld.1 DESTINATION man/man1/)
 
 # /usr/share/doc/helloworld/html/index.html et.al.
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/doc/html/ DESTINATION share/doc/${PROJECT_NAME}/html)
