@@ -1,0 +1,4 @@
+version: '3.3'
+services:
+    helloworld:
+        image: helloworld:1.0.0

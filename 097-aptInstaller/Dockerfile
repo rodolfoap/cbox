@@ -21,12 +21,11 @@ RUN /app/build-app.sh
 #
 # TARGET stage ----------------------------------------------------------------------------------
 #
-#FROM ubuntu:20.04
-#MAINTAINER RodolfoAP <rodolfo.alcazar@gtd.eu>
-#CMD /usr/bin/test_sendreceive
+FROM debian:10.9-slim
+MAINTAINER RodolfoAP <rodolfoap@gmail.com>
+CMD /usr/bin/helloworld
 
 # Actual install
-#COPY --from=builder /app/build/meia_sendreceive-*-linux.deb /tmp/
-#RUN dpkg -i /tmp/meia_sendreceive-*-linux.deb
-#RUN rm -f   /tmp/meia_sendreceive-*-linux.deb
-
+COPY --from=builder /app/build/helloworld-*-linux.deb /tmp
+RUN dpkg -i /tmp/helloworld-*-linux.deb
+RUN rm -f   /tmp/helloworld-*-linux.deb

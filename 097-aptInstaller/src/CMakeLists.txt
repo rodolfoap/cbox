@@ -8,4 +8,4 @@ set_target_properties(${PROJECT_NAME}_bin PROPERTIES INSTALL_RPATH_USE_LINK_PATH
 set_target_properties(${PROJECT_NAME}_bin PROPERTIES OUTPUT_NAME helloworld)
 
 # /usr/local/bin/helloworld
-install(TARGETS ${PROJECT_NAME}_bin)
+install(TARGETS ${PROJECT_NAME}_bin DESTINATION bin)

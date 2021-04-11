@@ -4,15 +4,8 @@ execute_process(WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	COMMAND tr -d '\n'
 	OUTPUT_VARIABLE VERSION
 )
-
-#execute_process(WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-#	COMMAND egrep "^(export )*VERSION=" VERSION
-#	COMMAND cut -f2 -d=
-#	COMMAND tr -d '\n'
-#	OUTPUT_VARIABLE VERSION
-#)
-message("Library VERSION is: ${VERSION}")
 project(helloworld VERSION ${VERSION})
+message("Library VERSION is: ${VERSION}")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)

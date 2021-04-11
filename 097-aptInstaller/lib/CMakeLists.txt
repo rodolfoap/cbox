@@ -4,7 +4,7 @@ target_include_directories(${PROJECT_NAME}_lib PUBLIC $<BUILD_INTERFACE:${CMAKE_
 set_target_properties(${PROJECT_NAME}_lib PROPERTIES OUTPUT_NAME helloworld)
 
 # /usr/local/lib/libhelloworld.so; the EXPORT in the following line is used below
-install(TARGETS ${PROJECT_NAME}_lib EXPORT ${PROJECT_NAME}Config)
+install(TARGETS ${PROJECT_NAME}_lib EXPORT ${PROJECT_NAME}Config DESTINATION lib)
 
 # /usr/local/cmake/helloworld/helloworldConfig.cmake
 # /usr/local/cmake/helloworld/helloworldConfig-release.cmake
