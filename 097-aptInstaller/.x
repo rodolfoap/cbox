@@ -1,13 +1,10 @@
-buildapp(){
+build(){
 	./build-app.sh
-	# sudo make install
-	sudo dpkg -i build/helloworld-*-linux.deb
-	dpkg-query -L helloworld
-	helloworld
-	sudo dpkg -r helloworld
+	./build-image.sh
+	./test-image.sh
+	./launch-app.sh
 }
 case "$1" in
 	 e) vi -p Dockerfile {,lib/,src/,test/,include/}CMakeLists.txt lib/helloworld_lib.cpp src/helloworld.cpp test/helloworld_test.cpp include/helloworld.hpp .x; ;;
-	 a) buildapp; ;;
-	"") ./build-image.sh; ;;
+	"") build; ;;
 esac
