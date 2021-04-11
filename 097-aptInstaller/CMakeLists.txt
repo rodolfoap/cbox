@@ -28,8 +28,10 @@ add_custom_target(${PROJECT_NAME}_doc ALL COMMAND ./build-doc.sh WORKING_DIRECTO
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/nlohmann_json/include/nlohmann/json.hpp DESTINATION include/nlohmann/)
 
 # /usr/share/doc/helloworld/README.md
+# /usr/share/doc/helloworld/LICENSE
 install(FILES ${PROJECT_SOURCE_DIR}/README.md DESTINATION share/doc/${PROJECT_NAME}/)
 install(FILES ${PROJECT_SOURCE_DIR}/LICENSE DESTINATION share/doc/${PROJECT_NAME}/)
+# /usr/man/man1/helloworld.1
 install(FILES ${PROJECT_SOURCE_DIR}/doc/helloworld.1 DESTINATION man/man1/)
 
 # /usr/share/doc/helloworld/html/index.html et.al.

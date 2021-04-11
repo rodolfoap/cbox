@@ -22,6 +22,8 @@ RUN /app/build-app.sh
 FROM debian:10.9-slim
 MAINTAINER RodolfoAP <rodolfoap@gmail.com>
 CMD /usr/bin/helloworld
+RUN apt update && apt -y install man
+ENV PAGER=cat
 
 # Actual install
 COPY --from=builder /app/build/helloworld-*-linux.deb /tmp
