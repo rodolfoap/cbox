@@ -1,5 +1,18 @@
 cmake_minimum_required(VERSION 3.10)
-project(helloworld VERSION 1.0.0)
+execute_process(WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+	COMMAND sed "/^VERSION=/s:^.*=::" VERSION
+	COMMAND tr -d '\n'
+	OUTPUT_VARIABLE VERSION
+)
+
+#execute_process(WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+#	COMMAND egrep "^(export )*VERSION=" VERSION
+#	COMMAND cut -f2 -d=
+#	COMMAND tr -d '\n'
+#	OUTPUT_VARIABLE VERSION
+#)
+message("Library VERSION is: ${VERSION}")
+project(helloworld VERSION ${VERSION})
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
