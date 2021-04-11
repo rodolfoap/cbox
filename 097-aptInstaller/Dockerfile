@@ -26,4 +26,4 @@ CMD /usr/bin/helloworld
 # Actual install
 COPY --from=builder /app/build/helloworld-*-linux.deb /tmp
 RUN dpkg -i /tmp/helloworld-*-linux.deb
-RUN rm -f   /tmp/helloworld-*-linux.deb
+# RUN rm -f   /tmp/helloworld-*-linux.deb
