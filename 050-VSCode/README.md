@@ -4,6 +4,7 @@ Just needs uncompressing the `.vscode.tbz` file and running 'x c' (execute confi
 
 ## Config
 
+* Common settings are in File/Preferences/Settings/Font: "'Terminus (TTF)'" (include the single quotes), size: 24
 * Settings are in .vscode/settings.json.
 * Better to avoid settings being in ~/.config/Code/User/settings.json (delete it).
 * Start the app with "code ." or just 'e'
