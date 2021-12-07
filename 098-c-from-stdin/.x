@@ -1,6 +1,5 @@
 execute(){
 	./app.bash
-	./a.out
 }
 case "$1" in
 	"")
