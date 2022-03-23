@@ -23,6 +23,7 @@ find_package(Poco REQUIRED)
 add_executable(app app.cpp)
 
 # For Option 1:
-target_link_libraries(app ${CONAN_LIBS})
+#target_link_libraries(app ${CONAN_LIBS})
+
 # For Option 2:
 target_link_libraries(app Poco::Poco)
