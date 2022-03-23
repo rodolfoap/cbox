@@ -1,5 +1,3 @@
-# image: registry.gtd-international.com/rodolfoap/infrastructure/gitlab-runners/runner-default
-
 variables:
     GIT_SUBMODULE_STRATEGY: recursive
 
@@ -10,7 +8,7 @@ stages:
 build:
     stage: build
     script:
-        - CONAN_PASSWORD="${CI_JOB_TOKEN}" conan user ci_user -r gtd -p
+        - CONAN_PASSWORD="${CI_JOB_TOKEN}" conan user rodolfoap -r rodolfoap -p
         - mkdir build
         - cd build
         - cmake -DBUILD_TESTS=ON -DCMAKE_BUILD_TYPE=release ..
@@ -24,8 +22,8 @@ build:
 #        variables:
 #            - $DO_RELEASE
 #    script:
-#        - CONAN_PASSWORD="${CI_JOB_TOKEN}" conan user ci_user -r gtd -p
-#        - conan create . rodolfoap+plateforme+libs+messaging/stable --build missing
+#        - CONAN_PASSWORD="${CI_JOB_TOKEN}" conan user rodolfoap -r rodolfoap -p
+#        - conan create . rodolfoap+main+libs+mylib/stable --build missing
 #
 #deploy_conan:
 #    stage: deploy
@@ -35,7 +33,7 @@ build:
 #        variables:
 #            - $DO_RELEASE
 #    script:
-#        - CONAN_PASSWORD="${CI_JOB_TOKEN}" conan user ci_user -r gtd -p
-#        - conan create . rodolfoap+plateforme+libs+messaging/stable --build missing
+#        - CONAN_PASSWORD="${CI_JOB_TOKEN}" conan user rodolfoap -r rodolfoap -p
+#        - conan create . rodolfoap+main+libs+mylib/stable --build missing
 #        - . VERSION
-#        - conan upload messaging/${VERSION}@rodolfoap+plateforme+libs+messaging/stable --all -r gtd
+#        - conan upload mylib/${VERSION}@rodolfoap+main+libs+mylib/stable --all -r rodolfoap
