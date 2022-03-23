@@ -8,6 +8,6 @@ int main() {
 
 	// Printing yaml to stdout
 	std::cout << yaml.c_str() << std::endl;
-	
+
 	return 0;
 }
