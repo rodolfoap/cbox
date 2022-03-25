@@ -1,1 +1,1 @@
-rm -rf build app app.dbg *.so *.o *.a
+rm -rf build test test_c test.dbg *.so *.o *.a
