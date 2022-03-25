@@ -9,7 +9,7 @@ void Hello::sayHello() {
 	std::cerr<<"Hello, World!\n";
 }
 void Hello::printFloat(double input) {
-	std::cout<<"printFloat(): "<<input<<std::endl;
+	std::cerr<<"printFloat(): "<<input<<std::endl;
 }
 int Hello::doubleMe(int input) {
 	return 2 * input;
