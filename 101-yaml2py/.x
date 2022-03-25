@@ -1,7 +1,14 @@
 execute(){
+cat << EOF > config.yaml
+username: nonino
+password: dedalo
+EOF
+	echo; echo === config.yaml ===; sed 's/^/\t/' config.yaml; echo; echo ===================;
 	./app
+	echo; echo === config.yaml ===; sed 's/^/\t/' config.yaml; echo; echo ===================;
 }
 build(){
+	export VERSION=7.18.0
 	mkdir -p build;
 	pushd build &> /dev/null;
 	[ -f Makefile ] || cmake .. -Wdev;

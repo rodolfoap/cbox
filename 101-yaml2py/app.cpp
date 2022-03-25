@@ -1,24 +1,22 @@
 #include <iostream>
-#include "yaml-cpp/yaml.h"
-#define LOG std::cerr<<">>>"<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 #include <fstream>
+#include "yaml-cpp/yaml.h"
+
+std::string get(std::string filename, std::string key) {
+	YAML::Node config=YAML::LoadFile(filename);
+	return config[key].as<std::string>();
+}
+
+void set(std::string filename, std::string key, std::string value) {
+	YAML::Node config=YAML::LoadFile(filename);
+	config[key]=value;
+	std::ofstream fout(filename);
+	fout << config;
+}
 
 int main() {
-//	YAML::Emitter yaml;
-//	yaml<<"Hello, World!";
-
-	// Printing yaml to stdout
-//	std::cout << yaml.c_str() << std::endl;
-
-	YAML::Node config = YAML::LoadFile("config.yaml");
-
-	if(config["lastLogin"]){ std::cout << "Last logged in: " << config["lastLogin"].as<std::string>() << "\n"; }
-	const std::string username = config["username"].as<std::string>();
-	const std::string password = config["password"].as<std::string>();
-	//login(username, password);
-	config["lastLogin"] = "10/10/2020";
-
-	std::ofstream fout("config.yaml");
-	fout << config;
+	std::cout<<get("config.yaml", "username")<<std::endl;
+	std::cout<<get("config.yaml", "password")<<std::endl;
+	set("config.yaml", "password", "pipopi");
 	return 0;
 }
