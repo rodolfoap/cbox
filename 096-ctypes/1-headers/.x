@@ -1,5 +1,9 @@
 execute(){
+	echo === C++:; echo
+	./app
+	echo === Python3:; echo
 	./app.py
+	echo
 }
 build(){
 	[ -d build/ ] && {

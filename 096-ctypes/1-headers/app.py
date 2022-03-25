@@ -18,3 +18,4 @@ print("Double of 19:", libhello.doubleMe(hello, 19))
 libhello.sayHelloName.argtypes=[c_int, c_char_p]
 libhello.sayHelloName.restype=c_char_p
 print(libhello.sayHelloName(hello, b'Thelonious').decode("utf-8"))
+

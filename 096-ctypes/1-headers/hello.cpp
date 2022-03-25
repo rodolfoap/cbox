@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include <hello.hpp>
-#include <hello_c.hpp>
 
 void Hello::sayHello() {
 	std::cerr<<"Hello, World!\n";
