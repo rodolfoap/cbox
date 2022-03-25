@@ -1,6 +1,8 @@
 execute(){
 	echo === C++:; echo
-	./app
+	./test
+	echo === C bindings:; echo
+	./test_c
 	echo === Python3:; echo
 	./app.py
 	echo
