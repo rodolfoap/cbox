@@ -15,8 +15,7 @@ void set(std::string filename, std::string key, std::string value) {
 }
 
 int main() {
-	std::cout<<get("config.yaml", "username")<<std::endl;
-	std::cout<<get("config.yaml", "password")<<std::endl;
+	std::cout<<"Password: "<<get("config.yaml", "password")<<std::endl;
 	set("config.yaml", "password", "pipopi");
 	return 0;
 }

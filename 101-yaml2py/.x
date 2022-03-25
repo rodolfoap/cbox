@@ -1,11 +1,9 @@
 execute(){
-cat << EOF > config.yaml
-username: nonino
-password: dedalo
-EOF
-	echo; echo === config.yaml ===; sed 's/^/\t/' config.yaml; echo; echo ===================;
+	echo 'username: nonino' > config.yaml
+	echo -n 'password: dedalo' >> config.yaml
+	echo === config.yaml ===; cat config.yaml; echo; echo ===================;
 	./app
-	echo; echo === config.yaml ===; sed 's/^/\t/' config.yaml; echo; echo ===================;
+	echo === config.yaml ===; cat config.yaml; echo; echo ===================;
 }
 build(){
 	export VERSION=7.18.0
@@ -21,7 +19,7 @@ case "$1" in
 		execute
 	;;
 	e)
-		vi -p app.cpp conanfile.txt CMakeLists.txt
+		vi -p app.cpp .x conanfile.py CMakeLists.txt
 		rm -f app
 		build;
 		execute;
