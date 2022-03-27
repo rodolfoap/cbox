@@ -38,5 +38,12 @@ int main() {
 	std::cout<<get("config.yaml", "password")<<std::endl;
 	set("config.yaml", "password", "pipopi");
 	std::cout<<get("config.yaml", "password")<<std::endl;
+
+	// O-Oriented setter and setter mechanism
+	ConfDealer config("config.yaml");
+	std::cout<<config.get("password")<<std::endl;
+	config.set("password", "qiqoqi");
+	std::cout<<config.get("password")<<std::endl;
+	config.save();
 	return 0;
 }
