@@ -19,4 +19,4 @@ Just needs uncompressing the `.vscode.tbz` file and running 'x c' (execute confi
 * Snippets appear with [CTRL][SPACE]
 * [CTRL][SHIFT][b] builds and runs using the tasks.json file and the `.x` script.
 * [CTRL][p] opens the QuickOpen bar
-
+* [CTRL][ALT][z] generates comments, if `ext install Hiyajo.cppcomment` has been installed.
