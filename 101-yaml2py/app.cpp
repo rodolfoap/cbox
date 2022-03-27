@@ -2,20 +2,41 @@
 #include <fstream>
 #include "yaml-cpp/yaml.h"
 
+class ConfDealer{
+private:
+	std::string filename;
+	YAML::Node yaml;
+public:
+	ConfDealer(std::string f): filename(f) {
+		yaml=YAML::LoadFile(filename);
+	}
+	void set(std::string key, std::string value){
+		yaml[key]=value;
+	}
+	const std::string get(std::string key){
+		return yaml[key].as<std::string>();
+	}
+	void save(){
+		std::ofstream fout(filename);
+		fout << yaml;
+	}
+};
+
 std::string get(std::string filename, std::string key) {
-	YAML::Node config=YAML::LoadFile(filename);
-	return config[key].as<std::string>();
+	ConfDealer config(filename);
+	return config.get(key);
 }
 
 void set(std::string filename, std::string key, std::string value) {
-	YAML::Node config=YAML::LoadFile(filename);
-	config[key]=value;
-	std::ofstream fout(filename);
-	fout << config;
+	ConfDealer config(filename);
+	config.set(key, value);
+	config.save();
 }
 
 int main() {
-	std::cout<<"Password: "<<get("config.yaml", "password")<<std::endl;
+	// Simple setter and setter mechanism
+	std::cout<<get("config.yaml", "password")<<std::endl;
 	set("config.yaml", "password", "pipopi");
+	std::cout<<get("config.yaml", "password")<<std::endl;
 	return 0;
 }
