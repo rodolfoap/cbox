@@ -27,6 +27,7 @@ public:
 	}
 };
 
+/*
 char* get(char* filename, char* key) {
 	ConfDealer config(filename);
 	char* stresult=new char[1024];
@@ -39,6 +40,7 @@ void set(char* filename, char* key, char* value) {
 	config.set(key, value);
 	config.save();
 }
+*/
 
 int main() {
 	char filename[]="config.yaml";
@@ -46,9 +48,9 @@ int main() {
 	char value[]="petalo";
 
 	// Simple setter and setter mechanism
-	std::cout<<get(filename, key)<<std::endl;
-	set(filename, key, value);
-	std::cout<<get(filename, key)<<std::endl;
+//	std::cout<<get(filename, key)<<std::endl;
+//	set(filename, key, value);
+//	std::cout<<get(filename, key)<<std::endl;
 
 	// O-Oriented setter and setter mechanism
 	ConfDealer config(filename);
