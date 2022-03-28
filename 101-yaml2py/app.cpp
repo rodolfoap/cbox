@@ -1,20 +1,25 @@
 #include <iostream>
 #include <fstream>
 #include "yaml-cpp/yaml.h"
+#include <stdio.h>
+#include <string.h>
+#define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
 
 class ConfDealer{
 private:
-	std::string filename;
+	char* filename=new char[1024];
+	char* stresult=new char[1024];
 	YAML::Node yaml;
 public:
-	ConfDealer(std::string f): filename(f) {
+	ConfDealer(char* f): filename(f) {
 		yaml=YAML::LoadFile(filename);
 	}
-	void set(std::string key, std::string value){
-		yaml[key]=value;
+	void set(char* key, char* value){
+		yaml[std::string(key)]=value;
 	}
-	const std::string get(std::string key){
-		return yaml[key].as<std::string>();
+	const char* get(char* key){
+		strcpy(stresult, yaml[std::string(key)].as<std::string>().c_str());
+		return stresult;
 	}
 	void save(){
 		std::ofstream fout(filename);
@@ -22,28 +27,37 @@ public:
 	}
 };
 
-std::string get(std::string filename, std::string key) {
+char* get(char* filename, char* key) {
 	ConfDealer config(filename);
-	return config.get(key);
+	char* stresult=new char[1024];
+	strcpy(stresult, config.get(key));
+	return stresult;
 }
 
-void set(std::string filename, std::string key, std::string value) {
+void set(char* filename, char* key, char* value) {
 	ConfDealer config(filename);
 	config.set(key, value);
 	config.save();
 }
 
 int main() {
+	char filename[]="config.yaml";
+	char key[]="password";
+	char value[]="petalo";
+
 	// Simple setter and setter mechanism
-	std::cout<<get("config.yaml", "password")<<std::endl;
-	set("config.yaml", "password", "pipopi");
-	std::cout<<get("config.yaml", "password")<<std::endl;
+	std::cout<<get(filename, key)<<std::endl;
+	set(filename, key, value);
+	std::cout<<get(filename, key)<<std::endl;
 
 	// O-Oriented setter and setter mechanism
-	ConfDealer config("config.yaml");
-	std::cout<<config.get("password")<<std::endl;
-	config.set("password", "qiqoqi");
-	std::cout<<config.get("password")<<std::endl;
+	ConfDealer config(filename);
+
+	std::cout<<config.get(key)<<std::endl;
+
+	char value2[]="sesamo";
+	config.set(key, value2);
 	config.save();
+	std::cout<<config.get(key)<<std::endl;
 	return 0;
 }

@@ -24,7 +24,7 @@ case "$1" in
 		execute
 	;;
 	e)
-		vi -p hello_c.cpp include/hello_c.hpp hello.cpp include/hello.hpp app.cpp app.py app_wrapper.py CMakeLists.txt
+		vi -p hello_c.cpp include/hello_c.hpp hello.cpp include/hello.hpp test.cpp app.py app_wrapper.py CMakeLists.txt
 		build;
 		execute;
 	;;
