@@ -3,7 +3,8 @@
 #include "yaml-cpp/yaml.h"
 #include <stdio.h>
 #include <string.h>
-#define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl;
+#include <filesystem>
+#define LOG std::cerr<<">>> "<<__FILE__<<"["<<__LINE__<<"]:"<<__func__<<"();"<<std::endl
 
 class ConfDealer{
 private:
@@ -12,13 +13,14 @@ private:
 public:
 	YAML::Node yaml;
 	ConfDealer(char* f): filename(f) {
-		yaml=YAML::LoadFile(filename);
+		if(std::filesystem::exists(filename)) yaml=YAML::LoadFile(filename);
 	}
 	void set(char* key, char* value){
 		yaml[std::string(key)]=value;
 	}
 	const char* get(char* key){
-		strcpy(stresult, yaml[std::string(key)].as<std::string>().c_str());
+		if(yaml[std::string(key)]) strcpy(stresult, yaml[std::string(key)].as<std::string>().c_str());
+		else stresult[0]=0;
 		return stresult;
 	}
 	void save(){
@@ -52,7 +54,6 @@ int main() {
 
 	// O-Oriented setter and setter mechanism
 	ConfDealer config(filename);
-
 	std::cout<<config.get(key)<<std::endl;
 
 	char value2[]="sesamo";
