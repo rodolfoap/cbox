@@ -4,9 +4,9 @@ import sys
 
 
 class MessagingConan(ConanFile):
-    name = "libplatformhelpers"
-    url = "https://git.gtd-international.com/me_ia/plateforme/libs/libplatformhelpers"
-    description = "MeIA Platform Helpers Library"
+    name = "libyamlcpp"
+    url = "https://git.lan/libyamlcpp"
+    description = "Library"
     requires = ["yaml-cpp/0.7.0"]
 
     options = {}
@@ -16,7 +16,7 @@ class MessagingConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     generators = ["cmake_find_package", "cmake_paths"]
     build_policy = "missing"
-    license = "© 2022 GTD International SAS"
+    license = "test"
 
     def export_sources(self):
         self.copy("*", excludes=("*build*",))
