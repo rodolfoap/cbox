@@ -17,7 +17,7 @@ int main() {
 	while(frame_new.data) {
 		std::cerr<<".";
 		cv::optflow::calcOpticalFlowSF(frame_old, frame_new, flow, 3, 2, 4);
-		// START -------------------------------------------------------------------------------
+
 		cv::Mat xy[2];
 		cv::split(flow, xy);
 		//calculate angle and magnitude
@@ -40,11 +40,8 @@ int main() {
 		cvtColor(hsv, bgr, cv::COLOR_HSV2BGR);
 		cv::imshow("flow", bgr);
 		cv::imshow("video", frame_new);
-		cv::waitKey(1);
 
-		// START -------------------------------------------------------------------------------
-		// if(cv::waitKey(33)>='0') break; // 30 FPS -> wait 33.333...ms
-
+		if(cv::waitKey(1)>='0') break; // 30 FPS -> wait 33.333...ms
 		frame_old=cv::Mat(frame_new);
 		cap>>frame;
 		resize(frame, frame_new, cv::Size(300, 200), cv::INTER_LINEAR);
