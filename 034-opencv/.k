@@ -1,1 +1,1 @@
-rm -rf build app app.dbg
+rm -rfv build app app.dbg
