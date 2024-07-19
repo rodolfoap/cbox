@@ -6,30 +6,24 @@
 
 int main(int argc, char** argv) {
    	std::string source="video/dublin_stpatricks.mp4";
-   	bool save=false;
-	bool to_gray=true;
+   	//std::string source="video/tokyo_shinjuku.mp4";
+   	//std::string source="video/chicago_cubs.mp4";
     cv::VideoCapture capture(cv::samples::findFile(source));
     if (!capture.isOpened()) {
         std::cerr << "Unable to open file!" << std::endl;
     }
-    cv::Mat frame1, prvs;
-    capture >> frame1;
-    if (to_gray)
-        cvtColor(frame1, prvs, cv::COLOR_BGR2GRAY);
-    else
-        prvs = frame1;
+    cv::Mat frame, prev, next;
+    capture >> frame;
+    cvtColor(frame, prev, cv::COLOR_BGR2GRAY); // Conversion to gray necessary in Farneback
     int counter = 0;
     while (true) {
-        cv::Mat frame2, next;
-        capture >> frame2;
-        if (frame2.empty())
-            break;
-        if (to_gray)
-            cvtColor(frame2, next, cv::COLOR_BGR2GRAY);
-        else
-            next = frame2;
-        cv::Mat flow(prvs.size(), CV_32FC2);
-        cv::calcOpticalFlowFarneback(prvs, next, flow, 0.5, 3, 15, 3, 5, 1.2, 0);
+        //cv::Mat next;
+        capture >> frame;
+        if (frame.empty()) break;
+        cvtColor(frame, next, cv::COLOR_BGR2GRAY); // Conversion to gray necessary in Farneback
+
+        cv::Mat flow(prev.size(), CV_32FC2);
+        cv::calcOpticalFlowFarneback(prev, next, flow, 0.5, 3, 15, 3, 5, 1.2, 0);
         // visualization
         cv::Mat flow_parts[2];
         cv::split(flow, flow_parts);
@@ -45,14 +39,10 @@ int main(int argc, char** argv) {
         merge(_hsv, 3, hsv);
         hsv.convertTo(hsv8, CV_8U, 255.0);
         cvtColor(hsv8, bgr, cv::COLOR_HSV2BGR);
-        if (save) {
-            std::string save_path = "./optical_flow_frames/frame_" + std::to_string(counter) + ".jpg";
-            imwrite(save_path, bgr);
-        }
-        imshow("frame", frame2);
+        imshow("frame", frame);
         imshow("flow", bgr);
-        if(cv::waitKey(1)>='0') break; // 30 FPS -> wait 33.333...ms
-        prvs = next;
+        if(cv::waitKey(1)>='0') break;
+        prev = next.clone();
         counter++;
     }
 	return 0;
