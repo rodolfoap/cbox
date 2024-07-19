@@ -3,6 +3,6 @@ e)	/bin/code .		&>/dev/null
 	i3-msg workspace 8	&>/dev/null
 ;;
 "")	./build.bash;
-	./app ./dublin_stpatricks.mp4 rlof
+	./opticalflow
 ;;
 esac

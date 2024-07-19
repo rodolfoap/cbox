@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(app)
+project(opticalflow)
 
 # Force C++11
 set(CMAKE_CXX_STANDARD 11)
@@ -13,9 +13,9 @@ message(STATUS "Binary app will go to: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 # Equivalent to (CFLAGS) -g
 set(CMAKE_C_FLAGS "-g")
 
-add_executable(app app.cpp)
+add_executable(opticalflow main.cpp)
 
 # OPENCV ####################################
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
-target_link_libraries(app ${OpenCV_LIBS})
+target_link_libraries(opticalflow ${OpenCV_LIBS} )
