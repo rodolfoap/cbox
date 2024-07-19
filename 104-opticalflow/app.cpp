@@ -1,8 +1,6 @@
-#include <iostream>
 #include <opencv2/core.hpp>
 #include <opencv2/optflow.hpp>
 #include "dense_optical_flow.cpp"
-//#include <sys/stat.h>
 
 int main(int argc, char** argv) {
 	std::string source="video/dublin_stpatricks.mp4";
