@@ -4,13 +4,11 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/videoio.hpp>
 
-
 using namespace cv;
 using namespace std;
 
 template <typename Method, typename... Args>
-void dense_optical_flow(string filename, bool save, Method method, bool to_gray, Args&&... args)
-{
+void dense_optical_flow(string filename, bool save, Method method, bool to_gray, Args&&... args){
     VideoCapture capture(samples::findFile(filename));
     if (!capture.isOpened()) {
         //error in opening the video input
@@ -55,9 +53,7 @@ void dense_optical_flow(string filename, bool save, Method method, bool to_gray,
         }
         imshow("frame", frame2);
         imshow("flow", bgr);
-        int keyboard = waitKey(30);
-        if (keyboard == 'q' || keyboard == 27)
-            break;
+        if(cv::waitKey(1)>='0') break; // 30 FPS -> wait 33.333...ms
         prvs = next;
         counter++;
     }
