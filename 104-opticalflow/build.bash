@@ -10,4 +10,5 @@ cd $(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 }
 make -j8; STATUS=$?
 popd &> /dev/null;
+rm -rf build
 [ $STATUS == 0 ] && echo [100%] $(ls -l app) || echo [ERROR] Compilation error.
