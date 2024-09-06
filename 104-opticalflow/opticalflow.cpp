@@ -19,10 +19,15 @@ void OpticalFlow::start() {
 	get_frame(prev);
 	while(true) {
 		get_frame(next);
-		get_frame(next);
 		if(next.empty()) break;
 		cv::Mat flow(prev.size(), CV_32FC2);
+
+		/* Algorithm selected among:
+		- cv::calcOpticalFlowFarneback(): Gunnar Farneback Dense Optical Flow
+		- cv::optflow::calcOpticalFlowSparseToDense(): Lucas-Kanade Dense Pyramid
+		- cv::optflow::calcOpticalFlowDenseRLOF(): Robust Local Optical Flow */
 		cv::calcOpticalFlowFarneback(prev, next, flow, 0.5, 3, 15, 3, 5, 1.2, 0);
+
 		// visualization
 		cv::Mat flow_parts[2];
 		cv::split(flow, flow_parts);
@@ -52,6 +57,11 @@ void OpticalFlow::get_frame(cv::Mat& target) {
 		target=frame.clone();
 		return;
 	}
-	cv::imshow("frame", frame);
-	cvtColor(frame, target, cv::COLOR_BGR2GRAY);
+
+	// Resize
+	cv::Mat resized_frame;
+	cv::resize(frame, resized_frame, cv::Size(), 0.5, 0.5, cv::INTER_LINEAR);
+
+	cv::imshow("frame", resized_frame);
+	cvtColor(resized_frame, target, cv::COLOR_BGR2GRAY);
 }
