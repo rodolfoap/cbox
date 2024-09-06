@@ -5,13 +5,13 @@
 
 class OpticalFlow {
 public:
-    void initCapture();
-    void start();
+	void initCapture();
+	void start();
 
 private:
-    int counter;
-    cv::VideoCapture capture;
-    void get_frame(cv::Mat& target);
+	int counter;
+	cv::VideoCapture capture;
+	void get_frame(cv::Mat& target);
 };
 
 #endif // OPTICALFLOW_H
