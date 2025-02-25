@@ -15,11 +15,8 @@ add_executable(tetris main.cpp)
 # Link against the ncurses library
 target_link_libraries(tetris ${CURSES_LIBRARIES})
 
-# Install target (optional)
-install(TARGETS tetris DESTINATION bin)
-
 # Add compile options for warnings (optional but recommended)
 target_compile_options(tetris PRIVATE -Wall -Wextra)
 
-# Output directory
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+# Set binary output to the source directory
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})

@@ -1,1 +1,1 @@
-rm -rfv build opticalflow
+rm -rfv build tetris
