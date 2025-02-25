@@ -39,6 +39,10 @@ struct Tetromino {
     int color;
     int rotation = 0;
     Point position;
+
+    // Constructor for easier initialization
+    Tetromino(const std::vector<Point>& _shape = {}, int _color = COLOR_WHITE_PAIR) 
+        : shape(_shape), color(_color), rotation(0), position(0, 0) {}
 };
 
 // Game state
@@ -48,23 +52,25 @@ int level = 1;
 int speed = INITIAL_SPEED;
 bool gameOver = false;
 
-// Tetromino shapes
-std::vector<Tetromino> tetrominos = {
+// Initialize tetrominos separately
+std::vector<Tetromino> tetrominos;
+
+void initializeTetrominos() {
     // I
-    {{{0, 0}, {1, 0}, {2, 0}, {3, 0}}, COLOR_CYAN_PAIR},
+    tetrominos.push_back(Tetromino({{0, 0}, {1, 0}, {2, 0}, {3, 0}}, COLOR_CYAN_PAIR));
     // J
-    {{{0, 0}, {0, 1}, {1, 1}, {2, 1}}, COLOR_BLUE_PAIR},
+    tetrominos.push_back(Tetromino({{0, 0}, {0, 1}, {1, 1}, {2, 1}}, COLOR_BLUE_PAIR));
     // L
-    {{{2, 0}, {0, 1}, {1, 1}, {2, 1}}, COLOR_YELLOW_PAIR},
+    tetrominos.push_back(Tetromino({{2, 0}, {0, 1}, {1, 1}, {2, 1}}, COLOR_YELLOW_PAIR));
     // O
-    {{{0, 0}, {1, 0}, {0, 1}, {1, 1}}, COLOR_WHITE_PAIR},
+    tetrominos.push_back(Tetromino({{0, 0}, {1, 0}, {0, 1}, {1, 1}}, COLOR_WHITE_PAIR));
     // S
-    {{{1, 0}, {2, 0}, {0, 1}, {1, 1}}, COLOR_GREEN_PAIR},
+    tetrominos.push_back(Tetromino({{1, 0}, {2, 0}, {0, 1}, {1, 1}}, COLOR_GREEN_PAIR));
     // T
-    {{{1, 0}, {0, 1}, {1, 1}, {2, 1}}, COLOR_MAGENTA_PAIR},
+    tetrominos.push_back(Tetromino({{1, 0}, {0, 1}, {1, 1}, {2, 1}}, COLOR_MAGENTA_PAIR));
     // Z
-    {{{0, 0}, {1, 0}, {1, 1}, {2, 1}}, COLOR_RED_PAIR}
-};
+    tetrominos.push_back(Tetromino({{0, 0}, {1, 0}, {1, 1}, {2, 1}}, COLOR_RED_PAIR));
+}
 
 Tetromino currentBlock;
 Tetromino nextBlock;
@@ -114,6 +120,9 @@ void initializeGame() {
     
     // Seed random number generator
     srand(time(nullptr));
+    
+    // Initialize tetrominos
+    initializeTetrominos();
     
     // Initialize game
     createNewBlock();
@@ -425,15 +434,23 @@ void gameLoop() {
         
         switch (key) {
             case KEY_LEFT:
+                // Left arrow moves left
                 moveBlock(-1, 0);
                 break;
             case KEY_RIGHT:
+                // Right arrow moves right
                 moveBlock(1, 0);
                 break;
             case KEY_DOWN:
+                // Down arrow accelerates drop
                 moveBlock(0, 1);
                 break;
+            case KEY_UP:
+                // Up arrow rotates
+                rotateBlock();
+                break;
             case ' ':
+                // Space for hard drop
                 hardDrop();
                 break;
             case 'p':
