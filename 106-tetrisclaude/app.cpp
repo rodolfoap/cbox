@@ -79,7 +79,7 @@ Tetromino nextBlock;
 void initializeGame();
 void draw();
 void drawBoard();
-void drawBlock(const Tetromino& block, bool isCurrent = false);
+void drawBlock(const Tetromino& block);
 void drawNextBlock();
 void drawScore();
 void createNewBlock();
@@ -145,7 +145,7 @@ void draw() {
 	}
 
 	drawBoard();
-	drawBlock(currentBlock, true);
+	drawBlock(currentBlock);
 	drawNextBlock();
 	drawScore();
 
@@ -168,7 +168,7 @@ void drawBoard() {
 	}
 }
 
-void drawBlock(const Tetromino& block, bool isCurrent) {
+void drawBlock(const Tetromino& block) {
 	attron(COLOR_PAIR(block.color));
 	for (const auto& p : block.shape) {
 		int x = p.x;
